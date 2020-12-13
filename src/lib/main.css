@@ -10,6 +10,8 @@
 }
 :root {
   --primary: #27ae60;
+  --darkprimary: #229955;
+
   --success: #62c12a;
   --info: #2d68fc;
   --warning: #ffd107;
@@ -26,4 +28,29 @@ input {
   background-color: transparent;
   outline: none;
   color: inherit;
+}
+
+::selection {
+  background-color: rgba(39, 174, 96, 0.7);
+}
+
+@keyframes shakeX {
+  from,
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+
+  20%,
+  60%,
+  90% {
+    -webkit-transform: translate3d(-5px, 0, 0);
+    transform: translate3d(-5px, 0, 0);
+  }
+
+  40%,
+  80% {
+    -webkit-transform: translate3d(5px, 0, 0);
+    transform: translate3d(5px, 0, 0);
+  }
 }

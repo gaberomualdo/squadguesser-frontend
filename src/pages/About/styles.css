@@ -1,0 +1,13 @@
+.aboutpage {
+  width: 75%;
+  margin: 0;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.aboutpage p {
+  font-size: 1.15rem;
+  line-height: 2;
+  margin-top: 1rem;
+}

@@ -1,6 +1,7 @@
 .primarybutton {
-  height: 2.2rem;
-  margin: calc((var(--height) - 2.2rem) / 2) 0;
+  --inner-height: 2.2rem;
+  height: var(--inner-height);
+  margin: calc((var(--height) - var(--inner-height)) / 2) 0;
   cursor: pointer;
   padding: 0 0.5rem;
   position: relative;
@@ -37,7 +38,7 @@
   opacity: 0.85;
 }
 .primarybutton span {
-  line-height: 2.2rem;
+  line-height: var(--inner-height);
   display: inline-block;
   vertical-align: top;
   font-size: 1.35rem;

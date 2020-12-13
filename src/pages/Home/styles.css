@@ -1,0 +1,105 @@
+.homepage .left,
+.homepage .right {
+  display: block;
+  float: left;
+  height: var(--fullheight);
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.homepage .left {
+  /* width: 60%; */
+}
+.homepage .textsection .top h1 {
+  font-size: 2.75rem;
+  line-height: 1.4;
+  margin-bottom: 0rem;
+}
+.homepage .textsection .top p {
+  font-size: 1.15rem;
+  line-height: 2;
+  opacity: 0.7;
+}
+.homepage .textsection .top {
+  margin-bottom: 1.25rem;
+}
+.homepage .textsection .play {
+  width: 100%;
+  margin-bottom: 2rem;
+  display: block;
+}
+
+.homepage .textsection .play .playbtn {
+  width: calc(50% - 0.5rem);
+  margin-top: 0.75rem;
+  border-radius: 4px;
+  background-color: var(--darker);
+  display: flex;
+  padding: 1rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+}
+.homepage .textsection .play .playbtn .arrow {
+  position: absolute;
+  right: 1rem;
+  height: 100%;
+  font-size: 2.5rem;
+  top: 1rem;
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.homepage .textsection .play .playbtn:hover {
+  transform: translateY(-0.075rem);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+.homepage .textsection .play .playbtn:hover .arrow {
+  opacity: 1;
+}
+.homepage .textsection .play .playbtn:active {
+  transform: translateY(-0.025rem);
+}
+.homepage .textsection .play .playbtn:nth-child(2n) {
+  margin-left: 1rem;
+}
+
+@media only screen and (max-width: 100050px) {
+  .homepage .textsection .play .playbtn:nth-child(2n) {
+    margin-left: 0;
+  }
+  .homepage .textsection .play .playbtn {
+    width: 100%;
+    clear: both;
+  }
+}
+
+.homepage .textsection .play .playbtn.primary {
+  background-color: var(--darkprimary);
+}
+.homepage .textsection .play .playbtn {
+  cursor: pointer;
+}
+.homepage .textsection .play .playbtn .icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1rem;
+}
+.homepage .textsection .play .playbtn .icon span {
+  font-size: 2.5rem;
+}
+.homepage .textsection .play .playbtn .content {
+  flex-basis: 100%;
+  flex-shrink: 1;
+}
+.homepage .textsection .play .playbtn .content * {
+  text-align: left;
+  display: block;
+  clear: both;
+}
+.homepage .textsection .play .playbtn .content p {
+  margin-top: 0.25rem;
+  opacity: 0.7;
+}

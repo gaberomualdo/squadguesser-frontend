@@ -1,10 +1,10 @@
 .navbar-container {
-  --height: 3.5rem;
+  --height: var(--nav-height);
   height: var(--height);
-  background-color: var(--darker);
 }
 .navbar {
   height: 100%;
+  width: 100%;
 }
 .navbar * {
   user-select: none;

@@ -1,1 +1,1 @@
-# SquadGuessr
+## SquadGuessr &mdash; test your soccer/football knowledge with real teams and squads

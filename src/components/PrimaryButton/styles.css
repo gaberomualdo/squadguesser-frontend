@@ -1,0 +1,65 @@
+.primarybutton {
+  height: 2.2rem;
+  margin: calc((var(--height) - 2.2rem) / 2) 0;
+  cursor: pointer;
+  padding: 0 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+.primarybutton.with-margin:not(:first-child) {
+  margin-left: 0.75rem;
+}
+.primarybutton:before {
+  content: '';
+  position: absolute;
+  transition: opacity 0.2s, transform 0.2s;
+  background-color: var(--button-theme-color);
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  border-radius: 3px;
+  backface-visibility: hidden;
+  transform: scale(0.9);
+  opacity: 0;
+}
+.primarybutton:hover:before {
+  transform: scale(1);
+  opacity: 0.5;
+}
+.primarybutton.active:before {
+  opacity: 0.75;
+  transform: scale(1.025, 1.1);
+}
+.primarybutton:active:before {
+  transform: scale(1.05, 1.15);
+  opacity: 0.85;
+}
+.primarybutton span {
+  line-height: 2.2rem;
+  display: inline-block;
+  vertical-align: top;
+  font-size: 1.35rem;
+  font-weight: 600;
+}
+.primarybutton .text {
+  font-size: 1.05rem;
+}
+.primarybutton.logo span {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.primarybutton.logo .text {
+  font-size: 1.15rem;
+}
+.primarybutton.light span {
+  font-weight: 500;
+}
+.primarybutton.light {
+  opacity: 0.8;
+}
+
+.primarybutton:not(.logo) {
+  transform: scale(0.9);
+}

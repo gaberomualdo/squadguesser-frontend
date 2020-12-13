@@ -1,56 +1,49 @@
-/* eslint-disable no-restricted-globals */
-import React, { useState } from 'react';
 import './styles.css';
-import { ResponsiveContainer } from '../';
+import { ResponsiveContainer, PrimaryButton, SecondaryButton } from '../';
 
 const NavBar = function (props) {
-  const { pages } = props;
+  const { pages, active, setPage } = props;
   const homePage = pages.filter((e) => e.isHomepage)[0];
 
-  let initialPage = homePage.code;
-
-  const urlPageParam = 'page';
-
-  const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.has(urlPageParam)) {
-    const param = urlParams.get(urlPageParam).toLowerCase();
-    if (pages.map((e) => e.code).indexOf(param) > -1) {
-      initialPage = param;
-    }
-  }
-
-  const [active, setActive] = useState(initialPage);
-
-  const setPage = (p) => {
-    setActive(p);
-
-    const url = new URL(window.location.href);
-    url.searchParams.set(urlPageParam, p);
-    const urlStr = url.toString();
-
-    history.pushState({}, 'Navigate to New Page', urlStr);
-  };
+  const mainButtonColor = 'var(--primary)';
 
   return (
     <div className='navbar-container'>
       <ResponsiveContainer>
         <div className='navbar'>
           <div className='left'>
-            <h1 className={`link logo ${active === homePage.code ? 'active' : ''}`} onClick={() => setPage(homePage.code)}>
-              <span className='icon'>{homePage.icon}</span>
-              &nbsp;&nbsp;
-              <span className='text'>SquadGuessr</span>
-            </h1>
+            <PrimaryButton
+              icon={homePage.icon}
+              text={'SquadGuessr'}
+              className={`logo ${active === homePage.code ? 'active' : ''}`}
+              onClick={() => setPage(homePage.code)}
+              color={mainButtonColor}
+            ></PrimaryButton>
+            {pages
+              .filter((e) => e.type && e.type === 'info')
+              .map((e, i) => (
+                <SecondaryButton
+                  key={i}
+                  icon={e.icon}
+                  text={e.name}
+                  className={`${active === e.code ? 'active' : ''} light with-margin`}
+                  color={mainButtonColor}
+                  onClick={() => setPage(e.code)}
+                ></SecondaryButton>
+              ))}
           </div>
           <div className='right'>
             {pages
-              .filter((e) => !e.isHomepage)
-              .map((e) => (
-                <button className={`link ${active === e.code ? 'active' : ''}`} onClick={() => setPage(e.code)}>
-                  <span className='icon'>{e.icon}</span>
-                  &nbsp;&nbsp;
-                  <span className='text'>{e.name}</span>
-                </button>
+              .filter((e) => !e.isHomepage && !(e.type && e.type === 'info'))
+              .map((e, i) => (
+                <PrimaryButton
+                  key={i}
+                  icon={e.icon}
+                  text={e.name}
+                  className={active === e.code ? 'active' : ''}
+                  color={mainButtonColor}
+                  onClick={() => setPage(e.code)}
+                ></PrimaryButton>
               ))}
           </div>
         </div>

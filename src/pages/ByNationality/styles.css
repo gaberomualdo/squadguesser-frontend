@@ -29,7 +29,7 @@
   background-color: var(--darkprimary);
 }
 .gamepage .side-panel {
-  padding: 1rem 0.75rem;
+  padding: 1.35rem 0.75rem;
   padding-top: 0;
   position: relative;
 }
@@ -48,36 +48,6 @@
   padding-top: 1rem;
   padding-bottom: 0.5rem;
 }
-
-.gamepage .newchallenge {
-  width: calc(100%);
-  transform: scale(0.9);
-  position: absolute;
-  bottom: 0.75rem;
-  left: 0;
-  border-radius: 4px;
-  background-color: var(--darkprimary);
-  color: var(--light);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  font-weight: 500;
-  font-size: 1.15rem;
-  line-height: 1.35;
-  padding: 0.5rem;
-  transition: background-color 0.2s, box-shadow 0.2s;
-  cursor: pointer;
-}
-.gamepage .newchallenge:hover {
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-  background-color: var(--primary);
-  box-shadow: none;
-}
-.gamepage .newchallenge:active {
-  background-color: var(--darkprimary);
-}
-.gamepage .newchallenge.disabled {
-  opacity: 0.75;
-  cursor: default;
-}
 .gamepage .newgame-section {
   flex-basis: 20%;
 }
@@ -88,6 +58,16 @@
 }
 .gamepage .guessteam .teams {
   overflow-y: auto;
+  flex: 1 1 100%;
+}
+.gamepage .guessteam .teams::-webkit-scrollbar {
+  width: 5px;
+}
+.gamepage .guessteam .teams::-webkit-scrollbar-track {
+  background: var(--dark);
+}
+.gamepage .guessteam .teams::-webkit-scrollbar-thumb {
+  background: var(--lightdark);
 }
 @keyframes goDark {
   0% {
@@ -108,22 +88,21 @@
   }
 }
 .gamepage .guessteam.doneguessing .teams {
-  animation-delay: 0.15s;
   animation-duration: 0.5s;
   animation-fill-mode: both;
   animation-name: goDark;
 }
-.gamepage .guessteam .newchallenge {
-  bottom: 0.75rem;
-  width: 100%;
+.gamepage .guessteam .bottom-buttons {
+  margin-top: 0.75rem;
+}
+.gamepage .guessteam .bottom-buttons > * {
   transform: scale(0.9);
-  display: none;
-  margin-top: 1rem;
-  position: sticky;
+}
+.gamepage .guessteam .bottom-buttons > *:not(:last-child) {
+  margin-bottom: 0.5rem;
 }
 .gamepage .guessteam.doneguessing .newchallenge {
   display: block;
-  animation-delay: 0.15s;
   animation-duration: 0.5s;
   animation-fill-mode: both;
   animation-name: appear;
@@ -146,9 +125,6 @@
   animation-fill-mode: both;
   animation-name: shakeX;
 }
-.gamepage .hints {
-  display: none;
-}
 .gamepage .guessteam.doneguessing .button {
   cursor: default;
   pointer-events: none;
@@ -158,19 +134,100 @@
   display: flex;
   flex-direction: column;
   padding: 0;
+  overflow: hidden;
 }
 .gamepage .main > .top {
+  flex: 1 1 auto;
+  z-index: 9999;
+  padding: 1rem;
+  zoom: 90%;
+  overflow: hidden;
+  /* background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.34), rgba(0, 0, 0, 0)); */
+}
+.gamepage .main > .top.show-answer > .header,
+.gamepage .main > .top.hide-answer > .left,
+.gamepage .main > .top.hide-answer > .right {
   display: none;
+}
+.gamepage .main > .top > * {
+  display: block;
+  float: left;
+}
+.gamepage .main > .top > .header {
+  width: 100%;
+  font-size: 100%;
+}
+.gamepage .main > .top > .header,
+.gamepage .main > .top > .header .box {
+  text-align: center;
+}
+.gamepage .main > .top > .header .box {
+  display: inline-block;
+}
+.gamepage .main > .top > .header h1 {
+  margin-bottom: 0.5rem;
+}
+.gamepage .main > .top > .right {
+  float: right;
+}
+.gamepage .main > .top > .right {
+  text-align: right;
+  font-size: 0.825rem;
+  float: right;
+  width: auto;
+  line-height: 1.65;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
+.gamepage .main > .top .box {
+  padding: 0.5rem 0.75rem;
+  background-color: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(6px);
+  border-radius: 4px;
+}
+.gamepage .main > .top .logo-container {
+  text-align: center;
+}
+.gamepage .main > .top .logo-container .stars {
+  display: inline-block;
+  margin-top: 0.5rem;
+}
+.gamepage .main > .top .logo-container .stars svg {
+  height: 1.2rem;
+  width: 1.2rem;
+  margin: 0 0.1rem;
+  fill: var(--warning);
+}
+.gamepage .main > .top .logo {
+  min-height: 2.5rem;
+  width: auto;
+  display: inline-block;
+  zoom: 85%;
+}
+.gamepage .main > .top .logo > * {
+  vertical-align: top;
+  display: inline-block;
+}
+.gamepage .main > .top .logo h1 {
+  font-size: 1.5rem;
+  line-height: 2.5rem;
+  margin-left: 0.75rem;
+  margin-right: 0.5rem;
+  color: #fff;
+  letter-spacing: -0.03rem;
+}
+.gamepage .main > .top .logo img {
+  height: 2.5rem;
+  width: 2.5rem;
 }
 .gamepage .main .formation {
   width: 100%;
-  flex-basis: 100%;
-  flex-shrink: 1;
+  flex: 1 1 100%;
+  position: relative;
 }
 .gamepage .main .formation .player {
   text-align: center;
-  width: 15%;
-  margin-left: -7.5%;
+  width: 18%;
+  margin-left: -9%;
 
   display: flex;
   flex-direction: column;
@@ -201,7 +258,7 @@
   display: none;
 }
 .gamepage .main .formation .player img.flag {
-  width: 95%;
+  width: 85%;
   height: auto;
   margin-bottom: -20%;
 }
@@ -341,4 +398,28 @@
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.1);
+}
+
+.gamepage .extras-section > * {
+  flex: 0 1 auto !important;
+}
+.gamepage .extras-section .stats {
+  flex: 1 1 100% !important;
+}
+.gamepage .extras-section button {
+  width: 100%;
+  background-color: var(--dark);
+  border-radius: 3px;
+  --inner-height: 2.5rem;
+  user-select: none;
+}
+.gamepage .extras-section button span {
+  font-weight: normal;
+}
+.gamepage .extras-section button.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+.gamepage .extras-section button.disabled span {
+  text-decoration: line-through;
 }

@@ -63,7 +63,7 @@ function App() {
     if (curPage.isHomepage) {
       document.title = SITE_TITLE;
     } else {
-      document.title = `${curPage.name} ${curPage.icon ? curPage.icon : ''} • ${SITE_TITLE}`;
+      document.title = `${curPage.name} ${curPage.icon ? /* curPage.icon */ '' : ''} • ${SITE_TITLE}`;
     }
   };
 

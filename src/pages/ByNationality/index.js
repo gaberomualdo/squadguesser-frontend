@@ -1,7 +1,23 @@
 import './styles.css';
-import { PrimaryButton } from '../../components/';
+import { PrimaryButton, TertiaryButton } from '../../components/';
 import React, { useState, useEffect } from 'react';
-import FitText from 'react-fittext';
+import commaNumber from 'comma-number';
+
+const halfStar = (
+  <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>
+    <path d='M12 5.173l2.335 4.817 5.305.732-3.861 3.71.942 5.27-4.721-2.524v-12.005zm0-4.586l-3.668 7.568-8.332 1.151 6.064 5.828-1.48 8.279 7.416-3.967 7.416 3.966-1.48-8.279 6.064-5.827-8.332-1.15-3.668-7.569z' />
+  </svg>
+);
+const fullStar = (
+  <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>
+    <path d='M12 .288l2.833 8.718h9.167l-7.417 5.389 2.833 8.718-7.416-5.388-7.417 5.388 2.833-8.718-7.416-5.389h9.167z' />
+  </svg>
+);
+const emptyStar = (
+  <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>
+    <path d='M12 5.173l2.335 4.817 5.305.732-3.861 3.71.942 5.27-4.721-2.524-4.721 2.525.942-5.27-3.861-3.71 5.305-.733 2.335-4.817zm0-4.586l-3.668 7.568-8.332 1.151 6.064 5.828-1.48 8.279 7.416-3.967 7.416 3.966-1.48-8.279 6.064-5.827-8.332-1.15-3.668-7.569z' />
+  </svg>
+);
 
 export default function ByNationality(props) {
   const [gameData, setGameData] = useState({
@@ -9,19 +25,23 @@ export default function ByNationality(props) {
     teamFormation: [],
     correctTeam: '',
     teams: [],
-    guessedCorrectTeam: false,
+    doneGuessing: false,
   });
+
+  const [showRatings, setShowRatings] = useState(false);
+  const [showTransferBudget, setShowTransferBudget] = useState(false);
+  const [nameLettersShown, setNameLettersShown] = useState([]);
 
   const guessTeam = (e) => {
     if (e === gameData.correctTeam) {
-      setGameData({ ...gameData, guessedCorrectTeam: true });
+      setGameData({ ...gameData, doneGuessing: true });
     } else {
       setGameData({ ...gameData, wrongTeams: [...gameData.wrongTeams, e] });
     }
   };
 
   const newTeam = async () => {
-    const league = 'Premier League';
+    const league = 'TopTeams';
     const data = await (await fetch(`http://localhost:6773/teams/by-league/${league}`)).json();
     const { name, formation, ...extraData } = await (await fetch(`http://localhost:6773/team/random/by-league/${league}`)).json();
     setGameData({
@@ -31,6 +51,9 @@ export default function ByNationality(props) {
       teams: data,
       ...extraData,
     });
+    setShowRatings(false);
+    setShowTransferBudget(false);
+    setNameLettersShown([]);
   };
 
   useEffect(() => {
@@ -40,12 +63,12 @@ export default function ByNationality(props) {
   return (
     <div className='fullheight-section bynationalitypage gamepage'>
       <div className='side-section'>
-        <div className={`panel side-panel guessteam ${gameData.guessedCorrectTeam ? 'doneguessing' : ''}`}>
-          <h1 className='title'>{gameData.guessedCorrectTeam ? 'Correct!' : 'Guess The Team!'}</h1>
+        <div className={`panel side-panel guessteam ${gameData.doneGuessing ? 'doneguessing' : ''}`}>
+          <h1 className='title'>{gameData.doneGuessing ? 'Correct!' : 'Make a Guess:'}</h1>
           <div className='teams'>
             {gameData.teams.map((e, i) => {
               const isWrong = gameData.wrongTeams.indexOf(e) > -1;
-              const isCorrect = e === gameData.correctTeam && gameData.guessedCorrectTeam;
+              const isCorrect = e === gameData.correctTeam && gameData.doneGuessing;
               return (
                 <PrimaryButton
                   key={i}
@@ -63,20 +86,36 @@ export default function ByNationality(props) {
               );
             })}
           </div>
-          <button
-            className='newchallenge'
-            onClick={() => {
-              newTeam();
-            }}
-          >
-            New Game &rarr;
-          </button>
+          <div className='bottom-buttons'>
+            {gameData.doneGuessing ? (
+              <TertiaryButton
+                className='newchallenge'
+                onClick={() => {
+                  newTeam();
+                }}
+                text={<>New Game &rarr;</>}
+              />
+            ) : null}
+            <TertiaryButton
+              className='light'
+              onClick={
+                gameData.doneGuessing
+                  ? () => {
+                      setGameData({ ...gameData, doneGuessing: false, wrongTeams: [] });
+                    }
+                  : () => {
+                      setGameData({ ...gameData, doneGuessing: true });
+                    }
+              }
+              text={gameData.doneGuessing ? <>&larr; Hide Answer</> : <>Or: Show Answer&nbsp;&nbsp;👀</>}
+            />
+          </div>
         </div>
       </div>
       <div className='panel main'>
         <div className='pitch'>
           {[...Array(21)].map((x, i) => (
-            <div key={i} style={{ top: `${(100 / 21) * i}%`, height: `${100 / 21}%` }} className={`line ${i % 2 == 0 ? 'even' : 'odd'}`}></div>
+            <div key={i} style={{ top: `${(100 / 21) * i}%`, height: `${100 / 21}%` }} className={`line ${i % 2 === 0 ? 'even' : 'odd'}`}></div>
           ))}
           <div className='midline'></div>
           <div className='center circle dot'></div>
@@ -89,21 +128,75 @@ export default function ByNationality(props) {
           <div className='circle dot gk bottom'></div>
           <div className='overlay'></div>
         </div>
-        <div className='top'>
+        <div
+          className={`top ${
+            gameData.doneGuessing || showRatings || showTransferBudget || nameLettersShown.length > 0 ? 'show-answer' : 'hide-answer'
+          }`}
+        >
+          <div className='header'>
+            <div className='box'>
+              <h1>Guess That Team!</h1>
+              <p>Each flag and its position represents a player in a team.</p>
+            </div>
+          </div>
           <div className='left'>
-            <img src={gameData.logoURL} alt='Team Logo' />
-            <h1>
-              {gameData.correctTeam.split('').map((l, i) => (
-                <span key={i}>{l}</span>
-              ))}
-            </h1>
+            <div className='logo-container'>
+              {gameData.doneGuessing || nameLettersShown.length > 0 ? (
+                <div className='logo box'>
+                  {gameData.doneGuessing ? <img src={gameData.logoURL} alt='Team Logo' /> : null}
+                  <h1>
+                    {gameData.correctTeam.split('').map((l, i) => {
+                      const fillerLetter = l === ' ' ? <>&nbsp; </> : '_ ';
+                      const letter = l + ' ';
+                      const showLetter = !gameData.doneGuessing && nameLettersShown.indexOf(i) > -1;
+                      return (
+                        <span key={i} style={gameData.doneGuessing ? {} : { textTransform: 'uppercase' }}>
+                          {gameData.doneGuessing ? l : showLetter ? letter : fillerLetter}
+                        </span>
+                      );
+                    })}
+                  </h1>
+                </div>
+              ) : null}
+              <div className='row'>
+                <div className='stars'>
+                  {gameData.stars && (gameData.doneGuessing || showRatings)
+                    ? Array(Math.floor(gameData.stars))
+                        .fill(fullStar)
+                        .concat(Array((gameData.stars % 1) / 0.5).fill(halfStar))
+                        .concat(Array(5 - Math.ceil(gameData.stars)).fill(emptyStar))
+                    : null}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className='right'>
+            <div className='info box'>
+              {gameData.fifaMiscData && (gameData.doneGuessing || showTransferBudget) ? (
+                <p className='budget'>
+                  Transfer Budget: <strong>${commaNumber(gameData.fifaMiscData.transferBudgetDollars)}</strong>
+                </p>
+              ) : null}
+              {gameData.fifaMiscData && (gameData.doneGuessing || showRatings) ? (
+                <p className='rating'>
+                  Rating:&nbsp;
+                  <strong>
+                    {Object.keys(gameData.fifaMiscData.ratings)
+                      .map((e) => {
+                        return `${gameData.fifaMiscData.ratings[e]} ${e.slice(0, 3).toUpperCase()}`;
+                      })
+                      .join(' • ')}
+                  </strong>
+                </p>
+              ) : null}
+            </div>
           </div>
         </div>
         <div className='formation'>
           {gameData.teamFormation.map((player, i) => {
             const flagURL = player.nationality.flagURL.split('/2/').join('/6/');
             const playerURL = player.photoURL.split('/5/').join('/6/');
-            const showAnswer = gameData.guessedCorrectTeam;
+            const showAnswer = gameData.doneGuessing;
             let { x, y } = player.positionCoords;
             return (
               <div className={`player ${showAnswer ? 'show-player' : 'show-flag'}`} key={i} style={{ left: `${x}%`, bottom: `${y}%` }}>
@@ -117,17 +210,50 @@ export default function ByNationality(props) {
           })}
         </div>
       </div>
-      <div className='side-section newgame-section'>
-        <div className='panel side-panel newgame'>
-          <h1 className='title'>Select League</h1>
-          <button
+      <div className='side-section extras-section'>
+        <div className='panel side-panel stats'>
+          <h1 className='title'>Your Stats</h1>
+        </div>
+        <div className='panel side-panel hints'>
+          <h1 className='title'>Hints</h1>
+          <PrimaryButton color='#9b59b6' text='Reduce Guess Pool by 50%' />
+          <PrimaryButton
+            color='#9b59b6'
+            className={nameLettersShown.length > 0 ? 'disabled' : ''}
             onClick={() => {
-              newTeam();
+              const newNameLettersShown = [];
+              while (newNameLettersShown.length < 2) {
+                const randIdx = Math.floor(Math.random() * gameData.correctTeam.length);
+                if (newNameLettersShown.indexOf(randIdx) > -1) continue;
+                if (gameData.correctTeam[randIdx] === ' ') continue;
+                newNameLettersShown.push(randIdx);
+              }
+              console.log(newNameLettersShown);
+              setNameLettersShown(newNameLettersShown);
             }}
-            className='newchallenge'
-          >
-            New Game
-          </button>
+            text='Show 2 Letters of Team Name'
+          />
+          <PrimaryButton
+            className={showRatings ? 'disabled' : ''}
+            onClick={() => {
+              setShowRatings(true);
+            }}
+            color='#9b59b6'
+            text='Show Team Ratings'
+          />
+          <PrimaryButton
+            className={showTransferBudget ? 'disabled' : ''}
+            onClick={() => {
+              setShowTransferBudget(true);
+            }}
+            color='#9b59b6'
+            text='Show Transfer Budget'
+          />
+        </div>
+        <div className='panel side-panel share'>
+          <h1 className='title'>Share Challenge</h1>
+          <PrimaryButton color='var(--info)' text='Download Challenge' />
+          <PrimaryButton color='var(--info)' text='Download Challenge Answer' />
         </div>
       </div>
     </div>

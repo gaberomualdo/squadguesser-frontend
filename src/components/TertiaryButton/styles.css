@@ -1,0 +1,41 @@
+.tertiarybutton {
+  width: 100%;
+  border-radius: 4px;
+  background-color: var(--darkprimary);
+  color: var(--light);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  font-weight: 500;
+  font-size: 1.15rem;
+  line-height: 1.35;
+  padding: 0.5rem;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+.tertiarybutton:hover {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  background-color: var(--primary);
+  box-shadow: none;
+}
+.tertiarybutton:active {
+  background-color: var(--darkprimary);
+}
+.tertiarybutton.disabled {
+  opacity: 0.75;
+  cursor: default;
+}
+
+.tertiarybutton.light {
+  opacity: 0.9;
+  border: 1px solid hsla(0, 0%, 100%, 0.6);
+  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  background-color: transparent;
+}
+.tertiarybutton.light:hover,
+.tertiarybutton.light:active {
+  opacity: 1;
+  background-color: hsla(0, 0%, 100%, 0.1);
+  border-color: hsla(0, 0%, 100%, 0.7);
+}
+.tertiarybutton.light:active {
+  background-color: hsla(0, 0%, 100%, 0.15);
+}

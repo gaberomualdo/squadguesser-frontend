@@ -31,6 +31,7 @@ export default function ByNationality(props) {
   const [showRatings, setShowRatings] = useState(false);
   const [showTransferBudget, setShowTransferBudget] = useState(false);
   const [nameLettersShown, setNameLettersShown] = useState([]);
+  const [teamsEliminated, setTeamsEliminated] = useState([]);
 
   const guessTeam = (e) => {
     if (e === gameData.correctTeam) {
@@ -54,6 +55,7 @@ export default function ByNationality(props) {
     setShowRatings(false);
     setShowTransferBudget(false);
     setNameLettersShown([]);
+    setTeamsEliminated([]);
   };
 
   useEffect(() => {
@@ -72,7 +74,9 @@ export default function ByNationality(props) {
               return (
                 <PrimaryButton
                   key={i}
-                  className={`button ${isWrong ? 'wrong' : ''} ${isCorrect || isWrong ? 'active' : ''}`}
+                  className={`button ${isWrong ? 'wrong' : ''} ${isCorrect || isWrong ? 'active' : ''} ${
+                    teamsEliminated.indexOf(i) > -1 ? 'disabled' : ''
+                  }`}
                   color={isWrong ? 'var(--danger)' : 'var(--primary)'}
                   text={`${e} ${isWrong ? '' : ''}${isCorrect ? '' : ''}`}
                   onClick={
@@ -107,7 +111,7 @@ export default function ByNationality(props) {
                       setGameData({ ...gameData, doneGuessing: true });
                     }
               }
-              text={gameData.doneGuessing ? <>&larr; Hide Answer</> : <>Or: Show Answer&nbsp;&nbsp;👀</>}
+              text={gameData.doneGuessing ? <>&larr; Hide Answer</> : <>Show Answer&nbsp;&nbsp;👀</>}
             />
           </div>
         </div>
@@ -216,7 +220,19 @@ export default function ByNationality(props) {
         </div>
         <div className='panel side-panel hints'>
           <h1 className='title'>Hints</h1>
-          <PrimaryButton color='#9b59b6' text='Reduce Guess Pool by 50%' />
+          <PrimaryButton
+            className={teamsEliminated.length > 0 ? 'disabled' : ''}
+            onClick={() => {
+              const newTeamsEliminated = [];
+              while (newTeamsEliminated.length < Math.floor(gameData.teams.length / 2)) {
+                const randIdx = Math.floor(Math.random() * gameData.teams.length);
+                if (newTeamsEliminated.indexOf(randIdx) === -1 && gameData.teams[randIdx] !== gameData.correctTeam) newTeamsEliminated.push(randIdx);
+              }
+              setTeamsEliminated(newTeamsEliminated);
+            }}
+            color='#9b59b6'
+            text='Reduce Guess Pool by 50%'
+          />
           <PrimaryButton
             color='#9b59b6'
             className={nameLettersShown.length > 0 ? 'disabled' : ''}
@@ -228,7 +244,6 @@ export default function ByNationality(props) {
                 if (gameData.correctTeam[randIdx] === ' ') continue;
                 newNameLettersShown.push(randIdx);
               }
-              console.log(newNameLettersShown);
               setNameLettersShown(newNameLettersShown);
             }}
             text='Show 2 Letters of Team Name'
@@ -251,7 +266,7 @@ export default function ByNationality(props) {
           />
         </div>
         <div className='panel side-panel share'>
-          <h1 className='title'>Share Challenge</h1>
+          <h1 className='title'>Share</h1>
           <PrimaryButton color='var(--info)' text='Download Challenge' />
           <PrimaryButton color='var(--info)' text='Download Challenge Answer' />
         </div>

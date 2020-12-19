@@ -416,10 +416,12 @@
 .gamepage .extras-section button span {
   font-weight: normal;
 }
-.gamepage .extras-section button.disabled {
+.gamepage .extras-section button.disabled,
+.gamepage .guessteam .button.disabled {
   pointer-events: none;
   opacity: 0.5;
 }
-.gamepage .extras-section button.disabled span {
+.gamepage .extras-section button.disabled span,
+.gamepage .guessteam .button.disabled span {
   text-decoration: line-through;
 }

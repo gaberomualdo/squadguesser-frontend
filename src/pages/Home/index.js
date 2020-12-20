@@ -1,5 +1,6 @@
 import './styles.css';
 import React from 'react';
+import { PlayButton } from '../../components';
 
 export default function Home(props) {
   const englishSpelling = true;
@@ -14,16 +15,14 @@ export default function Home(props) {
           </div>
           <div className='play'>
             {[0, 1].map((i) => (
-              <button onClick={() => props.setPage(pages[i].code)} className={`playbtn ${i === 0 ? 'primary' : ''}`} key={i}>
-                <div className='icon'>
-                  <span>{pages[i].icon}</span>
-                </div>
-                <div className='content'>
-                  <h1>{pages[i].name}</h1>
-                  <p>{pages[i].description ? pages[i].description : <>play now &rarr;</>}</p>
-                </div>
-                <div className='arrow'>&rarr;</div>
-              </button>
+              <PlayButton
+                icon={pages[i].icon}
+                name={pages[i].name}
+                description={pages[i].description ? pages[i].description : <>play now &rarr;</>}
+                onClick={() => props.setPage(pages[i].code)}
+                className={i === 0 ? 'primary' : ''}
+                key={i}
+              />
             ))}
           </div>
         </div>

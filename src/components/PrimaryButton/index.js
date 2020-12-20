@@ -6,7 +6,7 @@ export default function PrimaryButton(props) {
     <button
       {...props}
       className={`primarybutton ${props.className}`}
-      style={{ '--button-theme-color': props.color ? props.color : 'var(--primary)' }}
+      style={{ '--button-theme-color': props.color ? props.color : 'var(--primary)', ...props.style }}
     >
       {props.icon ? (
         <>

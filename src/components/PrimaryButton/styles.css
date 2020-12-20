@@ -38,11 +38,16 @@
   opacity: 0.85;
 }
 .primarybutton span {
+  height: var(--inner-height);
   line-height: var(--inner-height);
   display: inline-block;
   vertical-align: top;
   font-size: 1.35rem;
   font-weight: 600;
+  max-width: 100%;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .primarybutton .text {
   font-size: 1.05rem;

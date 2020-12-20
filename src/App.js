@@ -2,7 +2,7 @@
 import './lib/main.css';
 import './lib/layout.css';
 import { NavBar, ResponsiveContainer } from './components/';
-import { Home, About, ByNationality } from './pages/';
+import { Home, About, ByNationality, DailyChallenge } from './pages/';
 import { useState } from 'react';
 
 const SITE_TITLE = 'SquadGuessr';
@@ -21,41 +21,28 @@ function App() {
       type: 'info',
     },
     {
+      code: 'database',
+      name: 'Squads Database',
+      type: 'info',
+    },
+    {
+      icon: '⚽',
+      code: 'play',
+      name: 'Play SquadGuessr',
+      type: 'game',
+    },
+    {
       icon: '📆',
       code: 'dailychallenge',
       name: 'Daily Challenge',
       type: 'game',
     },
-    // {
-    //   icon: '⏱️',
-    //   code: 'live',
-    //   name: 'Live Challenges',
-    //   type: 'game',
-    // },
     {
-      icon: '🏁',
-      code: 'nationality',
-      name: 'By Nationality',
-      type: 'game',
+      icon: '📚',
+      code: 'leaderboard',
+      name: 'Leaderboard',
+      type: 'other',
     },
-    {
-      icon: '📈',
-      code: 'rating',
-      name: 'By FIFA Rating',
-      type: 'game',
-    },
-    {
-      icon: '✍️',
-      code: 'initials',
-      name: 'By Initials',
-      type: 'game',
-    },
-    // {
-    //   icon: '👴',
-    //   code: 'age',
-    //   name: 'By Player Age',
-    //   type: 'game',
-    // },
   ];
 
   const updatePageTitle = (p) => {
@@ -87,22 +74,26 @@ function App() {
   });
 
   const [activePage, setActivePage] = useState(initialPage);
+  const [currentURL, setCurrentURL] = useState(window.location.href);
 
   const setPage = (p) => {
     updatePageTitle(p);
 
     const url = new URL(window.location.href);
     url.searchParams.set(urlPageParam, p);
+    ['game', 'league'].forEach((e) => url.searchParams.delete(e));
     const urlStr = url.toString();
     history.pushState({}, 'Navigate to New Page', urlStr);
 
     setActivePage(p);
+    setCurrentURL(window.location.href);
   };
 
   window.addEventListener('popstate', (event) => {
     parsePageURLParam((param) => {
       updatePageTitle(param);
       setActivePage(param);
+      setCurrentURL(window.location.href);
     });
   });
 
@@ -110,9 +101,11 @@ function App() {
     <div className='App'>
       <NavBar pages={pages} setPage={setPage} active={activePage} />
       <ResponsiveContainer>
-        {activePage === 'home' ? <Home setPage={setPage} pages={pages} /> : null}
-        {activePage === 'about' ? <About setPage={setPage} pages={pages} /> : null}
-        {activePage === 'nationality' ? <ByNationality setPage={setPage} pages={pages} /> : null}
+        {/* the 'url' prop is used to require refresh of the component if the page URL changes */}
+        {activePage === 'home' ? <Home setPage={setPage} url={currentURL} pages={pages} /> : null}
+        {activePage === 'about' ? <About setPage={setPage} url={currentURL} pages={pages} /> : null}
+        {activePage === 'play' ? <ByNationality setPage={setPage} url={currentURL} pages={pages} /> : null}
+        {activePage === 'dailychallenge' ? <DailyChallenge setPage={setPage} url={currentURL} pages={pages} /> : null}
       </ResponsiveContainer>
     </div>
   );

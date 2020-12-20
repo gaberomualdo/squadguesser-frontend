@@ -35,3 +35,27 @@
   clear: both;
   margin-bottom: 1rem;
 }
+.homepage .videosection {
+  align-items: flex-end;
+}
+.homepage .videosection .video-container {
+  position: relative;
+  width: 85%;
+}
+.homepage .videosection video {
+  display: block;
+  float: right;
+}
+.homepage .videosection .play-pause {
+  position: absolute;
+  left: 0.5rem;
+  bottom: 0.5rem;
+  cursor: pointer;
+  opacity: 0.75;
+}
+.homepage .videosection .play-pause:hover {
+  opacity: 1;
+}
+.homepage .videosection .play-pause svg {
+  fill: var(--light);
+}

@@ -166,6 +166,7 @@ export default function ByNationalityGame(props) {
           <div className='circle dot gk top'></div>
           <div className='circle dot gk bottom'></div>
           <div className='overlay'></div>
+          <p className='site-title'>SquadGuessr</p>
         </div>
         <div
           className={`top ${

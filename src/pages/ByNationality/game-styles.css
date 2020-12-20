@@ -326,6 +326,9 @@
   }
 }
 
+.gamepage .main {
+  filter: brightness(110%);
+}
 .gamepage .main .pitch {
   position: absolute;
   width: 100%;
@@ -401,6 +404,13 @@
 }
 .gamepage .main .pitch .line.even {
   background-color: var(--slightlydarkprimary);
+}
+.gamepage .main .pitch .site-title {
+  bottom: 0.5rem;
+  right: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  opacity: 0.85;
 }
 .gamepage .main .pitch .overlay {
   width: 100%;

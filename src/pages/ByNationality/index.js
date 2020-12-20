@@ -4,6 +4,7 @@ import { APIBaseURL } from '../../lib/config';
 import Game from './game';
 import { PlayButton } from '../../components/';
 import './index-styles.css';
+import { fromBase64, toBase64 } from '../../lib/utils';
 
 const urlLeagueParam = 'league';
 
@@ -16,7 +17,7 @@ export default function ByNationalityPage(props) {
     if (urlParams.has(urlLeagueParam)) {
       const param = urlParams.get(urlLeagueParam);
       try {
-        const decodedParam = atob(param);
+        const decodedParam = fromBase64(param);
         if (leaguesArr.indexOf(decodedParam) > -1 && league !== decodedParam) {
           setLeague(decodedParam);
         }
@@ -39,7 +40,7 @@ export default function ByNationalityPage(props) {
   }, []);
 
   const setLeagueAndParam = (leagueName) => {
-    const leagueNameCode = btoa(leagueName).replace(/=/g, '');
+    const leagueNameCode = toBase64(leagueName);
     const url = new URL(window.location.href);
     url.searchParams.delete('game');
     url.searchParams.set(urlLeagueParam, leagueNameCode);

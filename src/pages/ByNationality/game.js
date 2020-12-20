@@ -4,6 +4,7 @@ import { PrimaryButton, TertiaryButton } from '../../components';
 import React, { useState, useEffect } from 'react';
 import commaNumber from 'comma-number';
 import { APIBaseURL } from '../../lib/config';
+import { toBase64, fromBase64 } from '../../lib/utils';
 
 const halfStar = (
   <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>
@@ -53,7 +54,7 @@ export default function ByNationalityGame(props) {
     if (gameCode) {
       let gameCodeWasValid = false;
       try {
-        const decodedTeam = atob(gameCode);
+        const decodedTeam = fromBase64(gameCode);
         if (teamNames.indexOf(decodedTeam) > -1) {
           teamAPIURL = `${APIBaseURL}/team/${decodedTeam}`;
           gameCodeWasValid = true;
@@ -68,7 +69,7 @@ export default function ByNationalityGame(props) {
 
     if (!gameCode) {
       const url = new URL(window.location.href);
-      url.searchParams.set(urlGameParam, btoa(name).replace(/=/g, ''));
+      url.searchParams.set(urlGameParam, toBase64(name));
       const urlStr = url.toString();
       history.replaceState({}, 'Navigate to New Page', urlStr);
     }

@@ -439,3 +439,52 @@
 .gamepage .guessteam .button.disabled span {
   text-decoration: line-through;
 }
+
+.gamepage .extras-section .dailychallenge {
+  display: flex;
+  align-items: center;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  zoom: 85%;
+}
+.gamepage .extras-section .dailychallenge > .title {
+  padding: 0;
+  text-align: left;
+  padding-left: 5%;
+}
+.gamepage .extras-section .title-number {
+  display: block;
+  overflow: hidden;
+  border-radius: 6px;
+  width: 5rem;
+  max-width: 100%;
+  background-color: var(--dark);
+}
+.gamepage .extras-section .title-number h1 {
+  font-size: 1.15rem;
+  text-align: center;
+  letter-spacing: 0.025rem;
+  text-transform: uppercase;
+  line-height: 1.5;
+  background-color: var(--danger);
+}
+.gamepage .extras-section .title-number p {
+  text-align: center;
+  font-size: 2rem;
+  line-height: 1.5;
+}
+
+.gamepage .extras-section .rating {
+  flex-direction: column;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+.gamepage .extras-section .rating .title-number {
+  margin: 0 auto;
+  width: 10rem;
+}
+.gamepage .extras-section .menu-btn {
+  transform: scale(1);
+  background-color: var(--darker) !important;
+  margin-bottom: 0.75rem !important;
+}

@@ -1,26 +1,24 @@
 /* eslint-disable no-restricted-globals */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { APIBaseURL } from '../../lib/config';
 import Game from '../ByNationality/game';
 
 const leagueName = 'Daily Challenge';
 
-export default function DailyChallenge() {
-  const leagueNameCode = btoa(leagueName);
+export default function DailyChallenge(props) {
+  const [loaded, setLoaded] = useState(false);
+  const leagueNameCode = btoa(leagueName).replace(/=/g, '');
   useEffect(() => {
     (async () => {
       const correctTeam = await (await fetch(`${APIBaseURL}/dailychallenge/team`)).json();
       const url = new URL(window.location.href);
-      url.searchParams.set('game', btoa(correctTeam.name));
+      url.searchParams.set('game', btoa(correctTeam.name).replace(/=/g, ''));
       url.searchParams.set('league', leagueNameCode);
       const urlStr = url.toString();
       history.replaceState({}, 'Navigate to New Page', urlStr);
+      setLoaded(true);
     })();
   }, []);
 
-  return (
-    <div>
-      <Game league={leagueName} noNewGame={true} />
-    </div>
-  );
+  return loaded ? <Game setPage={props.setPage} league={leagueName} dailyChallenge={true} /> : <div className='fullheight-section'></div>;
 }

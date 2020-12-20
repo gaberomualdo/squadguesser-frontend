@@ -49,7 +49,7 @@ export default function ByNationalityPage(props) {
 
   return leagues.length > 0 ? (
     league ? (
-      <Game league={league} />
+      <Game league={league} setPage={props.setPage} />
     ) : (
       <div className='bynationalitypage-selectleague fullheight-section'>
         <div className='inner'>
@@ -61,6 +61,6 @@ export default function ByNationalityPage(props) {
       </div>
     )
   ) : (
-    <></>
+    <div className='fullheight-section'></div>
   );
 }

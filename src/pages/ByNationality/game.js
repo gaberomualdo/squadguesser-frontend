@@ -126,7 +126,7 @@ export default function ByNationalityGame(props) {
             })}
           </div>
           <div className='bottom-buttons'>
-            {gameData.doneGuessing && !props.noNewGame ? (
+            {gameData.doneGuessing && !props.dailyChallenge ? (
               <TertiaryButton
                 className='newchallenge'
                 onClick={() => {
@@ -176,6 +176,7 @@ export default function ByNationalityGame(props) {
             <div className='box'>
               <h1>Guess That Team!</h1>
               <p>Each flag and its position represents a player in a team.</p>
+              {!props.dailyChallenge ? <p style={{ marginTop: '.35rem' }}>Team league: {props.league}</p> : null}
             </div>
           </div>
           <div className='left'>
@@ -251,8 +252,19 @@ export default function ByNationalityGame(props) {
         </div>
       </div>
       <div className='side-section extras-section'>
+        {props.dailyChallenge ? (
+          <div className='panel side-panel dailychallenge'>
+            <h1 className='title'>Daily Challenge</h1>
+            <div className='title-number'>
+              <h1>{['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][new Date().getMonth()]}</h1>
+              <p>{new Date().getDate()}</p>
+            </div>
+          </div>
+        ) : null}
+        {!props.dailyChallenge ? <PrimaryButton className='menu-btn' onClick={() => props.setPage('play')} text={<>&larr; Back to Menu</>} /> : null}
         <div className='panel side-panel stats'>
           <h1 className='title'>Your Stats</h1>
+          <PrimaryButton text='Sign In to Get Your Stats' />
         </div>
         <div className='panel side-panel hints'>
           <h1 className='title'>Hints</h1>
@@ -302,11 +314,11 @@ export default function ByNationalityGame(props) {
             text='Show Transfer Budget'
           />
         </div>
-        <div className='panel side-panel share'>
+        {/* <div className='panel side-panel share'>
           <h1 className='title'>Share</h1>
           <PrimaryButton color='var(--info)' text='Download Challenge' />
           <PrimaryButton color='var(--info)' text='Download Challenge Answer' />
-        </div>
+        </div> */}
       </div>
     </div>
   );

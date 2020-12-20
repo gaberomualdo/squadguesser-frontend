@@ -1,0 +1,20 @@
+.footer {
+  /* background-image: linear-gradient(rgba(35, 49, 64, 0.97), rgba(35, 49, 64, 0.97)), url(http://localhost:3000/club-logos.png); */
+  background-color: var(--darker);
+  background-size: 6%;
+  background-position: center;
+  width: 100%;
+  position: relative;
+  padding: 1rem 0;
+}
+
+.footer p {
+  font-size: 0.85rem;
+}
+.footer p:not(:last-child) {
+  margin-bottom: 0.35rem;
+}
+
+.footer p.light {
+  opacity: 0.5;
+}

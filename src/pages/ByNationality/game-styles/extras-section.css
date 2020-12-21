@@ -1,0 +1,80 @@
+.gamepage .extras-section {
+  flex-basis: 22%;
+}
+.gamepage .extras-section > * {
+  flex: 0 1 auto !important;
+}
+.gamepage .extras-section .stats {
+  flex: 1 1 100% !important;
+}
+.gamepage .extras-section button {
+  width: 100%;
+  background-color: var(--dark);
+  border-radius: 3px;
+  --inner-height: 2.5rem;
+  user-select: none;
+}
+.gamepage .extras-section button span {
+  font-weight: normal;
+  font-size: 0.95rem;
+}
+.gamepage .extras-section button.disabled,
+.gamepage .guessteam .button.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+.gamepage .extras-section button.disabled span,
+.gamepage .guessteam .button.disabled span {
+  text-decoration: line-through;
+}
+
+.gamepage .extras-section .dailychallenge {
+  display: flex;
+  align-items: center;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  zoom: 85%;
+  flex-shrink: 0 !important;
+}
+.gamepage .extras-section .dailychallenge > .title {
+  padding: 0;
+  text-align: left;
+  padding-left: 5%;
+}
+.gamepage .extras-section .title-number {
+  display: block;
+  overflow: hidden;
+  border-radius: 6px;
+  width: 5rem;
+  max-width: 100%;
+  background-color: var(--dark);
+}
+.gamepage .extras-section .title-number h1 {
+  font-size: 1.15rem;
+  text-align: center;
+  letter-spacing: 0.025rem;
+  text-transform: uppercase;
+  line-height: 1.5;
+  background-color: var(--danger);
+}
+.gamepage .extras-section .title-number p {
+  text-align: center;
+  font-size: 2rem;
+  line-height: 1.5;
+}
+
+.gamepage .extras-section .rating {
+  flex-direction: column;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+.gamepage .extras-section .rating .title-number {
+  margin: 0 auto;
+  width: 10rem;
+}
+.gamepage .extras-section .menu-btn {
+  transform: scale(1);
+  background-color: var(--darker) !important;
+  margin-bottom: 0.75rem !important;
+  flex-shrink: 0 !important;
+}

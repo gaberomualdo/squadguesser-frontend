@@ -1,61 +1,126 @@
-.homepage .left,
-.homepage .right {
-  display: block;
-  float: left;
-  height: var(--fullheight);
-  width: 50%;
+.homepage {
+  padding-bottom: 0.75rem;
+}
+.homepage .topsection {
+  padding: 5rem 0;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  width: 100%;
+}
+.homepage .topsection,
+.homepage .topsection * {
+  position: relative;
+}
+.homepage .topsection > .left,
+.homepage .topsection > .right {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  flex: 1 1 100%;
 }
-.homepage .textsection .top h1 {
+.homepage .topsection .textsection .top h1 {
   font-size: 2.75rem;
   line-height: 1.4;
   margin-bottom: 0rem;
 }
-.homepage .textsection .top p {
+.homepage .topsection .textsection .top p {
   font-size: 1.15rem;
   line-height: 2;
   opacity: 0.7;
 }
-.homepage .textsection .top {
+.homepage .topsection .textsection .top {
   margin-bottom: 1.25rem;
 }
-.homepage .textsection .play {
+.homepage .topsection .textsection .play {
   width: 100%;
   margin-bottom: 2rem;
   display: block;
 }
-.homepage .textsection .play .playbutton:nth-child(2n) {
+.homepage .topsection .textsection .play .playbutton:nth-child(2n) {
   margin-left: 0;
 }
-.homepage .textsection .play .playbutton {
+.homepage .topsection .textsection .play .playbutton {
   width: 100%;
   clear: both;
   margin-bottom: 1rem;
 }
-.homepage .videosection {
-  align-items: flex-end;
+.homepage .topsection .videosection {
+  align-items: center;
+  padding-left: 7.5%;
 }
-.homepage .videosection .video-container {
-  position: relative;
-  width: 85%;
+.homepage .topsection .videosection .video-container {
+  width: 100%;
 }
-.homepage .videosection video {
+.homepage .topsection .videosection video {
   display: block;
   float: right;
 }
-.homepage .videosection .play-pause {
+.homepage .topsection .videosection .play-pause {
   position: absolute;
   left: 0.5rem;
   bottom: 0.5rem;
   cursor: pointer;
   opacity: 0.75;
 }
-.homepage .videosection .play-pause:hover {
+.homepage .topsection .videosection .play-pause:hover {
   opacity: 1;
 }
-.homepage .videosection .play-pause svg {
+.homepage .topsection .videosection .play-pause svg {
   fill: var(--light);
+}
+.homepage .topsection .videosection .video-cta {
+  width: auto;
+  min-width: 10rem;
+  padding: 0.5rem 0.85rem;
+  background-color: var(--primary);
+  transition: background-color 0.2s;
+  border-radius: 3px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 0.75rem;
+  zoom: 95%;
+}
+.homepage .topsection .videosection .video-cta:hover {
+  background-color: var(--darkprimary);
+}
+.homepage .topsection .videosection .video-cta span {
+  display: block;
+  float: left;
+  width: auto;
+}
+.homepage .topsection .videosection .video-cta span.right {
+  float: right;
+  margin-left: 0.65rem;
+  transition: transform 0.2s;
+}
+.homepage .topsection .videosection .video-cta:hover span.right {
+  transform: translateX(0.15rem);
+}
+@media only screen and (max-width: 900px) {
+  .homepage .topsection {
+    flex-direction: column;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .homepage .topsection .videosection {
+    padding-left: 0;
+  }
+  .homepage .topsection > .left,
+  .homepage .topsection > .right {
+    width: 100%;
+    height: auto;
+  }
+  .homepage .topsection .textsection .play {
+    margin-bottom: 1rem;
+  }
+  .homepage .topsection .textsection .top h1 {
+    font-size: 2.15rem;
+    margin-top: 2rem;
+  }
+  .homepage .topsection .textsection .top p {
+    line-height: 1.75;
+    font-size: 1.1rem;
+  }
 }

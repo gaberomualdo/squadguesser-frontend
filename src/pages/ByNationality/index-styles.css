@@ -27,3 +27,28 @@
 .bynationalitypage-selectleague .playbutton:not(:nth-child(3n + 1)) {
   margin-right: 1rem;
 }
+
+@media only screen and (max-width: 1200px) {
+  .bynationalitypage-selectleague .playbutton {
+    width: calc((100% - 1rem) / 2);
+  }
+  .bynationalitypage-selectleague .playbutton:not(:nth-child(3n + 1)) {
+    margin-right: 0;
+  }
+  .bynationalitypage-selectleague .playbutton:not(:nth-child(2n + 1)) {
+    margin-right: 1rem;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .bynationalitypage-selectleague .playbutton {
+    margin-right: 0 !important;
+  }
+  .bynationalitypage-selectleague .playbutton {
+    width: 100%;
+    margin-bottom: 0.675rem;
+  }
+  .bynationalitypage-selectleague .title {
+    margin-top: 2rem;
+  }
+}

@@ -1,15 +1,22 @@
 .playbutton {
   border-radius: 4px;
-  background-color: var(--darker);
+  --playbtn-color: var(--darker);
+  background-color: var(--playbtn-color);
   display: flex;
   padding: 1rem;
   transition: transform 0.2s, box-shadow 0.2s;
   position: relative;
 }
+.playbutton.primary {
+  --playbtn-color: var(--darkprimary);
+}
 .playbutton .arrow {
-  position: absolute;
+  background-color: var(--playbtn-color);
+  box-shadow: 0 4px 16px var(--playbtn-color);
+  border-radius: 50%;
+  position: absolute !important;
   right: 1rem;
-  height: 100%;
+  height: calc(100% - 2rem);
   font-size: 2.5rem;
   top: 1rem;
   color: #fff;
@@ -25,10 +32,6 @@
 }
 .playbutton:active {
   transform: translateY(-0.025rem);
-}
-
-.playbutton.primary {
-  background-color: var(--darkprimary);
 }
 .playbutton {
   cursor: pointer;

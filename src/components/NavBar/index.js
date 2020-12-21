@@ -8,7 +8,14 @@ class NavBar extends Component {
     this.state = { interval: undefined, scrolling: false, mobile: false, menuOpen: false };
 
     this.updateScrolling = this.updateScrolling.bind(this);
+    this.mouseDown = this.mouseDown.bind(this);
     this.checkMobile = this.checkMobile.bind(this);
+  }
+  mouseDown(e) {
+    const navWidth = 15 * parseFloat(getComputedStyle(document.documentElement).fontSize);
+    if (e.clientX < window.innerWidth - navWidth) {
+      this.setState({ menuOpen: false });
+    }
   }
   updateScrolling() {
     const newState = window.pageYOffset > 0;
@@ -30,10 +37,12 @@ class NavBar extends Component {
 
     this.checkMobile();
     window.addEventListener('resize', this.checkMobile);
+    document.addEventListener('mousedown', this.mouseDown);
   }
   componentWillUnmount() {
     clearInterval(this.state.interval);
     window.removeEventListener('resize', this.checkMobile);
+    document.removeEventListener('mousedown', this.mouseDown);
   }
   render() {
     const { pages, active, setPage } = this.props;

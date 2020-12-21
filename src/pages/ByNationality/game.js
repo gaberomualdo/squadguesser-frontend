@@ -1,5 +1,11 @@
 /* eslint-disable no-restricted-globals */
-import './game-styles.css';
+import './game-styles/misc.css';
+import './game-styles/guessteam.css';
+import './game-styles/formation.css';
+import './game-styles/pitch.css';
+import './game-styles/pitch-top.css';
+import './game-styles/extras-section.css';
+import './game-styles/mobile.css';
 import { PrimaryButton, TertiaryButton } from '../../components';
 import React, { useState, useEffect } from 'react';
 import commaNumber from 'comma-number';
@@ -36,6 +42,7 @@ export default function ByNationalityGame(props) {
   const [showTransferBudget, setShowTransferBudget] = useState(false);
   const [nameLettersShown, setNameLettersShown] = useState([]);
   const [teamsEliminated, setTeamsEliminated] = useState([]);
+  const [activeTab, setActiveTab] = useState('main-section');
 
   const guessTeam = (e) => {
     if (e === gameData.correctTeam) {
@@ -85,6 +92,7 @@ export default function ByNationalityGame(props) {
     setShowTransferBudget(false);
     setNameLettersShown([]);
     setTeamsEliminated([]);
+    setActiveTab('main-section');
   };
 
   useEffect(() => {
@@ -97,8 +105,22 @@ export default function ByNationalityGame(props) {
   }, []);
 
   return (
-    <div className='fullheight-section bynationalitypage gamepage'>
-      <div className='side-section'>
+    <div className='fullheight-section bynationalitypage gamepage' activetab={activeTab}>
+      <div className='tab-select'>
+        <div className='tab-select-row'>
+          <div className='bg'></div>
+          <button className='main-section' onClick={() => setActiveTab('main-section')}>
+            Squad
+          </button>
+          <button className='guess-section' onClick={() => setActiveTab('guess-section')}>
+            Guess
+          </button>
+          <button className='misc-section' onClick={() => setActiveTab('misc-section')}>
+            Hints &amp; Stats
+          </button>
+        </div>
+      </div>
+      <div className='side-section guess-section'>
         <div className={`panel side-panel guessteam ${gameData.doneGuessing ? 'doneguessing' : ''}`}>
           <h1 className='title'>{gameData.doneGuessing ? 'Correct!' : 'Make a Guess:'}</h1>
           <div className='teams'>
@@ -152,7 +174,7 @@ export default function ByNationalityGame(props) {
           </div>
         </div>
       </div>
-      <div className='panel main'>
+      <div className='panel main main-section'>
         <div className='pitch'>
           {[...Array(21)].map((x, i) => (
             <div key={i} style={{ top: `${(100 / 21) * i}%`, height: `${100 / 21}%` }} className={`line ${i % 2 === 0 ? 'even' : 'odd'}`}></div>
@@ -253,7 +275,7 @@ export default function ByNationalityGame(props) {
           })}
         </div>
       </div>
-      <div className='side-section extras-section'>
+      <div className='side-section extras-section misc-section'>
         {props.dailyChallenge ? (
           <div className='panel side-panel dailychallenge'>
             <h1 className='title'>Daily Challenge</h1>

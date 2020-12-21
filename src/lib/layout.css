@@ -38,8 +38,7 @@ body:before {
 
 .fullheight-section {
   --fullheight: calc(100vh - var(--nav-height));
-  --maxfullheight: 1000px;
+  --maxfullheight: 1000px; /* useless, for now */
   min-height: var(--fullheight);
-  max-height: var(--maxfullheight);
   position: relative;
 }

@@ -84,6 +84,9 @@
   .gamepage > .misc-section {
     flex-direction: column-reverse;
   }
+  .gamepage > .misc-section .dailychallenge {
+    display: none;
+  }
 
   .gamepage .main > .top {
     zoom: 80%;

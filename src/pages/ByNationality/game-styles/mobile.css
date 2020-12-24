@@ -51,6 +51,7 @@
   }
   .gamepage > * {
     margin-right: 0 !important;
+    height: calc(var(--fullheight) - 3rem);
   }
   .gamepage:not([activetab='main-section']) > .main-section,
   .gamepage:not([activetab='guess-section']) > .guess-section,

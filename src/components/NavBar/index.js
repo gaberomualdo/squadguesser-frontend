@@ -5,7 +5,7 @@ import { ResponsiveContainer, PrimaryButton, SecondaryButton } from '../';
 class NavBar extends Component {
   constructor(props) {
     super(props);
-    this.state = { interval: undefined, scrolling: false, mobile: false, menuOpen: false };
+    this.state = { scrolling: false, mobile: false, menuOpen: false, menuBtnBeenClicked: false };
 
     this.updateScrolling = this.updateScrolling.bind(this);
     this.mouseDown = this.mouseDown.bind(this);
@@ -31,16 +31,14 @@ class NavBar extends Component {
   }
   componentDidMount() {
     this.updateScrolling();
-    const fps = 16;
-    const interval = setInterval(this.updateScrolling, 1000 / fps);
-    this.setState({ interval });
-
     this.checkMobile();
+
+    window.addEventListener('scroll', this.updateScrolling);
     window.addEventListener('resize', this.checkMobile);
     document.addEventListener('mousedown', this.mouseDown);
   }
   componentWillUnmount() {
-    clearInterval(this.state.interval);
+    window.removeEventListener('scroll', this.updateScrolling);
     window.removeEventListener('resize', this.checkMobile);
     document.removeEventListener('mousedown', this.mouseDown);
   }
@@ -90,41 +88,46 @@ class NavBar extends Component {
       ));
 
     return (
-      <div className={`navbar-container ${this.state.scrolling ? 'scrolling' : ''} ${this.state.mobile ? 'mobile' : ''}`}>
-        <ResponsiveContainer>
-          {this.state.mobile ? (
-            <>
+      <>
+        <div className={`navbar-container ${this.state.scrolling ? 'scrolling' : ''} ${this.state.mobile ? 'mobile' : ''}`}>
+          <ResponsiveContainer>
+            {this.state.mobile ? (
+              <>
+                <div className='navbar'>
+                  {logoButton}
+                  <button className='menu-button' onClick={() => this.setState({ menuOpen: !this.state.menuOpen, menuBtnBeenClicked: true })}>
+                    {this.state.menuOpen ? (
+                      <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>
+                        <path d='M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z' />
+                      </svg>
+                    ) : (
+                      <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>
+                        <path d='M24 6h-24v-4h24v4zm0 4h-24v4h24v-4zm0 8h-24v4h24v-4z' />
+                      </svg>
+                    )}
+                  </button>
+                </div>
+                <div className={`navbar-sidebar ${this.state.menuOpen ? 'open' : 'closed'}`}>
+                  {infoButtons}
+                  <div className='spacer'></div>
+                  {mainButtons}
+                </div>
+              </>
+            ) : (
               <div className='navbar'>
-                {logoButton}
-                <button className='menu-button' onClick={() => this.setState({ menuOpen: !this.state.menuOpen })}>
-                  {this.state.menuOpen ? (
-                    <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>
-                      <path d='M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z' />
-                    </svg>
-                  ) : (
-                    <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'>
-                      <path d='M24 6h-24v-4h24v4zm0 4h-24v4h24v-4zm0 8h-24v4h24v-4z' />
-                    </svg>
-                  )}
-                </button>
+                <div className='left'>
+                  {logoButton}
+                  {infoButtons}
+                </div>
+                <div className='right'>{mainButtons}</div>
               </div>
-              <div className={`navbar-sidebar ${this.state.menuOpen ? 'open' : 'closed'}`}>
-                {infoButtons}
-                <div className='spacer'></div>
-                {mainButtons}
-              </div>
-            </>
-          ) : (
-            <div className='navbar'>
-              <div className='left'>
-                {logoButton}
-                {infoButtons}
-              </div>
-              <div className='right'>{mainButtons}</div>
-            </div>
-          )}
-        </ResponsiveContainer>
-      </div>
+            )}
+          </ResponsiveContainer>
+        </div>
+        <div
+          className={`navbar-overlay ${this.state.menuBtnBeenClicked ? (this.state.mobile && this.state.menuOpen ? 'displayed' : 'hidden') : ''}`}
+        ></div>
+      </>
     );
   }
 }

@@ -6,9 +6,13 @@
   padding: 1rem;
   transition: transform 0.2s, box-shadow 0.2s;
   position: relative;
+  user-select: none;
 }
 .playbutton.primary {
   --playbtn-color: var(--darkprimary);
+}
+.playbutton.secondary {
+  --playbtn-color: var(--dark);
 }
 .playbutton .arrow {
   background-color: var(--playbtn-color);

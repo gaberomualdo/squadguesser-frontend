@@ -112,9 +112,8 @@ class App extends Component {
     return (
       <div className='App'>
         <NavBar pages={pages} setPage={setPage} active={this.state.activePage} />
-        {/* home is a full page part of the site, so it's not encompassed by ResponsiveContainer */}
-        {this.state.activePage === 'home' ? <Home setPage={setPage} url={this.state.currentURL} pages={pages} /> : null}{' '}
         <ResponsiveContainer>
+          {this.state.activePage === 'home' ? <Home setPage={setPage} url={this.state.currentURL} pages={pages} /> : null}{' '}
           {this.state.activePage === 'about' ? <About setPage={setPage} url={this.state.currentURL} pages={pages} /> : null}
           {this.state.activePage === 'play' ? <ByNationality setPage={setPage} url={this.state.currentURL} pages={pages} /> : null}
           {this.state.activePage === 'dailychallenge' ? <DailyChallenge setPage={setPage} url={this.state.currentURL} pages={pages} /> : null}

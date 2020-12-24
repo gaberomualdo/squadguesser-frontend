@@ -6,6 +6,7 @@
   padding: 0 0.5rem;
   position: relative;
   z-index: 1;
+  user-select: none;
 }
 .primarybutton.with-margin:not(:first-child) {
   margin-left: 0.75rem;

@@ -3,8 +3,8 @@
   height: var(--height);
   position: sticky;
   top: 0;
-  transition: background-color 0.1s;
-  z-index: 9999999;
+  transition: background-color 0.1s !important;
+  z-index: 100000;
 }
 .navbar-container.scrolling {
   background-color: var(--dark);
@@ -52,7 +52,7 @@
   right: 0;
   top: 0;
   background-color: var(--darker);
-  transition: transform cubic-bezier(0.7, 0, 0.3, 1) 0.4s;
+  transition: transform cubic-bezier(0.7, 0, 0.3, 1) 0.4s, box-shadow cubic-bezier(0.7, 0, 0.3, 1) 0.4s;
   will-change: transform;
   overflow-y: auto;
   transform: translate3d(0, 0, 0);
@@ -82,4 +82,58 @@
 .navbar-sidebar .spacer {
   display: block;
   height: 0.75rem;
+}
+
+.navbar-overlay {
+  z-index: 100;
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  animation-duration: 0.5s;
+  animation-fill-mode: both;
+  overflow: hidden;
+}
+.navbar-overlay:not(.displayed):not(.hidden) {
+  display: none;
+}
+.navbar-overlay.displayed {
+  background-color: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(0.5rem);
+  animation-name: navbar-overlay-appear;
+}
+@keyframes navbar-overlay-appear {
+  0% {
+    background-color: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(0rem);
+  }
+  100% {
+    background-color: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(0.5rem);
+  }
+}
+@keyframes navbar-overlay-disappear {
+  0% {
+    background-color: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(0.5rem);
+  }
+  99.99% {
+    width: 100%;
+    height: 100vh;
+    left: 0;
+    top: 0;
+  }
+  100% {
+    background-color: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(0);
+    width: 0;
+    height: 0;
+    left: -10000%;
+    top: -10000%;
+  }
+}
+
+.navbar-overlay.hidden {
+  animation-name: navbar-overlay-disappear;
 }

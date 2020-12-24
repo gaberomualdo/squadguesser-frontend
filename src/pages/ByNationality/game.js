@@ -278,7 +278,10 @@ export default function ByNationalityGame(props) {
       <div className='side-section extras-section misc-section'>
         {props.dailyChallenge ? (
           <div className='panel side-panel dailychallenge'>
-            <h1 className='title'>Daily Challenge</h1>
+            <h1 className='title'>
+              Daily <br />
+              Challenge
+            </h1>
             <div className='title-number'>
               <h1>{['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][new Date().getMonth()]}</h1>
               <p>{new Date().getDate()}</p>

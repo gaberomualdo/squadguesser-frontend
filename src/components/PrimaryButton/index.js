@@ -3,10 +3,11 @@ import React from 'react';
 
 export default function PrimaryButton(props) {
   return (
-    <button
+    <a
       {...props}
       className={`primarybutton ${props.className}`}
       style={{ '--button-theme-color': props.color ? props.color : 'var(--primary)', ...props.style }}
+      role='button'
     >
       {props.icon ? (
         <>
@@ -15,6 +16,6 @@ export default function PrimaryButton(props) {
         </>
       ) : null}
       <span className='text'>{props.text}</span>
-    </button>
+    </a>
   );
 }

@@ -67,7 +67,7 @@
   transform: translate3d(15rem, 0, 0);
   box-shadow: none;
 }
-.navbar-sidebar button {
+.navbar-sidebar > *:not(.spacer) {
   width: 100%;
   display: block;
   margin-right: 0 !important;
@@ -76,7 +76,7 @@
   margin-bottom: 0rem;
   text-align: left;
 }
-.navbar-sidebar button.infobutton {
+.navbar-sidebar > *:not(.spacer).infobutton {
   margin-top: 0.3rem;
 }
 .navbar-sidebar .spacer {

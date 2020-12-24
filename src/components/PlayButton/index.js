@@ -3,7 +3,7 @@ import './styles.css';
 
 export default function PlayBtn(props) {
   return (
-    <button {...props} className={`playbutton ${props.className}`}>
+    <a {...props} className={`playbutton ${props.className}`} role='button'>
       {props.icon ? (
         <div className='icon'>
           <span>{props.icon}</span>
@@ -14,6 +14,6 @@ export default function PlayBtn(props) {
         <p>{props.description}</p>
       </div>
       <div className='arrow'>&rarr;</div>
-    </button>
+    </a>
   );
 }

@@ -286,7 +286,7 @@ Colorize
   }
   .homepage .box-section .right > h1 {
     font-size: 2rem;
-    margin-bottom: 0;
+    margin-bottom: 1rem;
   }
   .homepage .box-section.column > h1 {
     text-align: left;

@@ -97,15 +97,20 @@ class App extends Component {
     window.removeEventListener('popstate', this.updateOnURLChange);
   }
   render() {
-    const setPage = (p) => {
-      window.scrollTo(0, 0);
-      this.updatePageTitle(p);
-
+    const setPage = (p, getNewURL = false) => {
       const url = new URL(window.location.href);
       url.searchParams.set(urlPageParam, p);
       ['game', 'league'].forEach((e) => url.searchParams.delete(e));
-      const urlStr = url.toString();
-      history.pushState({}, 'Navigate to New Page', urlStr);
+      const newURL = url.toString();
+
+      if (getNewURL) {
+        return newURL;
+      }
+
+      window.scrollTo(0, 0);
+      this.updatePageTitle(p);
+
+      history.pushState({}, 'Navigate to New Page', newURL);
       this.setState({ activePage: p, currentURL: window.location.href });
     };
 

@@ -105,13 +105,28 @@ export default class Home extends Component {
               name={`Play The ${topTeamsLeagueName}`}
               icon='⚽'
               description={<>Guess from the greatest teams right now &rarr;</>}
+              onClick={() => {
+                const leagueNameCode = toBase64(topTeamsLeagueName);
+                const url = new URL(window.location.href);
+                url.searchParams.delete('game');
+                url.searchParams.set('league', leagueNameCode);
+                url.searchParams.set('page', 'play');
+                const urlStr = url.toString();
+                window.open(urlStr, '_self');
+              }}
             />
           </div>
         </div>
         <div className='box-section right-first'>
           <div className='right'>
             <h1 className='main-header'>Compete against your friends on the public leaderboard</h1>
-            <PlayButton className='secondary' icon='🏆' name='Check Out the Leaderboard' description={<>See it now &rarr;</>} />
+            <PlayButton
+              onClick={() => this.props.setPage('leaderboard')}
+              className='secondary'
+              icon='🏆'
+              name='Check Out the Leaderboard'
+              description={<>See it now &rarr;</>}
+            />
           </div>
           <div className='left leaderboard'>
             <div className='inner'>

@@ -15,9 +15,10 @@
 .gamepage .tab-select > .tab-select-row > *:not(.bg) {
   flex: 0 1 100%;
   font-weight: 600;
-  z-index: 999;
+  z-index: 1;
   opacity: 0.7;
   transition: opacity 0.25s ease-in-out;
+  cursor: pointer;
 }
 .gamepage .tab-select > .tab-select-row .bg {
   position: absolute;
@@ -29,7 +30,7 @@
   width: calc(33.333% - (var(--padding) * 2));
   height: calc(var(--tabselect-height) - (var(--padding) * 2));
   border-radius: 3px;
-  z-index: 998;
+  z-index: 0;
 }
 .gamepage[activetab='guess-section'] > .tab-select > .tab-select-row > .bg {
   left: calc(33.333% + var(--padding));

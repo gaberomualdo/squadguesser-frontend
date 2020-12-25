@@ -2,7 +2,7 @@
 import './lib/main.css';
 import './lib/layout.css';
 import { NavBar, ResponsiveContainer, Footer } from './components/';
-import { Home, About, ByNationality, DailyChallenge } from './pages/';
+import { Home, About, ByNationality, DailyChallenge, SquadsDatabase } from './pages/';
 import { Component } from 'react';
 
 const SITE_TITLE = 'SquadGuessr';
@@ -122,6 +122,7 @@ class App extends Component {
           {this.state.activePage === 'about' ? <About setPage={setPage} url={this.state.currentURL} pages={pages} /> : null}
           {this.state.activePage === 'play' ? <ByNationality setPage={setPage} url={this.state.currentURL} pages={pages} /> : null}
           {this.state.activePage === 'dailychallenge' ? <DailyChallenge setPage={setPage} url={this.state.currentURL} pages={pages} /> : null}
+          {this.state.activePage === 'database' ? <SquadsDatabase setPage={setPage} url={this.state.currentURL} pages={pages} /> : null}
         </ResponsiveContainer>
         <Footer />
       </div>

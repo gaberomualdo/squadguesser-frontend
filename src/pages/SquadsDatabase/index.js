@@ -2,18 +2,19 @@ import './styles.css';
 import React, { useEffect, useState } from 'react';
 import { APIBaseURL } from '../../lib/config';
 import { halfStar, emptyStar, fullStar } from '../../lib/starIcons';
-import { Loading, PlayButton } from '../../components';
+import { Loading, PlayButton, Pitch, Formation } from '../../components';
 import commaNumber from 'comma-number';
 import Dropdown from './dropdown';
 
 export default function SquadsDatabase() {
   const [data, setData] = useState({});
-  const [dropdownsState, setDropdownsState] = useState({});
   useEffect(() => {
-    (async () => {
-      const fetchedData = await (await fetch(`${APIBaseURL}/teams/all/by-league/`)).json();
-      setData(fetchedData);
-    })();
+    setTimeout(() => {
+      (async () => {
+        const fetchedData = await (await fetch(`${APIBaseURL}/teams/all/by-league/`)).json();
+        setData(fetchedData);
+      })();
+    }, 100);
   }, []);
   return (
     <div className='squadsdatabase-page fullheight-section page panel'>
@@ -64,6 +65,7 @@ export default function SquadsDatabase() {
         ) : (
           <Loading />
         )}
+        <div className='squad-content'></div>
       </main>
     </div>
   );

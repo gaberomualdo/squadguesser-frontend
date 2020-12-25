@@ -1,9 +1,9 @@
-.gamepage .main .formation {
+.formation-component {
   width: 100%;
   flex: 1 1 100%;
   position: relative;
 }
-.gamepage .main .formation .player {
+.formation-component .player {
   text-align: center;
   width: 18%;
   margin-left: -9%;
@@ -14,13 +14,13 @@
   align-items: center;
   position: absolute;
 }
-.gamepage .main .formation .player > * {
+.formation-component .player > * {
   display: block;
   float: left;
   width: 100%;
   clear: both;
 }
-.gamepage .main .formation .player img {
+.formation-component .player img {
   filter: drop-shadow(0 2px 4px #00000080);
   position: relative;
   width: 65%;
@@ -32,20 +32,20 @@
   animation-duration: 0.35s;
   animation-name: bounce-appear;
 }
-.gamepage .main .formation .player.show-flag img.player,
-.gamepage .main .formation .player.show-player img.flag {
+.formation-component .player.show-flag img.player,
+.formation-component .player.show-player img.flag {
   display: none;
 }
-.gamepage .main .formation .player img.flag {
+.formation-component .player img.flag {
   width: 85%;
   height: auto;
   margin-bottom: -20%;
 }
-.gamepage .main .formation .player.show-flag p {
+.formation-component .player.show-flag p {
   display: none;
   font-size: 0.65rem;
 }
-.gamepage .main .formation .player p {
+.formation-component .player p {
   line-height: normal;
   background: rgba(0, 0, 0, 0.6);
   color: #fff;
@@ -62,7 +62,7 @@
   animation-name: bounce-appear-player;
   backface-visibility: hidden;
 }
-.gamepage .main .formation .player p span {
+.formation-component .player p span {
   padding: 0.25rem;
   display: block;
 }

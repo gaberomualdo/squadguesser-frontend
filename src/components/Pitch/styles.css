@@ -1,4 +1,4 @@
-.gamepage .main .pitch {
+.pitch-component {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -7,28 +7,28 @@
   --line-color: rgba(255, 255, 255, 0.5);
   --line-size: 0.15rem;
 }
-.gamepage .main .pitch * {
+.pitch-component * {
   position: absolute;
 }
-.gamepage .main .pitch .midline {
+.pitch-component .midline {
   border-top: var(--line-size) solid var(--line-color);
   top: 50%;
   left: 0;
   width: 100%;
 }
-.gamepage .main .pitch .circle {
+.pitch-component .circle {
   border-radius: 50%;
   border: var(--line-size) solid var(--line-color);
 }
 
-.gamepage .main .pitch .circle.center {
+.pitch-component .circle.center {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 10rem;
   height: 10rem;
 }
-.gamepage .main .pitch .circle.dot {
+.pitch-component .circle.dot {
   border: none;
   height: 0.5rem;
   width: 0.5rem;
@@ -36,7 +36,7 @@
   background-color: var(--line-color);
 }
 
-.gamepage .main .pitch .gk.box {
+.pitch-component .gk.box {
   left: 50%;
   transform: translateX(-50%);
   width: 15rem;
@@ -44,44 +44,44 @@
   border: var(--line-size) solid var(--line-color);
   border-top: none;
 }
-.gamepage .main .pitch .gk.box.top {
+.pitch-component .gk.box.top {
   top: 0;
 }
-.gamepage .main .pitch .gk.box.bottom {
+.pitch-component .gk.box.bottom {
   bottom: 0;
   transform: translateX(-50%) rotateX(180deg);
 }
 
-.gamepage .main .pitch .gk.box.small {
+.pitch-component .gk.box.small {
   height: 3.5rem;
   width: 7.5rem;
 }
-.gamepage .main .pitch .gk.dot {
+.pitch-component .gk.dot {
   left: 50%;
 }
-.gamepage .main .pitch .gk.dot.top {
+.pitch-component .gk.dot.top {
   top: 5.25rem;
 }
-.gamepage .main .pitch .gk.dot.bottom {
+.pitch-component .gk.dot.bottom {
   bottom: 5.25rem;
 }
-.gamepage .main .pitch .line {
+.pitch-component .line {
   width: 100%;
 }
-.gamepage .main .pitch .line.odd {
+.pitch-component .line.odd {
   background-color: var(--primary);
 }
-.gamepage .main .pitch .line.even {
+.pitch-component .line.even {
   background-color: var(--slightlydarkprimary);
 }
-.gamepage .main .pitch .overlay {
+.pitch-component .overlay {
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.1);
 }
-.gamepage .main .pitch .site-title {
+.pitch-component .site-title {
   bottom: 0.5rem;
   right: 0.5rem;
   font-size: 0.75rem;

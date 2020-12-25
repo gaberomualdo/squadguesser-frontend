@@ -12,7 +12,6 @@ body:before {
   content: '';
   background-image: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.9)), url('http://localhost:3000/bg1.jpg');
   background-size: cover;
-  max-height: 100rem;
   /* background-size: cover, 100% auto;
   background-repeat: repeat, no-repeat; */
   position: absolute;

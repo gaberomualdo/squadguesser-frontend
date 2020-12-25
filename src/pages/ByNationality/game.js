@@ -1,17 +1,14 @@
 /* eslint-disable no-restricted-globals */
 import './game-styles/misc.css';
 import './game-styles/guessteam.css';
-import './game-styles/formation.css';
-import './game-styles/pitch.css';
 import './game-styles/pitch-top.css';
 import './game-styles/extras-section.css';
 import './game-styles/mobile.css';
-import { PrimaryButton, TertiaryButton } from '../../components';
+import { PrimaryButton, TertiaryButton, Pitch, PitchTop, Formation } from '../../components';
 import React, { useState, useEffect } from 'react';
 import commaNumber from 'comma-number';
 import { APIBaseURL } from '../../lib/config';
 import { toBase64, fromBase64 } from '../../lib/utils';
-import { halfStar, fullStar, emptyStar } from '../../lib/starIcons';
 
 const urlGameParam = 'game';
 
@@ -161,105 +158,43 @@ export default function ByNationalityGame(props) {
         </div>
       </div>
       <div className='panel main main-section'>
-        <div className='pitch'>
-          {[...Array(21)].map((x, i) => (
-            <div key={i} style={{ top: `${(100 / 21) * i}%`, height: `${100 / 21}%` }} className={`line ${i % 2 === 0 ? 'even' : 'odd'}`}></div>
-          ))}
-          <div className='midline'></div>
-          <div className='center circle dot'></div>
-          <div className='center circle'></div>
-          <div className='box small gk top'></div>
-          <div className='box small gk bottom'></div>
-          <div className='box large gk top'></div>
-          <div className='box large gk bottom'></div>
-          <div className='circle dot gk top'></div>
-          <div className='circle dot gk bottom'></div>
-          <div className='overlay'></div>
-          <p className='site-title'>SquadGuessr</p>
-        </div>
-        <div
-          className={`top ${
-            gameData.doneGuessing || showRatings || showTransferBudget || nameLettersShown.length > 0 ? 'show-answer' : 'hide-answer'
-          }`}
-        >
-          <div className='header'>
-            <div className='box'>
-              <h1>Guess That Team!</h1>
-              <p>Each flag and its position represents a player in a team.</p>
-              {!props.dailyChallenge ? <p style={{ marginTop: '.35rem' }}>Team league: {props.league}</p> : null}
-            </div>
-          </div>
-          <div className='left'>
-            <div className='logo-container'>
-              {gameData.doneGuessing || nameLettersShown.length > 0 ? (
-                <div className='logo box'>
-                  {gameData.doneGuessing ? <img src={gameData.logoURL} alt='Team Logo' /> : null}
-                  <h1>
-                    {gameData.correctTeam.split('').map((l, i) => {
-                      const fillerLetter = l === ' ' ? <>&nbsp; </> : '_ ';
-                      const letter = l + ' ';
-                      const showLetter = !gameData.doneGuessing && nameLettersShown.indexOf(i) > -1;
-                      return (
-                        <span key={i} style={gameData.doneGuessing ? {} : { textTransform: 'uppercase' }}>
-                          {gameData.doneGuessing ? l : showLetter ? letter : fillerLetter}
-                        </span>
-                      );
-                    })}
-                  </h1>
-                </div>
-              ) : null}
-              <div className='row'>
-                <div className='stars'>
-                  {gameData.stars && (gameData.doneGuessing || showRatings)
-                    ? Array(Math.floor(gameData.stars))
-                        .fill(fullStar)
-                        .concat(Array((gameData.stars % 1) / 0.5).fill(halfStar))
-                        .concat(Array(5 - Math.ceil(gameData.stars)).fill(emptyStar))
-                        .map((e, i) => <span key={i}>{e}</span>)
-                    : null}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className='right'>
-            <div className='info box'>
-              {gameData.fifaMiscData && (gameData.doneGuessing || showTransferBudget) ? (
-                <p className='budget'>
-                  Transfer Budget: <strong>${commaNumber(gameData.fifaMiscData.transferBudgetDollars)}</strong>
-                </p>
-              ) : null}
-              {gameData.fifaMiscData && (gameData.doneGuessing || showRatings) ? (
-                <p className='rating'>
-                  Rating:&nbsp;
-                  <strong>
-                    {Object.keys(gameData.fifaMiscData.ratings)
-                      .map((e) => {
-                        return `${gameData.fifaMiscData.ratings[e]} ${e.slice(0, 3).toUpperCase()}`;
-                      })
-                      .join(' • ')}
-                  </strong>
-                </p>
-              ) : null}
-            </div>
-          </div>
-        </div>
-        <div className='formation'>
-          {gameData.teamFormation.map((player, i) => {
-            const flagURL = player.nationality.flagURL.split('/2/').join('/6/');
-            const playerURL = player.photoURL.split('/5/').join('/6/');
-            const showAnswer = gameData.doneGuessing;
-            let { x, y } = player.positionCoords;
+        <Pitch />
+        <PitchTop
+          showAnswer={gameData.doneGuessing || showRatings || showTransferBudget || nameLettersShown.length > 0}
+          showLeague={!props.dailyChallenge}
+          showTeamName={gameData.doneGuessing || nameLettersShown.length > 0}
+          showTeamLogo={gameData.doneGuessing}
+          teamLogoURL={gameData.logoURL}
+          teamName={gameData.correctTeam.split('').map((l, i) => {
+            const fillerLetter = l === ' ' ? <>&nbsp; </> : '_ ';
+            const letter = l + ' ';
+            const showLetter = !gameData.doneGuessing && nameLettersShown.indexOf(i) > -1;
             return (
-              <div className={`player ${showAnswer ? 'show-player' : 'show-flag'}`} key={i} style={{ left: `${x}%`, bottom: `${y}%` }}>
-                <img src={flagURL} alt='' className='flag' />
-                <img src={playerURL} alt='' className='player' />
-                <p className='name'>
-                  <span>{showAnswer ? player.shortName : player.nationality.name}</span>
-                </p>
-              </div>
+              <span key={i} style={gameData.doneGuessing ? {} : { textTransform: 'uppercase' }}>
+                {gameData.doneGuessing ? l : showLetter ? letter : fillerLetter}
+              </span>
             );
           })}
-        </div>
+          showStars={gameData.stars && (gameData.doneGuessing || showRatings)}
+          stars={gameData.stars}
+          showTransferBudget={gameData.fifaMiscData && (gameData.doneGuessing || showTransferBudget)}
+          transferBudgetDollars={gameData.fifaMiscData ? gameData.fifaMiscData.transferBudgetDollars : 0}
+          showRatings={gameData.fifaMiscData && (gameData.doneGuessing || showRatings)}
+          ratings={gameData.fifaMiscData ? gameData.fifaMiscData.ratings : { defense: 0, attack: 0, midfield: 0 }}
+        />
+        <Formation
+          showAnswer={gameData.doneGuessing}
+          players={gameData.teamFormation.map((player, i) => {
+            return {
+              flagURL: player.nationality.flagURL.split('/2/').join('/6/'),
+              playerURL: player.photoURL.split('/5/').join('/6/'),
+              x: player.positionCoords.x,
+              y: player.positionCoords.y,
+              nationalityName: player.nationality.name,
+              name: player.shortName,
+            };
+          })}
+        />
       </div>
       <div className='side-section extras-section misc-section'>
         {props.dailyChallenge ? (
@@ -327,11 +262,6 @@ export default function ByNationalityGame(props) {
             text='Show Transfer Budget'
           />
         </div>
-        {/* <div className='panel side-panel share'>
-          <h1 className='title'>Share</h1>
-          <PrimaryButton color='var(--info)' text='Download Challenge' />
-          <PrimaryButton color='var(--info)' text='Download Challenge Answer' />
-        </div> */}
       </div>
     </div>
   );

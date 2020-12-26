@@ -56,7 +56,7 @@ class NavBar extends Component {
     const logoButton = (
       <PrimaryButton
         icon={homePage.icon}
-        text={'SquadGuessr'}
+        text={'SquadGuesser'}
         className={`logo ${active === homePage.code ? 'active' : ''}`}
         onClick={() => openPage(homePage.code)}
         color={mainButtonColor}

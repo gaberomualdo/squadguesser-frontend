@@ -23,6 +23,42 @@ export default function SquadsDatabase() {
         <h1 className='title'>Squads Database</h1>
         <p className='description'>our database of over 200 professional football first-team squads</p>
         <main className={`main-container ${Object.keys(activeSquad).length > 0 ? 'show-squad' : 'hide-squad'}`}>
+          <div className='squad-content'>
+            <div className='squad-content-inner'>
+              {Object.keys(activeSquad).length > 0 ? (
+                <>
+                  <Pitch />
+                  <PitchTop
+                    showAnswer={true}
+                    showLeague={true}
+                    showTeamName={true}
+                    showTeamLogo={true}
+                    showStars={true}
+                    showRatings={activeSquad.fifaMiscData ? true : false}
+                    showTransferBudget={activeSquad.fifaMiscData ? true : false}
+                    teamLogoURL={activeSquad.logoURL}
+                    teamName={activeSquad.name}
+                    stars={activeSquad.stars}
+                    transferBudgetDollars={activeSquad.fifaMiscData ? activeSquad.fifaMiscData.transferBudgetDollars : 0}
+                    ratings={activeSquad.fifaMiscData ? activeSquad.fifaMiscData.ratings : { defense: 0, attack: 0, midfield: 0 }}
+                  />
+                  <Formation
+                    showAnswer={true}
+                    players={activeSquad.formation.map((player, i) => {
+                      return {
+                        flagURL: player.nationality.flagURL.split('/2/').join('/6/'),
+                        playerURL: player.photoURL.split('/5/').join('/6/'),
+                        x: player.positionCoords.x,
+                        y: player.positionCoords.y,
+                        nationalityName: player.nationality.name,
+                        name: player.shortName,
+                      };
+                    })}
+                  />
+                </>
+              ) : null}
+            </div>
+          </div>
           {Object.keys(data).length > 0 ? (
             <>
               <div className='teams-select'>
@@ -74,44 +110,10 @@ export default function SquadsDatabase() {
               </div>
             </>
           ) : (
-            <Loading />
-          )}
-          <div className='squad-content'>
-            <div className='squad-content-inner'>
-              {Object.keys(activeSquad).length > 0 ? (
-                <>
-                  <Pitch />
-                  <PitchTop
-                    showAnswer={true}
-                    showLeague={true}
-                    showTeamName={true}
-                    showTeamLogo={true}
-                    showStars={true}
-                    showRatings={activeSquad.fifaMiscData ? true : false}
-                    showTransferBudget={activeSquad.fifaMiscData ? true : false}
-                    teamLogoURL={activeSquad.logoURL}
-                    teamName={activeSquad.name}
-                    stars={activeSquad.stars}
-                    transferBudgetDollars={activeSquad.fifaMiscData ? activeSquad.fifaMiscData.transferBudgetDollars : 0}
-                    ratings={activeSquad.fifaMiscData ? activeSquad.fifaMiscData.ratings : { defense: 0, attack: 0, midfield: 0 }}
-                  />
-                  <Formation
-                    showAnswer={true}
-                    players={activeSquad.formation.map((player, i) => {
-                      return {
-                        flagURL: player.nationality.flagURL.split('/2/').join('/6/'),
-                        playerURL: player.photoURL.split('/5/').join('/6/'),
-                        x: player.positionCoords.x,
-                        y: player.positionCoords.y,
-                        nationalityName: player.nationality.name,
-                        name: player.shortName,
-                      };
-                    })}
-                  />
-                </>
-              ) : null}
+            <div style={{ margin: '0 auto', float: 'none' }}>
+              <Loading />
             </div>
-          </div>
+          )}
         </main>
         <div className='mobile-banner'>
           <p>This page is not yet available on mobile.</p>

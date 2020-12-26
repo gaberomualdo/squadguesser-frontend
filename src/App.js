@@ -5,7 +5,7 @@ import { NavBar, ResponsiveContainer, Footer } from './components/';
 import { Home, About, ByNationality, DailyChallenge, SquadsDatabase } from './pages/';
 import { Component } from 'react';
 
-const SITE_TITLE = 'SquadGuessr';
+const SITE_TITLE = 'SquadGuesser';
 
 const pages = [
   {
@@ -27,7 +27,7 @@ const pages = [
   {
     icon: '⚽',
     code: 'play',
-    name: 'Play SquadGuessr',
+    name: 'Play SquadGuesser',
     description: <>Guess teams from the Premier League, La Liga, Bundesliga, and more &rarr;</>,
     type: 'game',
   },

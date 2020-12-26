@@ -9,7 +9,7 @@ export default function PitchTop(props) {
       <div className='header'>
         <div className='box'>
           <h1>Guess That Team!</h1>
-          <p>Each flag and its position represents a player in a team.</p>
+          <p className='instructions'>Each flag and its position represents a player in a team.</p>
           {props.showLeague ? <p style={{ marginTop: '.35rem' }}>Team league: {props.league}</p> : null}
         </div>
       </div>

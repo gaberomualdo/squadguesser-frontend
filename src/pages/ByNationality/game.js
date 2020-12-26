@@ -1,12 +1,10 @@
 /* eslint-disable no-restricted-globals */
 import './game-styles/misc.css';
 import './game-styles/guessteam.css';
-import './game-styles/pitch-top.css';
 import './game-styles/extras-section.css';
 import './game-styles/mobile.css';
 import { PrimaryButton, TertiaryButton, Pitch, PitchTop, Formation } from '../../components';
 import React, { useState, useEffect } from 'react';
-import commaNumber from 'comma-number';
 import { APIBaseURL } from '../../lib/config';
 import { toBase64, fromBase64 } from '../../lib/utils';
 
@@ -181,6 +179,7 @@ export default function ByNationalityGame(props) {
           transferBudgetDollars={gameData.fifaMiscData ? gameData.fifaMiscData.transferBudgetDollars : 0}
           showRatings={gameData.fifaMiscData && (gameData.doneGuessing || showRatings)}
           ratings={gameData.fifaMiscData ? gameData.fifaMiscData.ratings : { defense: 0, attack: 0, midfield: 0 }}
+          league={gameData.league ? gameData.league.name : ''}
         />
         <Formation
           showAnswer={gameData.doneGuessing}

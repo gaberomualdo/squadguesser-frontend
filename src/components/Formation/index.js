@@ -9,7 +9,11 @@ export default function Formation(props) {
         const { showAnswer } = props;
         let { x, y } = player;
         return (
-          <div className={`player ${showAnswer ? 'show-player' : 'show-flag'}`} key={i} style={{ left: `${x}%`, bottom: `${y}%` }}>
+          <div
+            className={`player ${showAnswer ? 'show-player' : 'show-flag'}`}
+            key={`${player.name}---${i}`}
+            style={{ left: `${x}%`, bottom: `${y}%` }}
+          >
             <img src={flagURL} alt='' className='flag' />
             <img src={playerURL} alt='' className='player' />
             <p className='name'>

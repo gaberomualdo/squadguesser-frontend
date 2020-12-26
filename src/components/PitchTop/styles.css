@@ -5,6 +5,15 @@
   zoom: 90%;
   overflow: hidden;
 }
+@media only screen and (max-width: 950px) {
+  .pitch-top-component {
+    zoom: 85%;
+  }
+  .pitch-top-component .instructions {
+    display: none;
+  }
+}
+
 .pitch-top-component.show-answer > .header,
 .pitch-top-component.hide-answer > .left,
 .pitch-top-component.hide-answer > .right {

@@ -9,3 +9,4 @@ export { default as Loading } from './Loading';
 export { default as Pitch } from './Pitch';
 export { default as PitchTop } from './PitchTop';
 export { default as Formation } from './Formation';
+export { default as AuthModal } from './AuthModal';

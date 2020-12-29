@@ -1,11 +1,11 @@
 /* eslint-disable no-restricted-globals */
 import './lib/main.css';
 import './lib/layout.css';
-import { NavBar, ResponsiveContainer, Footer } from './components/';
+import { NavBar, ResponsiveContainer, Footer, AuthModal } from './components/';
 import { Home, About, ByNationality, DailyChallenge, SquadsDatabase } from './pages/';
 import { Component } from 'react';
 
-const SITE_TITLE = 'SquadGuesser';
+const SITE_TITLE = 'SquadGuessr';
 
 const pages = [
   {
@@ -27,7 +27,7 @@ const pages = [
   {
     icon: '⚽',
     code: 'play',
-    name: 'Play SquadGuesser',
+    name: 'Play SquadGuessr',
     description: <>Guess teams from the Premier League, La Liga, Bundesliga, and more &rarr;</>,
     type: 'game',
   },
@@ -65,6 +65,9 @@ class App extends Component {
       activePage: initialPage,
       currentURL:
         window.location.href /* the 'currentURL' and 'url' state and prop is used to require refresh of the component if the page URL changes */,
+      user: {},
+      showAuthModal: false,
+      authModalSignIn: true,
     };
   }
   parsePageURLParam(callback) {
@@ -97,6 +100,10 @@ class App extends Component {
     window.removeEventListener('popstate', this.updateOnURLChange);
   }
   render() {
+    const setAuthModal = (open, signIn = true) => {
+      this.setState({ showAuthModal: open, authModalSignIn: signIn });
+    };
+
     const setPage = (p, getNewURL = false) => {
       const url = new URL(window.location.href);
       url.searchParams.set(urlPageParam, p);
@@ -116,7 +123,7 @@ class App extends Component {
 
     return (
       <div className='App'>
-        <NavBar pages={pages} setPage={setPage} active={this.state.activePage} />
+        <NavBar setAuthModal={setAuthModal} pages={pages} setPage={setPage} active={this.state.activePage} user={this.state.user} />
         <ResponsiveContainer>
           {this.state.activePage === 'home' ? <Home setPage={setPage} url={this.state.currentURL} pages={pages} /> : null}{' '}
           {this.state.activePage === 'about' ? <About setPage={setPage} url={this.state.currentURL} pages={pages} /> : null}
@@ -125,6 +132,7 @@ class App extends Component {
           {this.state.activePage === 'database' ? <SquadsDatabase setPage={setPage} url={this.state.currentURL} pages={pages} /> : null}
         </ResponsiveContainer>
         <Footer />
+        {this.state.showAuthModal ? <AuthModal setAuthModal={setAuthModal} signIn={this.state.authModalSignIn} /> : null}
       </div>
     );
   }

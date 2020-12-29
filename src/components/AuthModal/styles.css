@@ -1,0 +1,187 @@
+@keyframes modal-appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes modal-inner-appear {
+  0% {
+    opacity: 0;
+    transform: scale(0.75);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.auth-modal-component {
+  animation-name: modal-appear;
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  z-index: 999999999;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.auth-modal-component,
+.auth-modal-component .inner {
+  animation-fill-mode: both;
+  animation-timing-function: linear;
+  animation-duration: 0.25s;
+  backface-visibility: hidden;
+}
+.auth-modal-component .inner {
+  animation-name: modal-inner-appear;
+  background-color: var(--darker);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  padding: 2.5rem;
+  position: relative;
+  width: 30rem;
+  max-width: 100%;
+  max-height: 100vh;
+  overflow-y: auto;
+}
+@media only screen and (max-width: 600px) {
+  .auth-modal-component .inner {
+    width: 100%;
+    height: 100vh;
+  }
+}
+.auth-modal-component .inner > .close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  height: 1.25rem;
+  width: 1.25rem;
+  opacity: 0.675;
+  transition: opacity 0.2s, transform 0.2s;
+  cursor: pointer;
+}
+.auth-modal-component .inner > .close:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+.auth-modal-component .inner > .close:active {
+  transform: scale(1.05);
+}
+.auth-modal-component .inner > .close svg {
+  width: 100%;
+  height: 100%;
+  fill: var(--light);
+}
+
+.auth-modal-component .inner > h1 {
+  font-size: 2.5rem;
+}
+.auth-modal-component .inner > h1,
+.auth-modal-component .inner > p {
+  text-align: center;
+}
+
+.auth-modal-component .inner > p {
+  margin-top: 0.25rem;
+  opacity: 0.8;
+}
+.auth-modal-component .inner > p,
+.auth-modal-component .inner > p * {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.auth-modal-component .inner > p button {
+  border-bottom: 1px dotted var(--primary);
+  color: var(--primary);
+  cursor: pointer;
+  opacity: 0.85;
+}
+.auth-modal-component .inner > p button:hover {
+  border-bottom-style: solid;
+  opacity: 1;
+}
+
+.auth-modal-component .inner form {
+  margin-top: 0.5rem;
+}
+
+.auth-modal-component .inner form > .error {
+  color: var(--light);
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 0.2rem 0.5rem;
+  background-color: var(--danger);
+  border-radius: 4px;
+  margin-top: 0.5rem;
+  opacity: 0.75;
+}
+
+.auth-modal-component .inner form .input-container {
+  display: flex;
+  flex-direction: column-reverse;
+}
+.auth-modal-component .inner form .input-container > * {
+  width: 100%;
+  flex: 1 1 auto;
+}
+.auth-modal-component .inner form .input-container label {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  padding: 0.5rem 0;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.auth-modal-component .inner form .input-container input {
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 4px;
+  padding: 0.5rem 0.75rem;
+  font-size: 1.1rem;
+  transition: border-color 0.2s;
+  position: relative;
+}
+.auth-modal-component .inner form .input-container input:focus {
+  border-color: rgba(255, 255, 255, 0.65);
+}
+.auth-modal-component .inner form .input-container input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.auth-modal-component .inner form .input-container input:not(:placeholder-shown) + label {
+  opacity: 1;
+}
+
+.auth-modal-component .inner form[slide='1'] .input-container:not(:nth-child(2)) {
+  display: none;
+}
+.auth-modal-component .inner form[slide='0'] .input-container:not(:nth-child(1)) {
+  display: none;
+}
+
+.auth-modal-component .inner form .slides-btn-container {
+  margin-top: 2rem;
+}
+.auth-modal-component .inner form .slides-btn-container > * {
+  width: auto;
+  float: left;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  transform: scale(1);
+  box-shadow: none;
+}
+.auth-modal-component .inner form .slides-btn-container > *[disabled] {
+  opacity: 0.5;
+  cursor: default;
+  pointer-events: none;
+}
+.auth-modal-component .inner form .slides-btn-container > *:last-child {
+  float: right;
+}

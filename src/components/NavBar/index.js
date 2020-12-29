@@ -43,7 +43,7 @@ class NavBar extends Component {
     document.removeEventListener('mousedown', this.mouseDown);
   }
   render() {
-    const { pages, active, setPage } = this.props;
+    const { pages, active, setPage, user } = this.props;
     const homePage = pages.filter((e) => e.isHomepage)[0];
 
     const mainButtonColor = 'var(--primary)';
@@ -56,7 +56,7 @@ class NavBar extends Component {
     const logoButton = (
       <PrimaryButton
         icon={homePage.icon}
-        text={'SquadGuesser'}
+        text={'SquadGuessr'}
         className={`logo ${active === homePage.code ? 'active' : ''}`}
         onClick={() => openPage(homePage.code)}
         color={mainButtonColor}
@@ -119,7 +119,33 @@ class NavBar extends Component {
                   {logoButton}
                   {infoButtons}
                 </div>
-                <div className='right'>{mainButtons}</div>
+                <div className='right'>
+                  {mainButtons}
+                  {/* login/register buttons or profile information */}
+                  <div className='auth-area'>
+                    <div className='auth-buttons'>
+                      {Object.keys(user).length === 0 ? (
+                        <>
+                          <button className='signin' onClick={() => this.props.setAuthModal(true, true)}>
+                            Sign In
+                          </button>
+                          <span className='separator'>/</span>
+                          <button className='signup' onClick={() => this.props.setAuthModal(true, false)}>
+                            Sign Up
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <button className='user-info disabled'>
+                            @{user.username ? user.username : '(not found)'} (rated {user.rating ? user.rating : '0'})
+                          </button>
+                          <span className='separator'>/</span>
+                          <button className='signout'>Sign Out</button>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </div>
               </div>
             )}
           </ResponsiveContainer>

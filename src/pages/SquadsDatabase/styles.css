@@ -79,15 +79,17 @@
 }
 .squadsdatabase-page .dropdown-contents {
   --current-height: 0;
-  transition: max-height 0.25s ease-in-out;
+  transition: max-height 0.25s ease-in-out, opacity 0.25s ease-in-out;
   overflow: hidden;
   height: auto;
 }
 .squadsdatabase-page .dropdown-container.closed .dropdown-contents {
   max-height: 0;
+  opacity: 0;
 }
 .squadsdatabase-page .dropdown-container.open .dropdown-contents {
   max-height: var(--current-height);
+  opacity: 1;
 }
 
 .squadsdatabase-page .team-button {

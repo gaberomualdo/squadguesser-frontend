@@ -1,15 +1,17 @@
 @keyframes modal-appear {
   0% {
     opacity: 0;
+    backdrop-filter: blur(0);
   }
   100% {
     opacity: 1;
+    backdrop-filter: blur(0.75rem);
   }
 }
 @keyframes modal-inner-appear {
   0% {
     opacity: 0;
-    transform: scale(0.75);
+    transform: scale(0.8);
   }
   100% {
     opacity: 1;
@@ -24,7 +26,6 @@
   z-index: 999999999;
   top: 0;
   left: 0;
-  opacity: 0;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
@@ -173,8 +174,8 @@
   float: left;
   padding: 0.5rem 0.75rem;
   font-size: 1rem;
+  line-height: 1.25rem;
   font-weight: 600;
-  transform: scale(1);
   box-shadow: none;
 }
 .auth-modal-component .inner form .slides-btn-container > *[disabled] {
@@ -182,6 +183,11 @@
   cursor: default;
   pointer-events: none;
 }
-.auth-modal-component .inner form .slides-btn-container > *:last-child {
+/* .auth-modal-component .inner form .slides-btn-container > .slide-counter {
+  font-size: 0.85rem;
+  opacity: 0.75;
+}
+.auth-modal-component .inner form .slides-btn-container > .slide-counter, */
+.auth-modal-component .inner form .slides-btn-container > .next-btn {
   float: right;
 }

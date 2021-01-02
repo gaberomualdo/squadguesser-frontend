@@ -31,7 +31,7 @@
   display: inline-block;
   vertical-align: top;
 }
-.navbar .right .auth-area {
+.navbar-container .auth-area {
   --inner-height: 2.2rem;
   height: var(--inner-height);
   margin: calc((var(--height) - var(--inner-height)) / 2) 0;
@@ -49,38 +49,59 @@
   display: inline-flex;
   align-items: center;
 }
-.navbar .right .auth-area .auth-buttons {
+.navbar-container .auth-area .auth-buttons {
+  display: inline-flex;
   --auth-btn-height: 1.25rem;
-  height: var(--auth-btn-height);
+  min-height: var(--auth-btn-height);
+  align-items: center;
 }
-.navbar .right .auth-area .auth-buttons > * {
+.navbar-container .auth-area .auth-buttons > * {
   display: block;
   float: left;
 }
-.navbar .right .auth-area .auth-buttons button {
-  height: var(--auth-btn-height);
+.navbar-container .auth-area .auth-buttons button {
+  min-height: var(--auth-btn-height);
   line-height: var(--auth-btn-height);
   font-size: 0.85rem;
   font-weight: 600;
   opacity: 0.75;
 }
-.navbar .right .auth-area .auth-buttons button.disabled {
+.navbar-container .auth-area .auth-buttons button.disabled {
   opacity: 0.5;
 }
-.navbar .right .auth-area .auth-buttons button:not(.disabled) {
+.navbar-container .auth-area .auth-buttons button:not(.disabled) {
   cursor: pointer;
 }
-.navbar .right .auth-area .auth-buttons button:not(.disabled):hover {
+.navbar-container .auth-area .auth-buttons button:not(.disabled):hover {
   opacity: 1;
 }
-.navbar .right .auth-area .auth-buttons span.separator {
-  height: var(--auth-btn-height);
+.navbar-container .auth-area .auth-buttons span.separator {
+  min-height: var(--auth-btn-height);
   line-height: var(--auth-btn-height);
   opacity: 0.25;
   margin: 0 0.25rem;
   color: var(--light);
   display: inline-block;
   font-size: 1.25rem;
+}
+
+.navbar-container .navbar-sidebar .auth-area {
+  background-color: var(--dark);
+  border-radius: 4px;
+  clip-path: none;
+  padding: 0.5rem 0.75rem;
+  height: auto;
+}
+
+.navbar-container .navbar-sidebar .auth-area > .auth-buttons {
+  display: flex;
+  width: 100%;
+}
+.navbar-container .navbar-sidebar .auth-area > .auth-buttons button {
+  flex: 1 1 100%;
+}
+.navbar-container .navbar-sidebar .auth-area > .auth-buttons .separator {
+  flex: 1 0 auto;
 }
 
 /* mobile stuff */

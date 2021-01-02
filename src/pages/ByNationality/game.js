@@ -35,7 +35,7 @@ export default function ByNationalityGame(props) {
 
   const newTeam = async (gameCode = '', onlyUpdateWithGameCode = false) => {
     const { league } = props;
-    const data = await (await fetch(`${APIBaseURL}/teams/by-league/${league}`)).json();
+    const data = await (await fetch(`${APIBaseURL}/teams/by-league/onlynamesandlogos/${league}`)).json();
     let teamAPIURL = `${APIBaseURL}/team/random/by-league/${league}`;
     const teamNames = data.map((e) => e.name);
 
@@ -185,7 +185,7 @@ export default function ByNationalityGame(props) {
           showAnswer={gameData.doneGuessing}
           players={gameData.teamFormation.map((player, i) => {
             return {
-              flagURL: player.nationality.flagURL.split('/2/').join('/6/'),
+              flagURL: player.nationality.flagURL.split('/2/').join('/5/'),
               playerURL: player.photoURL.split('/5/').join('/6/'),
               x: player.positionCoords.x,
               y: player.positionCoords.y,

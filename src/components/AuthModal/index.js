@@ -1,10 +1,16 @@
 import './styles.css';
-import { TertiaryButton } from '../../components';
+import { TertiaryButton, Loading } from '../../components';
 import React, { useState } from 'react';
+import { APIBaseURL } from '../../lib/config';
+const axios = require('axios');
+
+const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+const numbers = '1234567890';
 
 export default function AuthModal(props) {
   const [showSignIn, setShowSignIn] = useState(props.signIn);
   const [slide, setSlide] = useState(0);
+  const [nextLoading, setNextLoading] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -12,7 +18,103 @@ export default function AuthModal(props) {
   const usernameLabel = `${showSignIn ? '' : 'Choose a '}Username:`;
   const passwordLabel = `${showSignIn ? '' : 'Choose a '}Password:`;
 
-  const nextBtnDisabled = !(slide === 0 ? username.length > 0 : password.length > 0);
+  const nextBtnDisabled = !(slide === 0 ? username.length > 0 : password.length > 0) || nextLoading;
+
+  const nextBtnClick = () => {
+    if (slide === 0) {
+      let valid = true;
+      let curError = '';
+
+      let bounds = [4, 20];
+      if (!(username.length >= bounds[0] && username.length <= bounds[1])) {
+        valid = false;
+        curError = `Username must be between ${bounds.join('-')} characters.`;
+      } else if (alphabet.indexOf(username[0]) === -1) {
+        valid = false;
+        curError = 'Username must start with a letter.';
+      } else {
+        const invalidChars = [...new Set(username.split('').filter((e) => (alphabet + numbers + '_').indexOf(e) === -1))];
+        if (invalidChars.length > 0) {
+          valid = false;
+          curError = `Username cannot include: ${invalidChars.map((e) => `'${e}'`).join(', ')}.`;
+        }
+      }
+      setError(curError);
+      if (valid) {
+        setNextLoading(true);
+        axios({
+          method: 'post',
+          baseURL: APIBaseURL,
+          url: `/api/users/usernameavailable/`,
+          data: {
+            username,
+          },
+        })
+          .then((res) => {
+            const { available } = res.data;
+            if ((showSignIn && !available) || (!showSignIn && available)) {
+              setSlide(slide + 1);
+            } else {
+              setError(showSignIn ? 'User with username does not exist.' : 'Username not available.');
+            }
+          })
+          .catch((err) => {
+            try {
+              setError(err.response.data.errors[0].msg);
+            } catch (err) {
+              setError('Internal or server error occurred.');
+            }
+          })
+          .then(() => {
+            setNextLoading(false);
+          });
+      }
+    } else {
+      let valid = true;
+      let curError = '';
+
+      let bounds = [8, 20];
+      if (!(password.length >= bounds[0] && password.length <= bounds[1])) {
+        valid = false;
+        curError = `Password must be between ${bounds.join('-')} characters.`;
+      }
+
+      setError(curError);
+      if (valid) {
+        setNextLoading(true);
+        axios({
+          method: 'post',
+          baseURL: APIBaseURL,
+          url: `/api/${showSignIn ? 'auth' : 'users'}/`,
+          data: {
+            username,
+            password,
+          },
+        })
+          .then((res) => {
+            const { token } = res.data;
+            localStorage.setItem('authtoken', token);
+            window.location.reload();
+          })
+          .catch((err) => {
+            try {
+              setError(err.response.data.errors[0].msg);
+            } catch (err) {
+              setError('Internal or Server Error Occurred');
+            }
+          })
+          .then(() => {
+            setNextLoading(false);
+          });
+      }
+    }
+  };
+
+  const inputPressEnter = (e) => {
+    if (e.key === 'Enter' && !nextBtnDisabled) {
+      nextBtnClick();
+    }
+  };
 
   return (
     <>
@@ -43,9 +145,9 @@ export default function AuthModal(props) {
                 placeholder={usernameLabel}
                 name='username'
                 spellCheck={false}
-                pattern='^[a-zA-Z0-9_.-]*$'
+                onKeyDown={inputPressEnter}
                 {...(showSignIn ? { autoComplete: 'username' } : {})}
-                onChange={(evt) => setUsername(evt.target.value)}
+                onChange={(evt) => setUsername(evt.target.value.toLowerCase())}
               />
               <label htmlFor='username'>{usernameLabel}</label>
             </div>
@@ -53,6 +155,7 @@ export default function AuthModal(props) {
               <input
                 type='password'
                 onChange={(evt) => setPassword(evt.target.value)}
+                onKeyDown={inputPressEnter}
                 placeholder={passwordLabel}
                 name='password'
                 autoComplete={showSignIn ? 'current-password' : 'new-password'}
@@ -67,20 +170,34 @@ export default function AuthModal(props) {
               <TertiaryButton
                 className='next-btn'
                 type={slide === 0 ? 'button' : 'submit'}
-                onClick={
-                  nextBtnDisabled
-                    ? () => {}
-                    : () => {
-                        if (slide === 0) {
-                          setSlide(slide + 1);
-                        } else {
-                          // sign in / create an account
-                        }
-                      }
-                }
+                onClick={nextBtnDisabled ? () => {} : nextBtnClick}
                 disabled={nextBtnDisabled}
-                text={<>{slide === 0 ? 'Next' : showSignIn ? 'Sign In' : 'Create Account'} &nbsp;&rarr;</>}
+                style={{ position: 'relative' }}
+                text={
+                  <>
+                    {nextLoading ? (
+                      <div
+                        style={{ left: '50%', top: '50%', transform: 'translate(-50%,-50%)', position: 'absolute', fontSize: 0, overflow: 'hidden' }}
+                      >
+                        <Loading
+                          style={{
+                            '--border-color': 'var(--light)',
+                            height: '1.25rem',
+                            width: '1.25rem',
+                            borderWidth: '.15rem',
+                            display: 'block',
+                            float: 'left',
+                          }}
+                        />
+                      </div>
+                    ) : null}
+                    <span style={nextLoading ? { opacity: '0' } : {}}>
+                      {slide === 0 ? 'Next' : showSignIn ? 'Sign In' : 'Create Account'} &nbsp;&rarr;
+                    </span>
+                  </>
+                }
               />
+              {/* <p className='slide-counter'>{slide + 1} / 2</p> */}
             </div>
           </form>
         </div>

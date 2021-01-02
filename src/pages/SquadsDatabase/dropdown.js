@@ -21,7 +21,6 @@ export default class Dropdown extends Component {
         <div
           className='dropdown-header'
           onClick={() => {
-            console.log(this.dropdownContents.current.scrollHeight);
             this.setState({ open: !this.state.open, contentsHeightPixels: this.dropdownContents.current.scrollHeight });
           }}
         >

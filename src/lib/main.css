@@ -47,14 +47,12 @@ input {
   20%,
   60%,
   90% {
-    -webkit-transform: translate3d(-5px, 0, 0);
-    transform: translate3d(-5px, 0, 0);
+    transform: translate3d(-5px, 0, 0) scale(1);
   }
 
   40%,
   80% {
-    -webkit-transform: translate3d(5px, 0, 0);
-    transform: translate3d(5px, 0, 0);
+    transform: translate3d(5px, 0, 0) scale(1);
   }
 }
 
@@ -74,7 +72,5 @@ input {
   text-transform: none;
   text-indent: 0px;
   text-shadow: none;
-  appearance: button;
-  -webkit-writing-mode: horizontal-tb !important;
   text-rendering: auto;
 }

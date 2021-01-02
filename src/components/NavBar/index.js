@@ -1,6 +1,6 @@
 import './styles.css';
 import { Component } from 'react';
-import { ResponsiveContainer, PrimaryButton, SecondaryButton } from '../';
+import { Loading, ResponsiveContainer, PrimaryButton, SecondaryButton } from '../';
 
 class NavBar extends Component {
   constructor(props) {
@@ -86,6 +86,54 @@ class NavBar extends Component {
           onClick={() => openPage(e.code)}
         ></PrimaryButton>
       ));
+    const authArea = (
+      <div className='auth-area'>
+        <div className='auth-buttons'>
+          {Object.keys(user).length === 0 ? (
+            <>
+              <button className='signin' onClick={() => this.props.setAuthModal(true, true)}>
+                Sign In
+              </button>
+              <span className='separator'>/</span>
+              <button className='signup' onClick={() => this.props.setAuthModal(true, false)}>
+                Sign Up
+              </button>
+            </>
+          ) : (
+            <>
+              <button className='user-info disabled' style={user.currentlyLoading ? { opacity: 1 } : {}}>
+                {user.currentlyLoading ? (
+                  <Loading
+                    style={{
+                      '--border-color': 'var(--primary)',
+                      height: '1.15rem',
+                      width: '1.15rem',
+                      borderWidth: '.15rem',
+                      display: 'block',
+                      float: 'left',
+                    }}
+                  />
+                ) : (
+                  <>
+                    @{user.user && user.user.username ? user.user.username : '[username not found]'} (rated {user.rating ? user.rating : '0'})
+                  </>
+                )}
+              </button>
+              <span className='separator'>/</span>
+              <button
+                className='signout'
+                onClick={() => {
+                  localStorage.removeItem('authtoken');
+                  window.location.reload();
+                }}
+              >
+                Sign Out
+              </button>
+            </>
+          )}
+        </div>
+      </div>
+    );
 
     return (
       <>
@@ -111,6 +159,8 @@ class NavBar extends Component {
                   {infoButtons}
                   <div className='spacer'></div>
                   {mainButtons}
+                  <div className='spacer'></div>
+                  {authArea}
                 </div>
               </>
             ) : (
@@ -121,30 +171,7 @@ class NavBar extends Component {
                 </div>
                 <div className='right'>
                   {mainButtons}
-                  {/* login/register buttons or profile information */}
-                  <div className='auth-area'>
-                    <div className='auth-buttons'>
-                      {Object.keys(user).length === 0 ? (
-                        <>
-                          <button className='signin' onClick={() => this.props.setAuthModal(true, true)}>
-                            Sign In
-                          </button>
-                          <span className='separator'>/</span>
-                          <button className='signup' onClick={() => this.props.setAuthModal(true, false)}>
-                            Sign Up
-                          </button>
-                        </>
-                      ) : (
-                        <>
-                          <button className='user-info disabled'>
-                            @{user.username ? user.username : '(not found)'} (rated {user.rating ? user.rating : '0'})
-                          </button>
-                          <span className='separator'>/</span>
-                          <button className='signout'>Sign Out</button>
-                        </>
-                      )}
-                    </div>
-                  </div>
+                  {authArea}
                 </div>
               </div>
             )}

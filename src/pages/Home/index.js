@@ -20,7 +20,7 @@ export default class Home extends Component {
 
     if (this.state.top25Teams.length === 0) {
       (async () => {
-        const data = await (await fetch(`${APIBaseURL}/teams/by-league/${topTeamsLeagueName}`)).json();
+        const data = await (await fetch(`${APIBaseURL}/teams/by-league/onlylogos/${topTeamsLeagueName}`)).json();
         this.setState({ top25Teams: data });
       })();
     }
@@ -56,7 +56,7 @@ export default class Home extends Component {
           <div className='right videosection'>
             <div className='video-container'>
               <video ref={this.demoVideo} width='100%' height='auto' autoPlay={true} loop={true} muted>
-                <source src='http://localhost:3000/demovideo.mov' type='video/mp4' />
+                <source src='http://localhost:3000/demovideo.mp4' type='video/mp4' />
                 Your browser does not support the video tag.
               </video>
               <button
@@ -92,7 +92,7 @@ export default class Home extends Component {
             <div className='inner'>
               {this.state.top25Teams.slice(0, 18).map((e, i) => (
                 <div className='image-container' key={i}>
-                  <img src={e.logoURL} alt={`${e.name} Logo`} />
+                  <img src={e} alt={`Club Logo`} />
                 </div>
               ))}
             </div>
@@ -141,13 +141,25 @@ export default class Home extends Component {
             </div>
           </div>
         </div>
-        <div className='box-section column auth'>
-          <h1 className='main-header'>Want to get stats, save your progress, compete with other players, and more?</h1>
-          <div className='row'>
-            <PlayButton className='secondary' name='Sign In' description={<>Already have an account? Sign In &rarr;</>} />
-            <PlayButton className='secondary' name='Sign Up' description={<>Don't have an account yet? Sign Up &rarr;</>} />
+        {Object.keys(this.props.user).length === 0 ? (
+          <div className='box-section column auth'>
+            <h1 className='main-header'>Want to get stats, save your progress, compete with other players, and more?</h1>
+            <div className='row'>
+              <PlayButton
+                className='secondary'
+                name='Sign In'
+                description={<>Already have an account? Sign In &rarr;</>}
+                onClick={() => this.props.setAuthModal(true, true)}
+              />
+              <PlayButton
+                className='secondary'
+                name='Sign Up'
+                description={<>Don't have an account yet? Sign Up &rarr;</>}
+                onClick={() => this.props.setAuthModal(true, false)}
+              />
+            </div>
           </div>
-        </div>
+        ) : null}
       </div>
     );
   }

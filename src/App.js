@@ -4,6 +4,8 @@ import './lib/layout.css';
 import { NavBar, ResponsiveContainer, Footer, AuthModal } from './components/';
 import { Home, About, ByNationality, DailyChallenge, SquadsDatabase } from './pages/';
 import { Component } from 'react';
+import { APIBaseURL } from './lib/config';
+const axios = require('axios');
 
 const SITE_TITLE = 'SquadGuessr';
 
@@ -53,6 +55,7 @@ class App extends Component {
     this.parsePageURLParam = this.parsePageURLParam.bind(this);
     this.updatePageTitle = this.updatePageTitle.bind(this);
     this.updateOnURLChange = this.updateOnURLChange.bind(this);
+    this.reloadUser = this.reloadUser.bind(this);
 
     const homePage = pages.filter((e) => e.isHomepage)[0];
     let initialPage = homePage.code;
@@ -61,14 +64,37 @@ class App extends Component {
       this.updatePageTitle(param);
     });
 
+    const token = localStorage.getItem('authtoken');
+
     this.state = {
       activePage: initialPage,
       currentURL:
         window.location.href /* the 'currentURL' and 'url' state and prop is used to require refresh of the component if the page URL changes */,
-      user: {},
+      user: token ? { currentlyLoading: true } : {},
       showAuthModal: false,
       authModalSignIn: true,
     };
+  }
+  reloadUser() {
+    const token = localStorage.getItem('authtoken');
+    if (token && !(Object.keys(this.state.user).length > 0 && !this.state.user.currentlyLoading)) {
+      axios({
+        method: 'get',
+        baseURL: APIBaseURL,
+        url: `/api/profiles/me`,
+        headers: {
+          'x-auth-token': token,
+        },
+      })
+        .then((res) => {
+          this.setState({ user: res.data });
+        })
+        .catch((err) => {
+          // give up and remove the token
+          localStorage.removeItem('authtoken');
+          this.setState({ user: {} });
+        });
+    }
   }
   parsePageURLParam(callback) {
     const urlParams = new URLSearchParams(window.location.search);
@@ -95,6 +121,7 @@ class App extends Component {
   }
   componentDidMount() {
     window.addEventListener('popstate', this.updateOnURLChange);
+    this.reloadUser();
   }
   componentWillUnmount() {
     window.removeEventListener('popstate', this.updateOnURLChange);
@@ -125,7 +152,9 @@ class App extends Component {
       <div className='App'>
         <NavBar setAuthModal={setAuthModal} pages={pages} setPage={setPage} active={this.state.activePage} user={this.state.user} />
         <ResponsiveContainer>
-          {this.state.activePage === 'home' ? <Home setPage={setPage} url={this.state.currentURL} pages={pages} /> : null}{' '}
+          {this.state.activePage === 'home' ? (
+            <Home user={this.state.user} setPage={setPage} url={this.state.currentURL} pages={pages} setAuthModal={setAuthModal} />
+          ) : null}
           {this.state.activePage === 'about' ? <About setPage={setPage} url={this.state.currentURL} pages={pages} /> : null}
           {this.state.activePage === 'play' ? <ByNationality setPage={setPage} url={this.state.currentURL} pages={pages} /> : null}
           {this.state.activePage === 'dailychallenge' ? <DailyChallenge setPage={setPage} url={this.state.currentURL} pages={pages} /> : null}

@@ -74,8 +74,11 @@
 .gamepage .guessteam .button.wrong {
   pointer-events: none;
 }
-.gamepage .guessteam .button.active:before {
-  transform: scale(1);
+.gamepage .guessteam .button.active:before,
+.gamepage .guessteam .button.wrong:before,
+.gamepage .guessteam .button.active:hover:before,
+.gamepage .guessteam .button.wrong:hover:before {
+  transform: scale(1) !important;
 }
 .gamepage .guessteam .button.wrong:before {
   animation-duration: 0.5s;

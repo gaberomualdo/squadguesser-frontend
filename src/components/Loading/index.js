@@ -1,10 +1,6 @@
 import './styles.css';
 
-const Loading = () => {
-  return (
-    <div style={{ display: 'block', textAlign: 'center' }}>
-      <div className='loadercomponent'></div>
-    </div>
-  );
+const Loading = (props) => {
+  return <div {...props} className={`loadercomponent ${props.className}`}></div>;
 };
 export default Loading;

@@ -1,9 +1,10 @@
 .loadercomponent {
+  --border-color: var(--primary);
   display: inline-block;
   height: 2.5rem;
   width: 2.5rem;
   border-radius: 50%;
-  border: 0.25rem solid var(--primary);
+  border: 0.25rem solid var(--border-color);
   border-right-color: transparent;
   border-top-color: transparent;
   box-sizing: border-box;

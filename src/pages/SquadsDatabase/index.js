@@ -111,7 +111,9 @@ export default function SquadsDatabase() {
             </>
           ) : (
             <div style={{ margin: '0 auto', float: 'none' }}>
-              <Loading />
+              <div style={{ display: 'block', textAlign: 'center' }}>
+                <Loading />
+              </div>
             </div>
           )}
         </main>

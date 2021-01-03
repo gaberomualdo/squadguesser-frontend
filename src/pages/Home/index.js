@@ -11,8 +11,9 @@ export default class Home extends Component {
     super(props);
     this.demoVideo = React.createRef();
     this.state = {
-      playing: true,
+      playing: false,
       top25Teams: [],
+      videoLoaded: false,
     };
   }
   componentDidMount() {
@@ -55,8 +56,34 @@ export default class Home extends Component {
           </div>
           <div className='right videosection'>
             <div className='video-container'>
-              <video ref={this.demoVideo} width='100%' height='auto' autoPlay={true} loop={true} muted>
-                <source src='http://localhost:3000/demovideo.mp4' type='video/mp4' />
+              <img
+                width='100%'
+                height='auto'
+                src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAA3CAQAAADgDgG0AAAALElEQVR42u3NMQEAAAwCoNm/9EroBwXIjUUgEAgEAoFAIBAIBAKBQCAQCKoeXHkAOB/5ko8AAAAASUVORK5CYII='
+                alt='Demo Video Loading Placeholder'
+                style={this.state.videoLoaded ? { display: 'none' } : {}}
+              />
+              <video
+                ref={this.demoVideo}
+                width='100%'
+                height='auto'
+                autoPlay={true}
+                loop={true}
+                onCanPlay={() => {
+                  if (!this.state.videoLoaded) {
+                    this.setState({ videoLoaded: true });
+                  }
+                }}
+                onPlay={() => {
+                  this.setState({ playing: true });
+                }}
+                onPause={() => {
+                  this.setState({ playing: false });
+                }}
+                style={this.state.videoLoaded ? {} : { display: 'none' }}
+                muted
+              >
+                <source src='/demovideo.mp4' type='video/mp4' />
                 Your browser does not support the video tag.
               </video>
               <button
@@ -67,7 +94,6 @@ export default class Home extends Component {
                   } else {
                     this.demoVideo.current.play();
                   }
-                  this.setState({ playing: !this.state.playing });
                 }}
               >
                 {this.state.playing ? (

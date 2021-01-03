@@ -101,7 +101,7 @@ class NavBar extends Component {
             </>
           ) : (
             <>
-              <button className='user-info disabled' style={user.currentlyLoading ? { opacity: 1 } : {}}>
+              <button className='user-info' style={user.currentlyLoading ? { opacity: 1 } : {}} onClick={() => this.props.setProfileModal(true)}>
                 {user.currentlyLoading ? (
                   <Loading
                     style={{
@@ -115,7 +115,10 @@ class NavBar extends Component {
                   />
                 ) : (
                   <>
-                    @{user.user && user.user.username ? user.user.username : '[username not found]'} (rated {user.rating ? user.rating : '0'})
+                    <span className='username'>
+                      @{user.user && user.user.username ? user.user.username : '[username not found]'} ({user.rating ? user.rating : '0'})
+                    </span>
+                    <span className='hover'>Your Profile</span>
                   </>
                 )}
               </button>

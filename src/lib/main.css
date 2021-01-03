@@ -37,25 +37,6 @@ input {
   background-color: rgba(39, 174, 96, 0.7);
 }
 
-@keyframes shakeX {
-  from,
-  to {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
-
-  20%,
-  60%,
-  90% {
-    transform: translate3d(-5px, 0, 0) scale(1);
-  }
-
-  40%,
-  80% {
-    transform: translate3d(5px, 0, 0) scale(1);
-  }
-}
-
 [role='button'] {
   display: inline-block;
   border: none;

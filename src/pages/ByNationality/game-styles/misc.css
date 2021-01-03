@@ -1,9 +1,11 @@
 .gamepage {
   display: flex;
+  padding-top: 1rem;
+  box-sizing: border-box;
 }
 .gamepage > * {
   display: block;
-  height: calc(var(--fullheight) - 0.75rem);
+  height: calc(var(--fullheight) - 1.75rem);
   max-height: var(--maxfullheight);
   float: left;
   flex-shrink: 0;

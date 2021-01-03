@@ -3,11 +3,13 @@
   height: var(--height);
   position: sticky;
   top: 0;
-  transition: background-color 0.1s !important;
+  transition: background-color 0.1s, box-shadow 0.1s;
   z-index: 100000;
+  backdrop-filter: blur(1rem);
 }
 .navbar-container.scrolling {
-  background-color: var(--dark);
+  background-color: rgba(44, 62, 80, 0.8);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
 }
 .navbar {
   height: 100%;
@@ -74,6 +76,21 @@
 }
 .navbar-container .auth-area .auth-buttons button:not(.disabled):hover {
   opacity: 1;
+}
+.navbar-container .auth-area .auth-buttons button.user-info {
+  position: relative;
+}
+.navbar-container .auth-area .auth-buttons button.user-info:hover .username,
+.navbar-container .auth-area .auth-buttons button.user-info:not(:hover) .hover {
+  opacity: 0;
+}
+.navbar-container .auth-area .auth-buttons button.user-info .hover {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
 }
 .navbar-container .auth-area .auth-buttons span.separator {
   min-height: var(--auth-btn-height);

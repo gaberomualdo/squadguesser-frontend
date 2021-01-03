@@ -1,3 +1,22 @@
+@keyframes shakeX {
+  from,
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  20%,
+  60%,
+  90% {
+    transform: translate3d(-5px, 0, 0) scale(1);
+  }
+
+  40%,
+  80% {
+    transform: translate3d(5px, 0, 0) scale(1);
+  }
+}
+
 .gamepage .guessteam {
   display: flex;
   flex-direction: column;
@@ -71,20 +90,20 @@
   float: right;
   text-align: left;
 }
-.gamepage .guessteam .button.wrong {
-  pointer-events: none;
-}
 .gamepage .guessteam .button.active:before,
 .gamepage .guessteam .button.wrong:before,
 .gamepage .guessteam .button.active:hover:before,
-.gamepage .guessteam .button.wrong:hover:before {
+.gamepage .guessteam .button.wrong:hover:before,
+.gamepage .guessteam .button.active:active:before,
+.gamepage .guessteam .button.wrong:active:before {
   transform: scale(1) !important;
+  opacity: 0.75;
 }
 .gamepage .guessteam .button.wrong:before {
   animation-duration: 0.5s;
-  animation-fill-mode: both;
   animation-name: shakeX;
 }
+.gamepage .guessteam .button.wrong,
 .gamepage .guessteam.doneguessing .button {
   cursor: default;
   pointer-events: none;

@@ -9,4 +9,6 @@ export { default as Loading } from './Loading';
 export { default as Pitch } from './Pitch';
 export { default as PitchTop } from './PitchTop';
 export { default as Formation } from './Formation';
+export { default as Modal } from './Modal';
 export { default as AuthModal } from './AuthModal';
+export { default as ProfileModal } from './ProfileModal';

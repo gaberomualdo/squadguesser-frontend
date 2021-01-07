@@ -61,7 +61,7 @@
 .gamepage .extras-section .title-number p {
   text-align: center;
   font-size: 2rem;
-  line-height: 1.5;
+  line-height: 3rem;
 }
 
 .gamepage .extras-section .rating {
@@ -78,4 +78,67 @@
   background-color: var(--darker) !important;
   margin-bottom: 0.75rem !important;
   flex-shrink: 0 !important;
+}
+
+.gamepage .extras-section .stats {
+  display: flex;
+  flex-direction: column;
+}
+.gamepage .extras-section .stats h1 {
+  flex: 0 1 auto;
+}
+
+.gamepage .extras-section .stats .title-number {
+  width: 100%;
+  zoom: 75%;
+  transform: scale(0.9);
+  background-color: transparent;
+}
+
+.gamepage .extras-section .stats .title-number h1 {
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  background-color: transparent;
+  font-size: 1.1rem;
+  line-height: 2;
+  background-color: var(--lightdark);
+}
+.gamepage .extras-section .stats .title-number p {
+  border: 1px solid var(--lightdark);
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  border-top: none;
+}
+.gamepage .extras-section .stats .title-number p span {
+  display: inline-block;
+  vertical-align: top;
+  font-size: 1.2rem;
+  opacity: 0.5;
+  line-height: 3rem;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.gamepage .extras-section .stats .title-number:not(:last-child) {
+  margin-bottom: 0;
+}
+
+.gamepage .extras-section .stats .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  flex: 1 1 100%;
+}
+
+.gamepage .extras-section .stats .row {
+  display: flex;
+}
+.gamepage .extras-section .stats .row > * {
+  flex: 1 1 100%;
+}
+.gamepage .extras-section .stats .row > *:first-child {
+  transform-origin: center right;
+  margin-right: 0.75rem;
+}
+.gamepage .extras-section .stats .row > *:last-child {
+  transform-origin: center left;
 }

@@ -66,7 +66,15 @@ export default function ByNationalityPage(props) {
 
   return leagues.length > 0 ? (
     league ? (
-      <Game league={league} setPage={props.setPage} />
+      <Game
+        setAuthModal={props.setAuthModal}
+        setProfileModal={props.setProfileModal}
+        league={league}
+        setPage={props.setPage}
+        reloadUser={props.reloadUser}
+        user={props.user}
+        loggedIn={props.loggedIn}
+      />
     ) : (
       <div className='bynationalitypage-selectleague fullheight-section'>
         <div className='inner'>

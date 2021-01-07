@@ -75,9 +75,9 @@ class App extends Component {
       authModalSignIn: true,
     };
   }
-  reloadUser() {
+  reloadUser(force = false) {
     const token = localStorage.getItem('authtoken');
-    if (token && !isLoggedIn(this.state.user)) {
+    if (token && (force || !isLoggedIn(this.state.user))) {
       axios({
         method: 'get',
         baseURL: APIBaseURL,
@@ -151,6 +151,8 @@ class App extends Component {
       this.setState({ activePage: p, currentURL: window.location.href });
     };
 
+    const loggedIn = isLoggedIn(this.state.user);
+
     return (
       <div className='App'>
         <NavBar
@@ -165,13 +167,35 @@ class App extends Component {
           {this.state.activePage === 'home' ? (
             <Home user={this.state.user} setPage={setPage} url={this.state.currentURL} pages={pages} setAuthModal={setAuthModal} />
           ) : null}
-          {this.state.activePage === 'play' ? <ByNationality setPage={setPage} url={this.state.currentURL} pages={pages} /> : null}
-          {this.state.activePage === 'dailychallenge' ? <DailyChallenge setPage={setPage} url={this.state.currentURL} pages={pages} /> : null}
+          {this.state.activePage === 'play' ? (
+            <ByNationality
+              reloadUser={this.reloadUser}
+              user={this.state.user}
+              loggedIn={loggedIn}
+              setPage={setPage}
+              url={this.state.currentURL}
+              pages={pages}
+              setAuthModal={setAuthModal}
+              setProfileModal={setProfileModal}
+            />
+          ) : null}
+          {this.state.activePage === 'dailychallenge' ? (
+            <DailyChallenge
+              reloadUser={this.reloadUser}
+              user={this.state.user}
+              loggedIn={loggedIn}
+              setPage={setPage}
+              url={this.state.currentURL}
+              pages={pages}
+              setAuthModal={setAuthModal}
+              setProfileModal={setProfileModal}
+            />
+          ) : null}
           {this.state.activePage === 'database' ? <SquadsDatabase setPage={setPage} url={this.state.currentURL} pages={pages} /> : null}
         </ResponsiveContainer>
         <Footer />
         {this.state.showAuthModal ? <AuthModal setAuthModal={setAuthModal} signIn={this.state.authModalSignIn} /> : null}
-        {this.state.showProfileModal && isLoggedIn(this.state.user) ? (
+        {this.state.showProfileModal && loggedIn ? (
           <ProfileModal profileIsSignedIn={true} setProfileModal={setProfileModal} profile={this.state.user} />
         ) : null}
       </div>

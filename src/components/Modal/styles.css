@@ -1,11 +1,9 @@
 @keyframes modal-appear {
   0% {
     opacity: 0;
-    backdrop-filter: blur(0);
   }
   100% {
     opacity: 1;
-    backdrop-filter: blur(0.75rem);
   }
 }
 @keyframes modal-inner-appear {
@@ -26,7 +24,7 @@
   z-index: 999999999;
   top: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.75);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -63,15 +61,11 @@
   height: 1.25rem;
   width: 1.25rem;
   opacity: 0.675;
-  transition: opacity 0.2s, transform 0.2s;
+  transition: opacity 0.15s;
   cursor: pointer;
 }
 .modal-component .inner > .close:hover {
   opacity: 1;
-  transform: scale(1.1);
-}
-.modal-component .inner > .close:active {
-  transform: scale(1.05);
 }
 .modal-component .inner > .close svg {
   width: 100%;

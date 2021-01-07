@@ -21,5 +21,18 @@ export default function DailyChallenge(props) {
     })();
   }, []);
 
-  return loaded ? <Game setPage={props.setPage} league={leagueName} dailyChallenge={true} /> : <div className='fullheight-section'></div>;
+  return loaded ? (
+    <Game
+      setPage={props.setPage}
+      league={leagueName}
+      dailyChallenge={true}
+      reloadUser={props.reloadUser}
+      user={props.user}
+      loggedIn={props.loggedIn}
+      setAuthModal={props.setAuthModal}
+      setProfileModal={props.setProfileModal}
+    />
+  ) : (
+    <div className='fullheight-section'></div>
+  );
 }

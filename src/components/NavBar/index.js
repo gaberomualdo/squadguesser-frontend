@@ -118,7 +118,7 @@ class NavBar extends Component {
                     <span className='username'>
                       @{user.user && user.user.username ? user.user.username : '[username not found]'} ({user.rating ? user.rating : '0'})
                     </span>
-                    <span className='hover'>Your Profile</span>
+                    {/* <span className='hover'>Your Profile</span> */}
                   </>
                 )}
               </button>

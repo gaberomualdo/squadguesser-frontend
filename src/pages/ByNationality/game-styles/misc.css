@@ -1,14 +1,21 @@
 .gamepage {
   display: flex;
-  padding-top: 1rem;
   box-sizing: border-box;
 }
 .gamepage > * {
   display: block;
-  height: calc(var(--fullheight) - 1.75rem);
+  height: calc(var(--fullheight) - 0.75rem);
   max-height: var(--maxfullheight);
   float: left;
   flex-shrink: 0;
+}
+@media only screen and (min-width: 975px) {
+  .gamepage {
+    padding-top: 1rem;
+  }
+  .gamepage > * {
+    height: calc(var(--fullheight) - 1.75rem);
+  }
 }
 .gamepage > *:not(:last-child) {
   margin-right: 0.75rem;

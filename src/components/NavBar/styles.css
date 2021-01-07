@@ -80,7 +80,7 @@
 .navbar-container .auth-area .auth-buttons button.user-info {
   position: relative;
 }
-.navbar-container .auth-area .auth-buttons button.user-info:hover .username,
+/* .navbar-container .auth-area .auth-buttons button.user-info:hover .username,
 .navbar-container .auth-area .auth-buttons button.user-info:not(:hover) .hover {
   opacity: 0;
 }
@@ -91,7 +91,7 @@
   transform: translate(-50%, -50%);
   width: 100%;
   text-align: center;
-}
+} */
 .navbar-container .auth-area .auth-buttons span.separator {
   min-height: var(--auth-btn-height);
   line-height: var(--auth-btn-height);
@@ -115,10 +115,10 @@
   width: 100%;
 }
 .navbar-container .navbar-sidebar .auth-area > .auth-buttons button {
-  flex: 1 1 100%;
+  flex: 1 1 auto;
 }
 .navbar-container .navbar-sidebar .auth-area > .auth-buttons .separator {
-  flex: 1 0 auto;
+  flex: 0 0 auto;
 }
 
 /* mobile stuff */

@@ -7,6 +7,8 @@ import { PrimaryButton, TertiaryButton, Pitch, PitchTop, Formation } from '../..
 import React, { useState, useEffect } from 'react';
 import { APIBaseURL } from '../../lib/config';
 import { toBase64, fromBase64 } from '../../lib/utils';
+import getStats from '../../lib/stats';
+const axios = require('axios');
 
 const urlGameParam = 'game';
 
@@ -24,10 +26,51 @@ export default function ByNationalityGame(props) {
   const [nameLettersShown, setNameLettersShown] = useState([]);
   const [teamsEliminated, setTeamsEliminated] = useState([]);
   const [activeTab, setActiveTab] = useState('main-section');
+  const [gameComplete, setGameComplete] = useState(false);
+
+  const endGame = (gaveUp = false) => {
+    if (!gameComplete) {
+      // game has not already ended
+      setGameComplete(true);
+
+      const currentGameOverData = {
+        type: props.dailyChallenge ? 'dailychallenge' : 'nationality',
+        league: props.league,
+        correctAnswer: gameData.correctTeam,
+        won: !gaveUp,
+        hintsUsed: [teamsEliminated.length > 0, nameLettersShown.length > 0, showRatings, showTransferBudget].filter((e) => e === true).length,
+        wrongGuesses: gameData.wrongTeams.length,
+      };
+
+      if (props.loggedIn) {
+        const token = localStorage.getItem('authtoken');
+        axios({
+          method: 'put',
+          baseURL: APIBaseURL,
+          url: `/api/profiles/me/game/`,
+          data: currentGameOverData,
+          headers: {
+            'x-auth-token': token,
+          },
+        })
+          .catch((err) => {
+            try {
+              alert(err.response.data.errors[0].msg);
+            } catch (err) {
+              alert('Error: Internal or Server Error Occurred');
+            }
+          })
+          .then(() => {
+            props.reloadUser(true);
+          });
+      }
+    }
+  };
 
   const guessTeam = (e) => {
     if (e === gameData.correctTeam) {
       setGameData({ ...gameData, doneGuessing: true });
+      endGame();
     } else {
       setGameData({ ...gameData, wrongTeams: [...gameData.wrongTeams, e] });
     }
@@ -74,6 +117,7 @@ export default function ByNationalityGame(props) {
     setNameLettersShown([]);
     setTeamsEliminated([]);
     setActiveTab('main-section');
+    setGameComplete(false);
   };
 
   useEffect(() => {
@@ -89,9 +133,10 @@ export default function ByNationalityGame(props) {
     <>
       <style>
         {`.navbar-container {
-        background-color: rgba(44, 62, 80, 0.8);
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
-      }`}
+          background-color: rgba(44, 62, 80, 0.8);
+          box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+        }
+      `}
       </style>
       <div className='fullheight-section bynationalitypage gamepage' activetab={activeTab}>
         <div className='tab-select'>
@@ -154,6 +199,7 @@ export default function ByNationalityGame(props) {
                         setGameData({ ...gameData, doneGuessing: false, wrongTeams: [] });
                       }
                     : () => {
+                        endGame(true);
                         setGameData({ ...gameData, doneGuessing: true });
                       }
                 }
@@ -186,7 +232,7 @@ export default function ByNationalityGame(props) {
             transferBudgetDollars={gameData.fifaMiscData ? gameData.fifaMiscData.transferBudgetDollars : 0}
             showRatings={gameData.fifaMiscData && (gameData.doneGuessing || showRatings)}
             ratings={gameData.fifaMiscData ? gameData.fifaMiscData.ratings : { defense: 0, attack: 0, midfield: 0 }}
-            league={gameData.league ? gameData.league.name : ''}
+            league={props.league ? props.league : ''}
           />
           <Formation
             showAnswer={gameData.doneGuessing}
@@ -220,7 +266,54 @@ export default function ByNationalityGame(props) {
           ) : null}
           <div className='panel side-panel stats'>
             <h1 className='title'>Your Stats</h1>
-            <PrimaryButton text='Sign In to Get Your Stats' />
+            {props.loggedIn ? (
+              <div className='container'>
+                <div className='row'>
+                  {[
+                    ['Rating', props.user.rating],
+                    ['Leaderboard', `#${props.user.leaderboardPosition}`],
+                  ].map((e, i) => (
+                    <div className='title-number' key={i}>
+                      <h1>{e[0]}</h1>
+                      <p>{e[1]}</p>
+                    </div>
+                  ))}
+                </div>
+                {[
+                  [
+                    `${props.dailyChallenge ? 'Daily Challenge' : props.league} w/l Ratio`,
+                    (() => {
+                      const wl = getStats(props.user.gamesPlayed, props.dailyChallenge ? 'dailychallenge' : props.league, 'win-loss');
+                      const wlPercent = Math.round((wl[0] / (wl[0] + wl[1])) * 100);
+                      return (
+                        <>
+                          {wl[0]}:{wl[1]} <span>~{isNaN(wlPercent) ? '0' : wlPercent}%</span>
+                        </>
+                      );
+                    })(),
+                  ],
+                  [
+                    `${props.dailyChallenge ? 'Daily Challenge' : props.league} Streak`,
+                    <>
+                      {getStats(props.user.gamesPlayed, props.dailyChallenge ? 'dailychallenge' : props.league, 'streak')} <span>games</span>
+                    </>,
+                  ],
+                  [
+                    `${props.dailyChallenge ? 'Daily Challenge' : props.league} Best Streak`,
+                    <>
+                      {getStats(props.user.gamesPlayed, props.dailyChallenge ? 'dailychallenge' : props.league, 'longest-streak')} <span>games</span>
+                    </>,
+                  ],
+                ].map((e, i) => (
+                  <div className='title-number' key={i}>
+                    <h1>{e[0]}</h1>
+                    <p>{e[1]}</p>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <PrimaryButton text='Sign In to Get Your Stats' onClick={() => props.setAuthModal(true, true)} />
+            )}
           </div>
           <div className='panel side-panel hints'>
             <h1 className='title'>Hints</h1>
@@ -235,15 +328,15 @@ export default function ByNationalityGame(props) {
                 }
                 setTeamsEliminated(newTeamsEliminated);
               }}
-              color='#9b59b6'
+              color='var(--primary)'
               text='Reduce Guess Pool by 50%'
             />
             <PrimaryButton
-              color='#9b59b6'
+              color='var(--primary)'
               className={nameLettersShown.length > 0 ? 'disabled' : ''}
               onClick={() => {
                 const newNameLettersShown = [];
-                while (newNameLettersShown.length < 2) {
+                while (newNameLettersShown.length < 1) {
                   const randIdx = Math.floor(Math.random() * gameData.correctTeam.length);
                   if (newNameLettersShown.indexOf(randIdx) > -1) continue;
                   if (gameData.correctTeam[randIdx] === ' ') continue;
@@ -251,14 +344,14 @@ export default function ByNationalityGame(props) {
                 }
                 setNameLettersShown(newNameLettersShown);
               }}
-              text='Show 2 Letters of Team Name'
+              text='Show 1 Letter of Team Name'
             />
             <PrimaryButton
               className={showRatings ? 'disabled' : ''}
               onClick={() => {
                 setShowRatings(true);
               }}
-              color='#9b59b6'
+              color='var(--primary)'
               text='Show Team Ratings'
             />
             <PrimaryButton
@@ -266,7 +359,7 @@ export default function ByNationalityGame(props) {
               onClick={() => {
                 setShowTransferBudget(true);
               }}
-              color='#9b59b6'
+              color='var(--primary)'
               text='Show Transfer Budget'
             />
           </div>

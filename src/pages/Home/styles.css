@@ -131,7 +131,7 @@
   padding: 2.5rem;
   border-radius: 6px;
   background-color: var(--darker);
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   display: flex;
   flex-direction: row;
 }
@@ -250,6 +250,12 @@ Colorize
   text-align: center;
   margin-bottom: 1rem;
 }
+/* .homepage .box-section.column > h1 span.light {
+  font-weight: 500;
+  opacity: 0.75;
+  display: inline;
+  width: auto;
+} */
 
 .homepage .box-section.column.auth .row {
   display: flex;
@@ -263,13 +269,75 @@ Colorize
   margin-right: 2rem;
 }
 
+.homepage .box-section.horizontal-list {
+  padding: 0 !important;
+  background-position: center center;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('http://localhost:3000/bg1.jpg');
+  background-attachment: fixed;
+}
+.homepage .box-section.horizontal-list .inner {
+  backdrop-filter: blur(3px);
+  padding: 1.5rem;
+  border-radius: 6px;
+}
+.homepage .box-section.horizontal-list > .inner > .row {
+  display: flex;
+  flex-direction: row;
+}
+.homepage .box-section.horizontal-list > .inner > .row > * {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 100%;
+  text-align: center;
+  align-items: center;
+}
+.homepage .box-section.horizontal-list > .inner > .row > * h1 {
+  font-size: 2.5rem;
+}
+.homepage .box-section.horizontal-list > .inner > .row > * svg {
+  height: 3.5rem;
+  width: 3.5rem;
+  fill: var(--light);
+  margin-bottom: 0.75rem;
+}
+.homepage .box-section.horizontal-list > .inner > .row > * p {
+  font-size: 0.9rem;
+  opacity: 0.85;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+  margin-top: 0.5rem;
+}
+.homepage .box-section.guess-by {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('http://localhost:3000/bg3.jpg');
+}
+.homepage .box-section.guess-by > .inner > h1 {
+  font-size: 1.75rem;
+  opacity: 0.9;
+  line-height: 1.35;
+  margin-bottom: 1.75rem;
+  text-align: center;
+}
+
 @media only screen and (max-width: 950px) {
   .homepage .box-section {
     padding: 1rem !important;
     flex-direction: column;
     zoom: 90%;
   }
-  .homepage .box-section > * {
+  .homepage .box-section.horizontal-list {
+    background-attachment: initial;
+  }
+  .homepage .box-section.horizontal-list > .inner > .row {
+    flex-direction: column;
+  }
+  .homepage .box-section.horizontal-list > .inner > .row > * p {
+    margin-top: 0.25rem;
+  }
+  .homepage .box-section.horizontal-list > .inner > .row > *:not(:last-child) {
+    margin-bottom: 1.5rem;
+    zoom: 90%;
+  }
+  .homepage .box-section > *:not(.inner) {
     padding: 0 !important;
     margin-left: 0 !important;
     margin-right: 0 !important;

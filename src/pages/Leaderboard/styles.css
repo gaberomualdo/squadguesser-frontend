@@ -1,0 +1,60 @@
+.leaderboard-page {
+  margin-bottom: 2rem;
+  height: calc(var(--fullheight) - 3.25rem);
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 1.5rem !important;
+}
+
+.leaderboard-page > .description {
+  text-align: center;
+  margin: 0.5rem 0 1.75rem 0;
+  opacity: 0.75;
+}
+.leaderboard-page > .description,
+.leaderboard-page > .title {
+  flex: 1 0 auto;
+}
+
+.leaderboard-page table {
+  margin-bottom: 0;
+}
+.leaderboard-page table .username {
+  font-weight: 600;
+}
+.leaderboard-page table tbody tr {
+  transition: background-color 0.25s;
+  cursor: pointer;
+}
+.leaderboard-page table tr:hover {
+  background-color: var(--dark);
+}
+.leaderboard-page table tr:hover .username {
+  text-decoration: underline;
+}
+
+.leaderboard-page table td {
+  position: relative;
+}
+.leaderboard-page table svg {
+  position: absolute;
+  width: 1.45rem;
+  height: 1.45rem;
+  left: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  --fill-color: var(--dark);
+  fill: var(--fill-color);
+  filter: drop-shadow(0 0 0.1rem var(--fill-color));
+}
+.leaderboard-page table svg.trophy_1 {
+  --fill-color: #ffd700;
+}
+.leaderboard-page table svg.trophy_2 {
+  --fill-color: #c0c0c0;
+}
+.leaderboard-page table svg.trophy_3 {
+  --fill-color: #cd7f32;
+}

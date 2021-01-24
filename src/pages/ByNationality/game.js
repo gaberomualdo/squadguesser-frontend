@@ -244,6 +244,7 @@ export default function ByNationalityGame(props) {
                 y: player.positionCoords.y,
                 nationalityName: player.nationality.name,
                 name: player.shortName,
+                fullName: player.name,
               };
             })}
           />
@@ -264,6 +265,55 @@ export default function ByNationalityGame(props) {
           {!props.dailyChallenge ? (
             <PrimaryButton className='menu-btn' onClick={() => props.setPage('play')} text={<>&larr; Back to Menu</>} />
           ) : null}
+
+          <div className='panel side-panel hints'>
+            <h1 className='title'>Hints</h1>
+            <PrimaryButton
+              className={teamsEliminated.length > 0 ? 'disabled' : ''}
+              onClick={() => {
+                const newTeamsEliminated = [];
+                while (newTeamsEliminated.length < Math.floor(gameData.teams.length / 2)) {
+                  const randIdx = Math.floor(Math.random() * gameData.teams.length);
+                  if (newTeamsEliminated.indexOf(randIdx) === -1 && gameData.teams[randIdx].name !== gameData.correctTeam)
+                    newTeamsEliminated.push(randIdx);
+                }
+                setTeamsEliminated(newTeamsEliminated);
+              }}
+              color='var(--primary)'
+              text='Reduce Guess Pool by 50%'
+            />
+            <PrimaryButton
+              color='var(--primary)'
+              className={nameLettersShown.length > 0 ? 'disabled' : ''}
+              onClick={() => {
+                const newNameLettersShown = [];
+                while (newNameLettersShown.length < 1) {
+                  const randIdx = Math.floor(Math.random() * gameData.correctTeam.length);
+                  if (newNameLettersShown.indexOf(randIdx) > -1) continue;
+                  if (gameData.correctTeam[randIdx] === ' ') continue;
+                  newNameLettersShown.push(randIdx);
+                }
+                setNameLettersShown(newNameLettersShown);
+              }}
+              text='Show 1 Letter of Team Name'
+            />
+            <PrimaryButton
+              className={showRatings ? 'disabled' : ''}
+              onClick={() => {
+                setShowRatings(true);
+              }}
+              color='var(--primary)'
+              text='Show Team Ratings'
+            />
+            <PrimaryButton
+              className={showTransferBudget ? 'disabled' : ''}
+              onClick={() => {
+                setShowTransferBudget(true);
+              }}
+              color='var(--primary)'
+              text='Show Transfer Budget'
+            />
+          </div>
           <div className='panel side-panel stats'>
             <h1 className='title'>Your Stats</h1>
             {props.loggedIn ? (
@@ -314,54 +364,6 @@ export default function ByNationalityGame(props) {
             ) : (
               <PrimaryButton text='Sign In to Get Your Stats' onClick={() => props.setAuthModal(true, true)} />
             )}
-          </div>
-          <div className='panel side-panel hints'>
-            <h1 className='title'>Hints</h1>
-            <PrimaryButton
-              className={teamsEliminated.length > 0 ? 'disabled' : ''}
-              onClick={() => {
-                const newTeamsEliminated = [];
-                while (newTeamsEliminated.length < Math.floor(gameData.teams.length / 2)) {
-                  const randIdx = Math.floor(Math.random() * gameData.teams.length);
-                  if (newTeamsEliminated.indexOf(randIdx) === -1 && gameData.teams[randIdx].name !== gameData.correctTeam)
-                    newTeamsEliminated.push(randIdx);
-                }
-                setTeamsEliminated(newTeamsEliminated);
-              }}
-              color='var(--primary)'
-              text='Reduce Guess Pool by 50%'
-            />
-            <PrimaryButton
-              color='var(--primary)'
-              className={nameLettersShown.length > 0 ? 'disabled' : ''}
-              onClick={() => {
-                const newNameLettersShown = [];
-                while (newNameLettersShown.length < 1) {
-                  const randIdx = Math.floor(Math.random() * gameData.correctTeam.length);
-                  if (newNameLettersShown.indexOf(randIdx) > -1) continue;
-                  if (gameData.correctTeam[randIdx] === ' ') continue;
-                  newNameLettersShown.push(randIdx);
-                }
-                setNameLettersShown(newNameLettersShown);
-              }}
-              text='Show 1 Letter of Team Name'
-            />
-            <PrimaryButton
-              className={showRatings ? 'disabled' : ''}
-              onClick={() => {
-                setShowRatings(true);
-              }}
-              color='var(--primary)'
-              text='Show Team Ratings'
-            />
-            <PrimaryButton
-              className={showTransferBudget ? 'disabled' : ''}
-              onClick={() => {
-                setShowTransferBudget(true);
-              }}
-              color='var(--primary)'
-              text='Show Transfer Budget'
-            />
           </div>
         </div>
       </div>

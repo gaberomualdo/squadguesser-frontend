@@ -101,13 +101,15 @@
   background-color: transparent;
   font-size: 1.1rem;
   line-height: 2;
-  background-color: var(--lightdark);
+  border: 1px solid #3b536d;
+  /* background-color: var(--darkdark); */
 }
 .gamepage .extras-section .stats .title-number p {
-  border: 1px solid var(--lightdark);
+  border: 1px solid #3b536d;
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
   border-top: none;
+  /* background-color: var(--dark); */
 }
 .gamepage .extras-section .stats .title-number p span {
   display: inline-block;

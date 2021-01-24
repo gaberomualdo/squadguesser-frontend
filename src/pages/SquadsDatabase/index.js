@@ -52,6 +52,7 @@ export default function SquadsDatabase() {
                         y: player.positionCoords.y,
                         nationalityName: player.nationality.name,
                         name: player.shortName,
+                        fullName: player.name,
                       };
                     })}
                   />
@@ -90,8 +91,9 @@ export default function SquadsDatabase() {
                                     ))}
                                 </span>
                                 <span className='extra-info'>
-                                  Transfer Budget: ${commaNumber(team.fifaMiscData.transferBudgetDollars)} &bull;{' '}
-                                  {team.fifaMiscData.rival ? `Rival: ${team.fifaMiscData.rival.name}` : null} &bull; Rating:{' '}
+                                  Transfer Budget: ${commaNumber(team.fifaMiscData.transferBudgetDollars)} <br />
+                                  {team.fifaMiscData.rival ? `Rival: ${team.fifaMiscData.rival.name}` : null} <br />
+                                  Rating:{' '}
                                   {Object.keys(team.fifaMiscData.ratings)
                                     .map((e) => {
                                       return `${team.fifaMiscData.ratings[e]} ${e.slice(0, 3).toUpperCase()}`;

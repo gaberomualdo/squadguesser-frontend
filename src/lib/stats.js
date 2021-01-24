@@ -19,7 +19,7 @@ export default function stats(games, league, type) {
       }
     });
   } else {
-    validGames = games.filter((e) => (e.league = league));
+    validGames = games.filter((e) => e.league === league);
   }
 
   if (type === 'streak') {

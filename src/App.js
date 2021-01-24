@@ -2,7 +2,7 @@
 import './lib/main.css';
 import './lib/layout.css';
 import { NavBar, ResponsiveContainer, ProfileModal, Footer, AuthModal } from './components/';
-import { Home, ByNationality, DailyChallenge, SquadsDatabase } from './pages/';
+import { Home, ByNationality, DailyChallenge, SquadsDatabase, Leaderboard } from './pages/';
 import { Component } from 'react';
 import { APIBaseURL } from './lib/config';
 const axios = require('axios');
@@ -192,6 +192,9 @@ class App extends Component {
             />
           ) : null}
           {this.state.activePage === 'database' ? <SquadsDatabase setPage={setPage} url={this.state.currentURL} pages={pages} /> : null}
+          {this.state.activePage === 'leaderboard' ? (
+            <Leaderboard setPage={setPage} url={this.state.currentURL} pages={pages} user={this.state.user} loggedIn={loggedIn} />
+          ) : null}
         </ResponsiveContainer>
         <Footer />
         {this.state.showAuthModal ? <AuthModal setAuthModal={setAuthModal} signIn={this.state.authModalSignIn} /> : null}

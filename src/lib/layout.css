@@ -3,6 +3,7 @@ body {
   --nav-height: 3.5rem;
   position: relative;
   background-color: var(--darkdark);
+  width: 100%;
   overflow-x: hidden;
 }
 body,
@@ -45,4 +46,47 @@ body:before {
   --maxfullheight: 1000px; /* useless, for now */
   min-height: var(--fullheight);
   position: relative;
+}
+
+/* table */
+table.styled-table {
+  width: auto !important;
+  min-width: 100%;
+  table-layout: auto !important;
+  margin: 0;
+  font-size: 1rem;
+  border-spacing: 0;
+  width: 100%;
+  margin: 0 0 1rem;
+  border: 1px solid var(--lightdark);
+  border-radius: 4px;
+  overflow: hidden;
+}
+table.styled-table tr td,
+table.styled-table tr th {
+  padding: 0.75rem;
+  text-align: center;
+}
+table.styled-table tr th {
+  text-transform: uppercase;
+  letter-spacing: 0.025rem;
+}
+table.styled-table tr td {
+  border-top: 1px solid var(--lightdark);
+}
+table.styled-table tr td:not(:last-child),
+table.styled-table tr th:not(:last-child) {
+  border-right: 1px solid var(--lightdark);
+}
+table.styled-table tr {
+  background-color: var(--darker);
+}
+table.styled-table tr:nth-child(2n) {
+  background-color: var(--darkdark);
+  background-color: #253545;
+}
+table.styled-table tr th {
+  background-color: var(--dark);
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
 }

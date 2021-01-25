@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { PlayButton, Loading } from '../../components';
 import { APIBaseURL } from '../../lib/config';
 import { toBase64 } from '../../lib/utils';
+import commaNumber from 'comma-number';
 
 const topTeamsLeagueName = 'Top 25 Teams';
 
@@ -124,15 +125,15 @@ export default class Home extends Component {
           <div className='inner'>
             <div className='row'>
               <div>
-                <h1>{this.state.stats.leaguesCount || <Loading />}</h1>
+                <h1>{commaNumber(this.state.stats.leaguesCount) || <Loading />}</h1>
                 <p>Leagues Available to Choose</p>
               </div>
               <div>
-                <h1>{this.state.stats.teamsCount || <Loading />}</h1>
+                <h1>{commaNumber(this.state.stats.teamsCount) || <Loading />}</h1>
                 <p>Squads to Guess From</p>
               </div>
               <div>
-                <h1>{this.state.stats.playersCount || <Loading />}</h1>
+                <h1>{commaNumber(this.state.stats.playersCount) || <Loading />}</h1>
                 <p>Players in Our Database</p>
               </div>
             </div>

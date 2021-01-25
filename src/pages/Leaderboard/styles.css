@@ -1,7 +1,7 @@
 .leaderboard-page {
   margin-bottom: 2rem;
-  height: calc(var(--fullheight) - 3.25rem);
-  min-height: 0;
+  min-height: calc(100vh - var(--nav-height) - 3.25rem);
+
   display: flex;
   flex-direction: column;
   position: relative;
@@ -15,7 +15,7 @@
 }
 .leaderboard-page > .description,
 .leaderboard-page > .title {
-  flex: 1 0 auto;
+  flex: 0 0 auto;
 }
 
 .leaderboard-page table {
@@ -57,4 +57,15 @@
 }
 .leaderboard-page table svg.trophy_3 {
   --fill-color: #cd7f32;
+}
+@media only screen and (max-width: 63rem) {
+  .leaderboard-page table td:nth-child(4),
+  .leaderboard-page table td:nth-child(5),
+  .leaderboard-page table th:nth-child(4),
+  .leaderboard-page table th:nth-child(5) {
+    display: none;
+  }
+  .leaderboard-page table svg {
+    display: none;
+  }
 }

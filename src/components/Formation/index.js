@@ -14,14 +14,14 @@ export default function Formation(props) {
             key={`${player.name}---${i}`}
             style={{ left: `${x}%`, bottom: `${y}%` }}
           >
-            {/* <img src={flagURL} alt='' className='flag' /> */}
-            <h2 className='flag'>
+            <img src={flagURL} alt='' className='flag' />
+            {/* <h2 className='flag'>
               {player.fullName
                 .split(' ')
                 .map((e) => e[0])
                 .join('')
                 .toUpperCase()}
-            </h2>
+            </h2> */}
             <img src={playerURL} alt='' className='player' />
             <p className='name'>
               <span>{showAnswer ? player.name : player.nationalityName}</span>

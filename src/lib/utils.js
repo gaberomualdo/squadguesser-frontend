@@ -4,7 +4,10 @@ const toBase64 = (x) => {
 const fromBase64 = (x) => {
   return decodeURIComponent(escape(atob(x)));
 };
-const processDate = (d) => `${['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'][d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+const processDate = (d, hideCurrentYear = false) =>
+  `${['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'][d.getMonth()]} ${d.getDate()}${
+    hideCurrentYear && new Date().getFullYear() === d.getFullYear() ? '' : `, ${d.getFullYear()}`
+  }`;
 const processRankNumber = (n) => {
   if (Math.floor(n / 10) === 1) return `${n}th`;
   const end = n % 10;

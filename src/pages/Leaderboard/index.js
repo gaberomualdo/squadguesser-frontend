@@ -13,7 +13,6 @@ export default function Leaderboard(props) {
       (async () => {
         const fetchedData = await (await fetch(`${APIBaseURL}/api/profiles/top/100/`)).json();
         setData(fetchedData);
-        console.log(fetchedData);
       })();
     }, 100);
   }, []);
@@ -38,11 +37,9 @@ export default function Leaderboard(props) {
                 className='row'
                 key={i}
                 onClick={() => {
-                  console.log(e);
                   setProfileModal(true);
                   (async () => {
                     const fetchedData = await (await fetch(`${APIBaseURL}/api/profiles/user/${e.user._id}/`)).json();
-                    console.log(fetchedData);
                     setProfileUser(fetchedData);
                   })();
                 }}
@@ -55,7 +52,9 @@ export default function Leaderboard(props) {
                   ) : null}
                   {processRankNumber(i + 1)}
                 </td>
-                <td className='username'>@{e.user.username}</td>
+                <td className='username'>
+                  @{e.user.username} {props.user.user && props.user.user._id === e.user._id ? '(you)' : ''}
+                </td>
                 <td className='rating'>{e.rating}</td>
                 <td className='gamesplayed'>{e.gamesPlayedCount}</td>
                 <td className='date'>{processDate(new Date(e.user.date))}</td>
@@ -69,7 +68,11 @@ export default function Leaderboard(props) {
           profileIsSignedIn={false}
           setProfileModal={setProfileModal}
           profile={profileUser}
-          {...(props.loggedIn && profileUser.user ? (props.user.user._id === profileUser.user._id ? { profileIsSignedIn: true } : '') : {})}
+          {...(props.loggedIn && profileUser.user
+            ? props.user.user && props.user.user._id === profileUser.user._id
+              ? { profileIsSignedIn: true }
+              : ''
+            : {})}
         />
       ) : null}
     </>

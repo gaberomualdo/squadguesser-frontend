@@ -1,8 +1,6 @@
 .profile-modal-component .inner {
   width: 50rem;
 }
-.profile-modal-component .inner > .meta {
-}
 .profile-modal-component .inner > .meta > * {
   display: block;
   text-align: center;
@@ -22,15 +20,85 @@
   margin-left: 0.75rem;
 }
 
-.profile-modal-component .inner > .meta ul {
+.profile-modal-component .inner > .meta > ul.descriptions {
   list-style: none;
   margin-top: 0.75rem;
 }
-.profile-modal-component .inner > .meta ul li {
+.profile-modal-component .inner > .meta > ul.descriptions li {
   display: inline-block;
   margin: 0 0.25rem;
   padding: 0.375rem 0.5rem;
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 4px;
   font-size: 0.85rem;
+}
+.profile-modal-component .inner .chart {
+  font-size: 70%;
+  color: var(--light);
+  margin: 0 auto;
+  display: inline-block;
+}
+.profile-modal-component .inner .chart text {
+  fill: var(--light);
+  opacity: 0.9;
+  text-transform: capitalize;
+}
+.profile-modal-component .inner .charts-tooltip-wrapper {
+  border-radius: 4px;
+  background-color: var(--dark) !important;
+  overflow: hidden;
+  border: none !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  padding: 12px !important;
+  padding-bottom: 6px !important;
+}
+
+.profile-modal-component .inner .recharts-cartesian-grid line {
+  stroke: #5d6e80 !important;
+}
+.profile-modal-component .inner .recharts-cartesian-axis line {
+  stroke: #5d6e80 !important;
+}
+.profile-modal-component .inner .rating-over-time {
+  text-align: center;
+}
+.profile-modal-component .inner .title-section {
+  margin-top: 1.5rem;
+}
+.profile-modal-component .inner .title-section > h1,
+.profile-modal-component .inner .title-section > p {
+  text-align: center;
+}
+.profile-modal-component .inner .title-section > h1 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+.profile-modal-component .inner .title-section > p {
+  font-size: 0.8rem;
+  opacity: 0.65;
+  margin-bottom: 0.75rem;
+}
+.profile-modal-component .inner table {
+  zoom: 90%;
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+.profile-modal-component .inner table .won {
+  color: var(--primary);
+}
+.profile-modal-component .inner table .lost {
+  color: var(--danger);
+}
+
+.profile-modal-component .inner .title-section.settings {
+  text-align: center;
+}
+.profile-modal-component .delete-btn {
+  margin-top: 0.35rem;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  border-radius: 3px;
+  background-color: rgba(206, 51, 54, 0.3);
+  display: inline-block;
 }

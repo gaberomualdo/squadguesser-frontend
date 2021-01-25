@@ -272,7 +272,7 @@ Colorize
 .homepage .box-section.horizontal-list {
   padding: 0 !important;
   background-position: center center;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('http://localhost:3000/bg1.jpg');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url('http://localhost:3000/bg4.jpg');
   background-attachment: fixed;
 }
 .homepage .box-section.horizontal-list .inner {

@@ -8,6 +8,7 @@ export default function Leaderboard(props) {
   const [data, setData] = useState([]);
   const [profileModal, setProfileModal] = useState(false);
   const [profileUser, setProfileUser] = useState({});
+  const [profileLeaderboardPos, setProfileLeaderboardPos] = useState({});
   useEffect(() => {
     setTimeout(() => {
       (async () => {
@@ -40,7 +41,7 @@ export default function Leaderboard(props) {
                   setProfileModal(true);
                   (async () => {
                     const fetchedData = await (await fetch(`${APIBaseURL}/api/profiles/user/${e.user._id}/`)).json();
-                    setProfileUser(fetchedData);
+                    setProfileUser({ ...fetchedData, leaderboardPosition: i + 1 });
                   })();
                 }}
               >

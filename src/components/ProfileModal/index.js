@@ -40,7 +40,7 @@ export default function ProfileModal(props) {
         <>
           <div className='meta'>
             <h1 className='username'>
-              @{profile.user.username}
+              {profile.user.username}
               {profileIsSignedIn ? <span> (you)</span> : <></>}
             </h1>
             <ul className='descriptions'>
@@ -51,7 +51,9 @@ export default function ProfileModal(props) {
             </ul>
           </div>
           <div className='rating-over-time title-section'>
-            <h1 className='title'>Rating: {profile.rating}</h1>
+            <h1 className='title'>
+              <i className='fas fa-chart-line mr'></i>Rating: {profile.rating}
+            </h1>
             {/* <p>@{profile.user.username}'s Rating Over Time</p> */}
             <ResponsiveContainer width='93%' height={250}>
               <AreaChart
@@ -70,7 +72,9 @@ export default function ProfileModal(props) {
             </ResponsiveContainer>
           </div>
           <div className='title-section'>
-            <h1 className='title'>Recent Games</h1>
+            <h1 className='title'>
+              <i className='fas fa-gamepad mr'></i>Recent Games
+            </h1>
             <table className='leaderboard styled-table'>
               <thead>
                 <tr>
@@ -97,7 +101,9 @@ export default function ProfileModal(props) {
             </table>
           </div>
           <div className='title-section'>
-            <h1 className='title'>Stats</h1>
+            <h1 className='title'>
+              <i className='fas fa-calculator mr'></i>Stats
+            </h1>
             <table className='leaderboard styled-table'>
               <thead>
                 <tr>

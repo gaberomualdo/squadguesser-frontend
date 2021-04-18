@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-globals */
 import React, { useEffect, useState } from 'react';
 import { APIBaseURL } from '../../lib/config';
-import Game from '../ByNationality/game';
+import Game from '../Play/game';
 import { toBase64 } from '../../lib/utils';
 
 const leagueName = 'Daily Challenge';

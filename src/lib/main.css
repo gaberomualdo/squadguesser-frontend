@@ -29,6 +29,13 @@
   --darkdark: #253749;
 }
 
+i.ml {
+  margin-left: 0.75rem;
+}
+i.mr {
+  margin-right: 0.75rem;
+}
+
 button,
 input {
   border: none;

@@ -38,24 +38,24 @@
 .leaderboard-page table td {
   position: relative;
 }
-.leaderboard-page table svg {
+.leaderboard-page table i {
   position: absolute;
-  width: 1.45rem;
   height: 1.45rem;
-  left: 0.5rem;
+  line-height: 1.45rem;
+  left: 0.75rem;
+  font-size: 1.15rem;
   top: 50%;
   transform: translateY(-50%);
   --fill-color: var(--dark);
-  fill: var(--fill-color);
-  filter: drop-shadow(0 0 0.1rem var(--fill-color));
+  color: var(--fill-color);
 }
-.leaderboard-page table svg.trophy_1 {
+.leaderboard-page table i.trophy_1 {
   --fill-color: #ffd700;
 }
-.leaderboard-page table svg.trophy_2 {
+.leaderboard-page table i.trophy_2 {
   --fill-color: #c0c0c0;
 }
-.leaderboard-page table svg.trophy_3 {
+.leaderboard-page table i.trophy_3 {
   --fill-color: #cd7f32;
 }
 @media only screen and (max-width: 63rem) {
@@ -65,7 +65,7 @@
   .leaderboard-page table th:nth-child(5) {
     display: none;
   }
-  .leaderboard-page table svg {
+  .leaderboard-page table i {
     display: none;
   }
 }

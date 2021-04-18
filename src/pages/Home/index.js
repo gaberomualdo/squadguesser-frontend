@@ -102,7 +102,7 @@ export default class Home extends Component {
                       <PlayButton
                         icon={pages[i].icon}
                         name={pages[i].name}
-                        description={pages[i].description ? pages[i].description : <>play now &rarr;</>}
+                        description={pages[i].description ? pages[i].description : <>play now.</>}
                         onClick={() => this.props.setPage(pages[i].code)}
                         className={i === 0 ? 'primary' : ''}
                         key={i}
@@ -214,8 +214,8 @@ export default class Home extends Component {
                 <PlayButton
                   className='secondary'
                   name={`Play The ${topTeamsLeagueName}`}
-                  icon='⚽'
-                  description={<>Guess from the greatest teams right now &rarr;</>}
+                  icon={<i className='fas fa-th-list' style={{ transform: 'translateY(3px)' }}></i>}
+                  description={<>Guess from the greatest teams right now.</>}
                   onClick={() => {
                     const leagueNameCode = toBase64(topTeamsLeagueName);
                     const url = new URL(window.location.href);
@@ -235,9 +235,9 @@ export default class Home extends Component {
                 <PlayButton
                   onClick={() => this.props.setPage('leaderboard')}
                   className='secondary'
-                  icon='🏆'
+                  icon={<i className='fas fa-trophy' style={{ transform: 'translateY(3px)' }}></i>}
                   name='Check Out The Leaderboard'
-                  description={<>See it now &rarr;</>}
+                  description={<>See it now.</>}
                 />
               </div>
               <div className='left leaderboard'>
@@ -310,13 +310,15 @@ export default class Home extends Component {
                 <PlayButton
                   className='secondary'
                   name='Sign In'
-                  description={<>Already have an account? Sign In &rarr;</>}
+                  icon={<i className='fas fa-sign-in-alt'></i>}
+                  description={<>Already have an account? Sign In.</>}
                   onClick={() => this.props.setAuthModal(true, true)}
                 />
                 <PlayButton
                   className='secondary'
                   name='Sign Up'
-                  description={<>Don't have an account yet? Sign Up &rarr;</>}
+                  icon={<i className='fas fa-user-plus'></i>}
+                  description={<>Don't have an account yet? Sign Up.</>}
                   onClick={() => this.props.setAuthModal(true, false)}
                 />
               </div>
@@ -329,7 +331,7 @@ export default class Home extends Component {
                 <PlayButton
                   icon={pages[i].icon}
                   name={pages[i].code === 'play' ? 'Play Now' : pages[i].name}
-                  description={pages[i].description ? pages[i].description : <>play now &rarr;</>}
+                  description={pages[i].description ? pages[i].description : <>Play it now.</>}
                   onClick={() => this.props.setPage(pages[i].code)}
                   className='secondary'
                   key={i}

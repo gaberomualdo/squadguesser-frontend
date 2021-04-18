@@ -118,7 +118,17 @@ export default function AuthModal(props) {
 
   return (
     <Modal className='auth-modal-component' closeModal={() => props.setAuthModal(false)}>
-      <h1>{showSignIn ? 'Sign In' : 'Sign Up'}</h1>
+      <h1>
+        {showSignIn ? (
+          <>
+            <i className='fas fa-sign-in-alt'></i>Sign In
+          </>
+        ) : (
+          <>
+            <i className='fas fa-user-plus'></i>Sign Up
+          </>
+        )}
+      </h1>
       <p>
         Or{' '}
         <button

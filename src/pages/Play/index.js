@@ -9,19 +9,19 @@ import { fromBase64, toBase64 } from '../../lib/utils';
 const urlLeagueParam = 'league';
 
 const leagueDescriptions = {
-  'All Teams': <>Up for a challenge? Guess from 200+ teams &rarr;</>,
-  'Top 25 Teams': <>Guess from the greatest teams right now &rarr;</>,
-  'Premier League': <>England's first division, the biggest league &rarr;</>,
-  'La Liga': <>Spanish league home to Barcelona and Real Madrid &rarr;</>,
-  Bundesliga: <>Germany's league, with Bayern Munchen and more &rarr;</>,
-  'Serie A TIM': <>Italian league with famous players like Ronaldo &rarr;</>,
-  'Ligue 1': <>French league with Neymar, Mbappe, and more &rarr;</>,
-  Eredivisie: <>Dutch league home to Ajax, PSV, and more &rarr;</>,
-  'Liga NOS': <>Portugal's league with Benfica and Porto &rarr;</>,
-  'Süper Lig': <>Turkish league with Galatasaray and more &rarr;</>,
-  Libertadores: <>South American league &rarr;</>,
-  'Scottish Prem': <>Scottish league &rarr;</>,
-  'EFL Championship': <>England's second division &rarr;</>,
+  'All Teams': <>Up for a challenge? Guess from 200+ teams.</>,
+  'Top 25 Teams': <>Guess from the greatest teams right now.</>,
+  'Premier League': <>England's first division, the biggest league.</>,
+  'La Liga': <>Spanish league home to Barcelona and Real Madrid.</>,
+  Bundesliga: <>Germany's league, with Bayern Munchen and more.</>,
+  'Serie A TIM': <>Italian league with famous players like Ronaldo.</>,
+  'Ligue 1': <>French league with Neymar, Mbappe, and more.</>,
+  Eredivisie: <>Dutch league home to Ajax, PSV, and more.</>,
+  'Liga NOS': <>Portugal's league with Benfica and Porto.</>,
+  'Süper Lig': <>Turkish league with Galatasaray and more.</>,
+  Libertadores: <>South American league.</>,
+  'Scottish Prem': <>Scottish league.</>,
+  'EFL Championship': <>England's second division.</>,
 };
 
 export default function ByNationalityPage(props) {
@@ -85,7 +85,7 @@ export default function ByNationalityPage(props) {
                 onClick={() => setLeagueAndParam(e)}
                 key={i}
                 name={e}
-                description={leagueDescriptions[e] ? leagueDescriptions[e] : <>play this league &rarr;</>}
+                description={leagueDescriptions[e] ? leagueDescriptions[e] : <>Guess from this league.</>}
               />
             );
           })}

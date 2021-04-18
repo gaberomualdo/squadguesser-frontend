@@ -69,3 +69,16 @@
   overflow: hidden;
   filter: brightness(110%);
 }
+
+.gamepage .menu-btn {
+  border: none !important;
+  height: 2.5rem;
+  opacity: 1;
+  transition: filter 0.2s;
+}
+.gamepage .menu-btn:hover {
+  filter: brightness(90%);
+}
+.gamepage .menu-btn span {
+  line-height: 2.5rem;
+}

@@ -50,6 +50,13 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.primarybutton:not(.fixed-icon-width) span.icon {
+  margin-right: 0.25rem;
+}
+.primarybutton.fixed-icon-width span.icon {
+  width: 1.9rem;
+  text-align: left;
+}
 .primarybutton .text {
   font-size: 1.05rem;
 }

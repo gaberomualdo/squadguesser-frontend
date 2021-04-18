@@ -6,7 +6,7 @@ export default function SecondaryButton(props) {
     <a
       {...props}
       className={`secondarybutton ${props.className}`}
-      style={{ '--button-theme-color': props.color ? props.color : 'var(--primary)' }}
+      style={{ ...{ '--button-theme-color': props.color ? props.color : 'var(--primary)' }, ...props.style }}
       role='button'
     >
       <span>{props.text}</span>

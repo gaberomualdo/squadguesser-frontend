@@ -81,7 +81,7 @@ class NavBar extends Component {
           key={i}
           icon={e.icon}
           text={e.name}
-          className={active === e.code ? 'active' : ''}
+          className={`${this.state.mobile ? 'fixed-icon-width' : ''} ${active === e.code ? 'active' : ''}`}
           color={mainButtonColor}
           onClick={() => openPage(e.code)}
         ></PrimaryButton>

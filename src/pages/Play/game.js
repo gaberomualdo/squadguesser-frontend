@@ -3,7 +3,7 @@ import './game-styles/misc.css';
 import './game-styles/guessteam.css';
 import './game-styles/extras-section.css';
 import './game-styles/mobile.css';
-import { PrimaryButton, TertiaryButton, Pitch, PitchTop, Formation } from '../../components';
+import { PrimaryButton, SecondaryButton, TertiaryButton, Pitch, PitchTop, Formation } from '../../components';
 import React, { useState, useEffect } from 'react';
 import { APIBaseURL } from '../../lib/config';
 import { toBase64, fromBase64, getAverageRating } from '../../lib/utils';
@@ -12,7 +12,7 @@ const axios = require('axios');
 
 const urlGameParam = 'game';
 
-export default function ByNationalityGame(props) {
+export default function Game(props) {
   const [gameData, setGameData] = useState({
     wrongTeams: [],
     teamFormation: [],
@@ -156,7 +156,17 @@ export default function ByNationalityGame(props) {
         </div>
         <div className='side-section guess-section'>
           <div className={`panel side-panel guessteam ${gameData.doneGuessing ? 'doneguessing' : ''}`}>
-            <h1 className='title'>{gameData.doneGuessing ? 'Correct!' : 'Make a Guess:'}</h1>
+            <h1 className='title'>
+              {gameData.doneGuessing ? (
+                <>
+                  <i className='fas fa-check mr'></i> Correct!
+                </>
+              ) : (
+                <>
+                  <i className='fas fa-play mr'></i> Make a Guess:
+                </>
+              )}
+            </h1>
             <div className='teams'>
               {gameData.teams.map((e, i) => {
                 const { name } = e;
@@ -204,7 +214,17 @@ export default function ByNationalityGame(props) {
                         setGameData({ ...gameData, doneGuessing: true });
                       }
                 }
-                text={gameData.doneGuessing ? <>&larr; Hide Answer</> : <>Show Answer&nbsp;&nbsp;👀</>}
+                text={
+                  gameData.doneGuessing ? (
+                    <>
+                      Hide Answer <i className='fas fa-eye-slash ml'></i>
+                    </>
+                  ) : (
+                    <>
+                      Show Answer <i className='fas fa-eye ml'></i>
+                    </>
+                  )
+                }
               />
             </div>
           </div>
@@ -237,15 +257,19 @@ export default function ByNationalityGame(props) {
           />
           <Formation
             showAnswer={gameData.doneGuessing}
+            isGame={true}
             players={gameData.teamFormation.map((player, i) => {
               return {
-                flagURL: player.nationality.flagURL.split('/2/').join('/5/'),
-                playerURL: player.photoURL.split('/5/').join('/6/'),
+                gameType: 'alternate-team',
+                alternateTeamImageURL: player.nationality.flagURL.split('/2/').join('/6/'),
+                alternateTeamName: player.nationality.name,
+                imageURL: player.photoURL.split('/5/').join('/6/'),
                 x: player.positionCoords.x,
                 y: player.positionCoords.y,
-                nationalityName: player.nationality.name,
                 name: player.shortName,
                 fullName: player.name,
+                age: player.age,
+                fifaRating: player.fifaRating,
               };
             })}
           />
@@ -264,11 +288,13 @@ export default function ByNationalityGame(props) {
             </div>
           ) : null}
           {!props.dailyChallenge ? (
-            <PrimaryButton className='menu-btn' onClick={() => props.setPage('play')} text={<>&larr; Back to Menu</>} />
+            <SecondaryButton className='menu-btn' onClick={() => props.setPage('play')} text={<>&larr; Back to Menu</>} />
           ) : null}
 
           <div className='panel side-panel hints'>
-            <h1 className='title'>Hints</h1>
+            <h1 className='title'>
+              <i className='fas fa-list mr'></i> Hints
+            </h1>
             <PrimaryButton
               className={teamsEliminated.length > 0 ? 'disabled' : ''}
               onClick={() => {
@@ -316,7 +342,9 @@ export default function ByNationalityGame(props) {
             />
           </div>
           <div className='panel side-panel stats'>
-            <h1 className='title'>Your Stats</h1>
+            <h1 className='title'>
+              <i className='fas fa-calculator mr'></i> Stats
+            </h1>
             {props.loggedIn ? (
               <div className='container'>
                 <div className='row'>

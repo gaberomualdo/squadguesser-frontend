@@ -21,7 +21,7 @@ export default function SquadsDatabase() {
     <>
       <div className='squadsdatabase-page fullheight-section page panel'>
         <h1 className='title'>Squads Database</h1>
-        <p className='description'>our database of over 200 professional football first-team squads</p>
+        <p className='description'>Our database of hundreds of professional first-team squads.</p>
         <main className={`main-container ${Object.keys(activeSquad).length > 0 ? 'show-squad' : 'hide-squad'}`}>
           <div className='squad-content'>
             <div className='squad-content-inner'>
@@ -46,8 +46,8 @@ export default function SquadsDatabase() {
                     showAnswer={true}
                     players={activeSquad.formation.map((player, i) => {
                       return {
-                        flagURL: player.nationality.flagURL.split('/2/').join('/6/'),
-                        playerURL: player.photoURL.split('/5/').join('/6/'),
+                        alternateTeamImageURL: player.nationality.flagURL.split('/2/').join('/6/'),
+                        imageURL: player.photoURL.split('/5/').join('/6/'),
                         x: player.positionCoords.x,
                         y: player.positionCoords.y,
                         nationalityName: player.nationality.name,

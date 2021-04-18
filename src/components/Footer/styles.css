@@ -31,6 +31,7 @@
   font-size: 1.35rem;
   font-weight: 600;
   margin-bottom: 0.75rem;
+  cursor: pointer;
 }
 .footer .top .left .logo > * {
   display: inline-block;

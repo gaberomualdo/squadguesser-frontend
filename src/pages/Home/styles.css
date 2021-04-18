@@ -99,14 +99,11 @@
   padding: 0.5rem 0.85rem;
   background-color: var(--primary);
   transition: background-color 0.2s;
-  border-radius: 4px;
+  border-radius: 3px;
   font-weight: 600;
   cursor: pointer;
   margin-top: 0.75rem;
   zoom: 95%;
-}
-.homepage .topsection .videosection .video-cta:hover {
-  background-color: var(--darkprimary);
 }
 .homepage .topsection .videosection .video-cta span {
   display: block;

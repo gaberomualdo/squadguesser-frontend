@@ -2,7 +2,7 @@
 import './lib/main.css';
 import './lib/layout.css';
 import { NavBar, ResponsiveContainer, ProfileModal, Footer, AuthModal } from './components/';
-import { Home, ByNationality, DailyChallenge, SquadsDatabase, Leaderboard } from './pages/';
+import { Home, Play, DailyChallenge, SquadsDatabase, Leaderboard } from './pages/';
 import { Component } from 'react';
 import { APIBaseURL } from './lib/config';
 const axios = require('axios');
@@ -11,7 +11,7 @@ const SITE_TITLE = 'SquadGuessr';
 
 const pages = [
   {
-    icon: '⚽',
+    icon: <i class='fas fa-futbol'></i>,
     code: 'home',
     name: 'Home',
     isHomepage: true,
@@ -22,21 +22,21 @@ const pages = [
     type: 'info',
   },
   {
-    icon: '⚽',
+    icon: <i class='fas fa-futbol'></i>,
     code: 'play',
     name: 'Play SquadGuessr',
-    description: <>Guess teams from the Premier League, La Liga, Bundesliga, and more &rarr;</>,
+    description: <>Guess teams from the Premier League, La Liga, Bundesliga, and more.</>,
     type: 'game',
   },
   {
-    icon: '📆',
+    icon: <i class='fas fa-calendar-alt'></i>,
     code: 'dailychallenge',
     name: 'Daily Challenge',
-    description: <>Test your skills with today's challenge &rarr;</>,
+    description: <>Test your skills with today's challenge.</>,
     type: 'game',
   },
   {
-    icon: '📚',
+    icon: <i class='fas fa-trophy'></i>,
     code: 'leaderboard',
     name: 'Leaderboard',
     type: 'other',
@@ -168,7 +168,7 @@ class App extends Component {
         ) : null}
         <ResponsiveContainer>
           {this.state.activePage === 'play' ? (
-            <ByNationality
+            <Play
               reloadUser={this.reloadUser}
               user={this.state.user}
               loggedIn={loggedIn}

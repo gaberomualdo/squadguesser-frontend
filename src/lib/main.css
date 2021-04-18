@@ -10,8 +10,10 @@
 }
 :root {
   --primary: #27ae60;
+  --primarytransparent: rgba(39, 174, 96, 0.4);
   --slightlydarkprimary: #24a159;
   --darkprimary: #229955;
+  --darkerprimary: #1b7a44;
 
   --success: #62c12a;
   --info: #2d68fc;

@@ -9,11 +9,29 @@
 @keyframes modal-inner-appear {
   0% {
     opacity: 0;
-    transform: scale(0.8);
+    transform: translateY(1rem);
   }
   100% {
     opacity: 1;
-    transform: scale(1);
+    transform: translateY(0);
+  }
+}
+@keyframes modal-disappear {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes modal-inner-disappear {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(1rem);
   }
 }
 .modal-component {
@@ -29,6 +47,9 @@
   justify-content: center;
   align-items: center;
 }
+.modal-component.closing {
+  animation-name: modal-disappear;
+}
 .modal-component,
 .modal-component .inner {
   animation-fill-mode: both;
@@ -42,24 +63,30 @@
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
   padding: 2.5rem;
+  padding-top: 1.25rem;
   position: relative;
   width: 30rem;
   max-width: 100%;
-  max-height: 100vh;
+  max-height: calc(100vh - 4rem);
   overflow-y: auto;
+}
+.modal-component.closing .inner {
+  animation-name: modal-inner-disappear;
 }
 @media only screen and (max-width: 600px) {
   .modal-component .inner {
     width: 100%;
     height: 100vh;
+    max-height: none;
   }
 }
 .modal-component .inner > .close {
   position: sticky;
+  clear: both;
   float: right;
   top: 0;
   right: 0;
-  transform: translate(1.5rem, -1.5rem);
+  transform: translate(1.5rem, -0.25rem);
   height: 1.25rem;
   width: 1.25rem;
   opacity: 0.675;
@@ -73,4 +100,7 @@
   width: 100%;
   height: 100%;
   fill: var(--light);
+}
+.modal-component .inner > .close + * {
+  clear: both;
 }

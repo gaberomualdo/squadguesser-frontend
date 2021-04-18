@@ -1,21 +1,83 @@
 .footer {
   /* background-image: linear-gradient(rgba(35, 49, 64, 0.97), rgba(35, 49, 64, 0.97)), url(http://localhost:3000/club-logos.png); */
   background-color: var(--darker);
-  background-size: 6%;
-  background-position: center;
   width: 100%;
   position: relative;
   padding: 1rem 0;
   overflow: hidden;
 }
-
-.footer p {
-  font-size: 0.85rem;
+.footer .link {
+  color: var(--primary);
+  border-bottom: 1px dotted var(--primary);
+  text-decoration: none;
+  cursor: pointer;
 }
-.footer p:not(:last-child) {
+.footer .link:hover {
+  border-bottom-style: solid;
+  filter: brightness(110%);
+}
+.footer .top {
+  margin-bottom: 1rem;
+  display: block;
+  clear: both;
+  overflow: hidden;
+}
+.footer .top .left {
+  float: left;
+}
+.footer .top .left .logo {
+  height: 2rem;
+  line-height: 2rem;
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+.footer .top .left .logo > * {
+  display: inline-block;
+  vertical-align: middle;
+}
+.footer .top .left .logo .icon {
+  font-size: 1.75rem;
+  margin-right: 0.75rem;
+}
+.footer .top .right {
+  float: right;
+}
+.footer .top .right > * {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  margin-top: 0.25rem;
+  margin-left: 0.75rem;
+}
+
+.footer .center {
+  display: block;
+  clear: both;
+}
+
+.footer .center p {
+  text-align: center;
+  font-size: 0.8rem;
+  opacity: 0.65;
+}
+.footer .center p:not(:last-child) {
   margin-bottom: 0.35rem;
 }
+.footer .center p.big {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-bottom: 0.75rem;
+}
 
-.footer p.light {
-  opacity: 0.5;
+@media only screen and (max-width: 800px) {
+  .footer .top {
+    margin-bottom: 1.75rem;
+  }
+  .footer .center {
+    opacity: 0.8;
+  }
+  .footer .center p {
+    text-align: left;
+    opacity: 0.8;
+  }
 }

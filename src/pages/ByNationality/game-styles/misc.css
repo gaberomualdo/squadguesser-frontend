@@ -6,10 +6,11 @@
   display: block;
   height: calc(var(--fullheight) - 0.75rem);
   max-height: var(--maxfullheight);
+  margin-bottom: 1.25rem;
   float: left;
   flex-shrink: 0;
 }
-@media only screen and (min-width: 975px) {
+@media only screen and (min-width: 1075px) {
   .gamepage {
     padding-top: 1rem;
   }

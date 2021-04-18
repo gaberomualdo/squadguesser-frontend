@@ -17,5 +17,6 @@ const processRankNumber = (n) => {
   if (end === 3) ending = 'rd';
   return `${n}${ending}`;
 };
+const getAverageRating = (x) => Object.values(x).reduce((a, b) => a + b, 0) / Object.keys(x).length;
 
-module.exports = { toBase64, fromBase64, processDate, processRankNumber };
+module.exports = { toBase64, fromBase64, processDate, processRankNumber, getAverageRating };

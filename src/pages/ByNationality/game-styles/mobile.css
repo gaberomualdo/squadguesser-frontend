@@ -1,11 +1,12 @@
 .gamepage .tab-select {
   display: none;
   background-color: var(--darker);
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
+  border-radius: 3px;
+  overflow: hidden;
   --tabselect-height: 2.2rem;
   height: var(--tabselect-height);
   flex-basis: var(--tabselect-height);
+  margin-bottom: 0.5rem;
 }
 .gamepage .tab-select > .tab-select-row {
   height: var(--tabselect-height);
@@ -23,20 +24,19 @@
 .gamepage .tab-select > .tab-select-row .bg {
   position: absolute;
   transition: left 0.25s ease-in-out;
-  --padding: 0.25rem;
-  top: var(--padding);
-  left: var(--padding);
+  top: 0;
+  left: 0;
   background-color: var(--primary);
-  width: calc(33.333% - (var(--padding) * 2));
-  height: calc(var(--tabselect-height) - (var(--padding) * 2));
+  width: 33.333%;
+  height: var(--tabselect-height);
   border-radius: 3px;
   z-index: 0;
 }
 .gamepage[activetab='guess-section'] > .tab-select > .tab-select-row > .bg {
-  left: calc(33.333% + var(--padding));
+  left: 33.333%;
 }
 .gamepage[activetab='misc-section'] > .tab-select > .tab-select-row > .bg {
-  left: calc(66.666% + var(--padding));
+  left: 66.666%;
 }
 .gamepage[activetab='main-section'] > .tab-select > .tab-select-row > .main-section,
 .gamepage[activetab='guess-section'] > .tab-select > .tab-select-row > .guess-section,
@@ -44,7 +44,7 @@
   opacity: 1;
 }
 
-@media only screen and (max-width: 950px) {
+@media only screen and (max-width: 1050px) {
   .gamepage {
     flex-direction: column;
     height: calc(var(--fullheight) - 1.5rem);

@@ -5,10 +5,9 @@
   top: 0;
   transition: background-color 0.1s, box-shadow 0.1s;
   z-index: 100000;
-  backdrop-filter: blur(1rem);
 }
 .navbar-container.scrolling {
-  background-color: rgba(44, 62, 80, 0.8);
+  background-color: rgba(44, 62, 80, 1);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
 }
 .navbar {
@@ -150,9 +149,9 @@
   will-change: max-width;
   overflow-y: auto;
   overflow-x: hidden;
-  max-width: 15rem;
+  max-width: 17.5rem;
   height: 100vh;
-  width: 15rem;
+  width: 17.5rem;
   padding: 0.5rem 0.75rem 0;
   padding-top: 2.7rem;
   z-index: 99998;
@@ -187,6 +186,7 @@
   height: 100vh;
   width: 100%;
   position: fixed;
+  z-index: 99999;
   left: 0;
   top: 0;
   animation-duration: 0.5s;
@@ -198,23 +198,19 @@
 }
 .navbar-overlay.displayed {
   background-color: rgba(0, 0, 0, 0.35);
-  backdrop-filter: blur(0.5rem);
   animation-name: navbar-overlay-appear;
 }
 @keyframes navbar-overlay-appear {
   0% {
     background-color: rgba(0, 0, 0, 0);
-    backdrop-filter: blur(0rem);
   }
   100% {
     background-color: rgba(0, 0, 0, 0.35);
-    backdrop-filter: blur(0.5rem);
   }
 }
 @keyframes navbar-overlay-disappear {
   0% {
     background-color: rgba(0, 0, 0, 0.35);
-    backdrop-filter: blur(0.5rem);
   }
   99.99% {
     width: 100%;
@@ -224,7 +220,6 @@
   }
   100% {
     background-color: rgba(0, 0, 0, 0);
-    backdrop-filter: blur(0);
     width: 0;
     height: 0;
     left: -10000%;

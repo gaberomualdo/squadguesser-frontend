@@ -163,10 +163,10 @@ class App extends Component {
           active={this.state.activePage}
           user={this.state.user}
         />
+        {this.state.activePage === 'home' ? (
+          <Home user={this.state.user} setPage={setPage} url={this.state.currentURL} pages={pages} setAuthModal={setAuthModal} />
+        ) : null}
         <ResponsiveContainer>
-          {this.state.activePage === 'home' ? (
-            <Home user={this.state.user} setPage={setPage} url={this.state.currentURL} pages={pages} setAuthModal={setAuthModal} />
-          ) : null}
           {this.state.activePage === 'play' ? (
             <ByNationality
               reloadUser={this.reloadUser}
@@ -196,7 +196,7 @@ class App extends Component {
             <Leaderboard setPage={setPage} url={this.state.currentURL} pages={pages} user={this.state.user} loggedIn={loggedIn} />
           ) : null}
         </ResponsiveContainer>
-        <Footer />
+        <Footer pages={pages} setPage={setPage} />
         {this.state.showAuthModal ? <AuthModal setAuthModal={setAuthModal} signIn={this.state.authModalSignIn} /> : null}
         {this.state.showProfileModal && loggedIn ? (
           <ProfileModal profileIsSignedIn={true} setProfileModal={setProfileModal} profile={this.state.user} />

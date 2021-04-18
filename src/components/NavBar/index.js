@@ -12,7 +12,7 @@ class NavBar extends Component {
     this.checkMobile = this.checkMobile.bind(this);
   }
   mouseDown(e) {
-    const navWidth = 15 * parseFloat(getComputedStyle(document.documentElement).fontSize);
+    const navWidth = 17.5 * parseFloat(getComputedStyle(document.documentElement).fontSize);
     if (e.clientX < window.innerWidth - navWidth) {
       this.setState({ menuOpen: false });
     }
@@ -24,7 +24,7 @@ class NavBar extends Component {
     }
   }
   checkMobile() {
-    const newState = window.innerWidth < 975;
+    const newState = window.innerWidth < 1050;
     if (this.state.mobile !== newState) {
       this.setState({ mobile: newState });
     }
@@ -156,6 +156,7 @@ class NavBar extends Component {
                     )}
                   </button>
                 </div>
+                {this.state.menuOpen ? <style>{`body{overflow:hidden;}`}</style> : null}
                 <div className={`navbar-sidebar ${this.state.menuOpen ? 'open' : 'closed'}`}>
                   {infoButtons}
                   <div className='spacer'></div>

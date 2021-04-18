@@ -2,15 +2,51 @@ import { ResponsiveContainer } from '../';
 import React from 'react';
 import './styles.css';
 
-export default function Footer() {
+export default function Footer({ pages, setPage }) {
   const currentYear = new Date().getFullYear();
+  const homePage = pages.filter((e) => e.isHomepage)[0];
   return (
     <div className='footer'>
       <ResponsiveContainer>
-        <div className='left'>
-          <p>&copy; Gabriel Romualdo 2020{currentYear > 2020 ? `-${currentYear}` : ''}</p>
-          <p className='light'>Some images and data used from EA Sports and FIFAIndex.com under Fair Use for non-commercial purposes.</p>
-          <p className='light'>Built using React and the MERN Stack. Code available on request.</p>
+        <div className='top'>
+          <div className='left'>
+            <div className='logo' onClick={() => setPage(homePage.code)}>
+              <div className='icon'>{homePage.icon}</div>
+              <p>SquadGuessr</p>
+            </div>
+          </div>
+          <div className='right'>
+            {pages.map((e, i) => {
+              if (!e.isHomepage) {
+                return (
+                  <button key={i} onClick={() => setPage(e.code)} className='link'>
+                    {e.name}
+                  </button>
+                );
+              }
+              return null;
+            })}
+          </div>
+        </div>
+        <div className='center'>
+          <p className='big'>
+            Built by{' '}
+            <a className='link' href='https://gabrielromualdo.com/' target='_blank'>
+              Gabriel Romualdo
+            </a>
+            , an Arsenal fan.
+          </p>
+          <p>
+            &copy; 2020{currentYear > 2020 ? `-${currentYear}` : ''} &nbsp;&bull;&nbsp; Some images and data used from EA Sports and FIFAIndex.com
+            under Fair Use for non-commercial purposes.
+          </p>
+          <p>
+            Built using React.js and the MERN Stack. &nbsp;&bull;&nbsp; Questions, suggestions, or problems? Email{' '}
+            <a className='link' href='mailto:gabriel@gabrielromualdo.com'>
+              gabriel@gabrielromualdo.com
+            </a>
+            .
+          </p>
         </div>
       </ResponsiveContainer>
     </div>

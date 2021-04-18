@@ -6,7 +6,7 @@ import './game-styles/mobile.css';
 import { PrimaryButton, TertiaryButton, Pitch, PitchTop, Formation } from '../../components';
 import React, { useState, useEffect } from 'react';
 import { APIBaseURL } from '../../lib/config';
-import { toBase64, fromBase64 } from '../../lib/utils';
+import { toBase64, fromBase64, getAverageRating } from '../../lib/utils';
 import getStats from '../../lib/stats';
 const axios = require('axios');
 
@@ -37,6 +37,7 @@ export default function ByNationalityGame(props) {
         type: props.dailyChallenge ? 'dailychallenge' : 'nationality',
         league: props.league,
         correctAnswer: gameData.correctTeam,
+        correctAnswerRating: getAverageRating(gameData.fifaMiscData.ratings),
         won: !gaveUp,
         hintsUsed: [teamsEliminated.length > 0, nameLettersShown.length > 0, showRatings, showTransferBudget].filter((e) => e === true).length,
         wrongGuesses: gameData.wrongTeams.length,
@@ -143,13 +144,13 @@ export default function ByNationalityGame(props) {
           <div className='tab-select-row'>
             <div className='bg'></div>
             <button className='main-section' onClick={() => setActiveTab('main-section')}>
-              Squad
+              <i className='fas fa-users'></i>&nbsp; Squad
             </button>
             <button className='guess-section' onClick={() => setActiveTab('guess-section')}>
-              Guess
+              <i className='fas fa-play'></i>&nbsp; Guess
             </button>
             <button className='misc-section' onClick={() => setActiveTab('misc-section')}>
-              Hints &amp; Stats
+              <i className='fas fa-toolbox'></i>&nbsp; Hints &amp; Stats
             </button>
           </div>
         </div>

@@ -2,18 +2,19 @@ import './styles.css';
 import React, { useEffect, useState } from 'react';
 import { APIBaseURL } from '../../lib/config';
 import { processDate, processRankNumber } from '../../lib/utils';
-import { ProfileModal } from '../../components/';
+import { ProfileModal, Loading } from '../../components/';
 
 export default function Leaderboard(props) {
   const [data, setData] = useState([]);
+  const [loaded, setLoaded] = useState(false);
   const [profileModal, setProfileModal] = useState(false);
   const [profileUser, setProfileUser] = useState({});
-  const [profileLeaderboardPos, setProfileLeaderboardPos] = useState({});
   useEffect(() => {
     setTimeout(() => {
       (async () => {
         const fetchedData = await (await fetch(`${APIBaseURL}/api/profiles/top/100/`)).json();
         setData(fetchedData);
+        setLoaded(true);
       })();
     }, 100);
   }, []);
@@ -63,11 +64,21 @@ export default function Leaderboard(props) {
             ))}
           </tbody>
         </table>
+        {loaded ? null : (
+          <div style={{ textAlign: 'center', marginTop: '1rem' }}>
+            <Loading style={{ display: 'inline-block' }} />
+          </div>
+        )}
       </div>
       {profileModal ? (
         <ProfileModal
           profileIsSignedIn={false}
-          setProfileModal={setProfileModal}
+          setProfileModal={(v) => {
+            setProfileModal(v);
+            if (v === false) {
+              setProfileUser({});
+            }
+          }}
           profile={profileUser}
           {...(props.loggedIn && profileUser.user
             ? props.user.user && props.user.user._id === profileUser.user._id

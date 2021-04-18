@@ -1,5 +1,6 @@
 .gamepage .extras-section {
   flex-basis: 22%;
+  overflow-y: auto;
 }
 .gamepage .extras-section > * {
   flex: 0 1 auto !important;

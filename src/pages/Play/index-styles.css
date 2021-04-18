@@ -7,8 +7,9 @@
 .bynationalitypage-selectleague > .inner {
   overflow: hidden;
   position: relative;
+  padding: 3rem 0;
 }
-.bynationalitypage-selectleague .title {
+.bynationalitypage-selectleague .meta .title {
   text-transform: uppercase;
   font-weight: 700;
   letter-spacing: 0.05rem;
@@ -17,8 +18,14 @@
   font-size: 2rem;
   color: var(--light);
   z-index: 9999;
-  margin-bottom: 1.5rem;
 }
+
+.bynationalitypage-selectleague .meta .description {
+  text-align: center;
+  margin: 0rem 0 1.75rem 0;
+  opacity: 0.75;
+}
+
 .bynationalitypage-selectleague .playbutton {
   width: calc((100% - (1rem * 2)) / 3);
   margin-bottom: 1rem;

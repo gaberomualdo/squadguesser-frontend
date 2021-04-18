@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { APIBaseURL } from '../../lib/config';
 import Game from './game';
-import { PlayButton } from '../../components/';
+import { LeagueButton } from '../../components/';
 import './index-styles.css';
 import { fromBase64, toBase64 } from '../../lib/utils';
 
@@ -27,6 +27,7 @@ const leagueDescriptions = {
 export default function ByNationalityPage(props) {
   const [league, setLeague] = useState('');
   const [leagues, setLeagues] = useState([]);
+  const [leagueTeams, setLeagueTeams] = useState([]);
 
   const updateLeagueFromURLParam = (leaguesArr) => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -49,9 +50,10 @@ export default function ByNationalityPage(props) {
 
   useEffect(() => {
     (async () => {
-      const data = await (await fetch(`${APIBaseURL}/leagues`)).json();
-      updateLeagueFromURLParam(data);
-      setLeagues(data);
+      const data = await (await fetch(`${APIBaseURL}/teams/all/by-league/onlynamesandlogos`)).json();
+      updateLeagueFromURLParam(Object.keys(data));
+      setLeagueTeams(data);
+      setLeagues(Object.keys(data));
     })();
   }, []);
 
@@ -78,17 +80,23 @@ export default function ByNationalityPage(props) {
     ) : (
       <div className='bynationalitypage-selectleague fullheight-section'>
         <div className='inner'>
-          <h1 className='title'>Choose a League:</h1>
-          {leagues.map((e, i) => {
-            return (
-              <PlayButton
-                onClick={() => setLeagueAndParam(e)}
-                key={i}
-                name={e}
-                description={leagueDescriptions[e] ? leagueDescriptions[e] : <>Guess from this league.</>}
-              />
-            );
-          })}
+          <div className='meta'>
+            <h1 className='title'>Play</h1>
+            <p className='description'>Choose a league to guess teams from.</p>
+          </div>
+          <div className='leagues'>
+            {leagues.map((e, i) => {
+              return (
+                <LeagueButton
+                  onClick={() => setLeagueAndParam(e)}
+                  key={i}
+                  name={e}
+                  images={leagueTeams[e].slice(0, 9).map((e) => e.logoURL)}
+                  description={leagueDescriptions[e] ? leagueDescriptions[e] : <>Guess from this league.</>}
+                />
+              );
+            })}
+          </div>
         </div>
       </div>
     )

@@ -4,6 +4,7 @@ export { default as PrimaryButton } from './PrimaryButton';
 export { default as SecondaryButton } from './SecondaryButton';
 export { default as TertiaryButton } from './TertiaryButton';
 export { default as PlayButton } from './PlayButton';
+export { default as LeagueButton } from './LeagueButton';
 export { default as Footer } from './Footer';
 export { default as Loading } from './Loading';
 export { default as Pitch } from './Pitch';

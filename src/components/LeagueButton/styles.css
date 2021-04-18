@@ -1,0 +1,44 @@
+.leaguebutton {
+  width: 22rem;
+  background-color: var(--darker);
+  padding: 3.5rem 1.5rem;
+  transition: transform 0.25s, background-color 0.25s, clip-path 0.25s, border-radius 0.25s;
+  cursor: pointer;
+  clip-path: polygon(0 2rem, 100% 0, 100% calc(100% - 2rem), 0 100%);
+}
+.leaguebutton:hover {
+  transform: scale(1.05);
+  background-color: var(--primary);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100%), 0 100%);
+  border-radius: 4px;
+}
+.leaguebutton:active {
+  transform: scale(1.025);
+}
+
+.leaguebutton .image {
+  width: 90%;
+  margin: 0 auto;
+  height: auto;
+  margin-bottom: 1.5rem;
+}
+.leaguebutton .image .logos img {
+  --margin: 2rem;
+  --rows: 3;
+  width: calc((100% - var(--margin) * (var(--rows) - 1)) / var(--rows));
+}
+.leaguebutton .image .logos img:not(:nth-child(3n)) {
+  margin-right: var(--margin);
+}
+.leaguebutton .image .logos img:not(:nth-last-child(-n + 3)) {
+  margin-bottom: calc(var(--margin) * 0.75);
+}
+.leaguebutton .bottom h1 {
+  font-size: 1.5rem;
+}
+.leaguebutton .bottom p {
+  font-size: 0.9rem;
+  line-height: 1.35;
+  opacity: 0.8;
+  margin-top: 0.25rem;
+}

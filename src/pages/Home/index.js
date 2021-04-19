@@ -305,7 +305,7 @@ export default class Home extends Component {
             </div>
           </ResponsiveContainer>
         </div>
-        <div className='box-section leagues-list column less-padding no-margin'>
+        <div className='box-section leagues-list column less-padding'>
           <ResponsiveContainer>
             <div className='inner'>
               <h1>Play Now</h1>

@@ -381,7 +381,7 @@
 
 .homepage .box-section.leagues-list {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 2.75rem;
   background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('http://localhost:3000/bg1.jpg');
 }
 .homepage .box-section.leagues-list h1 {
@@ -452,6 +452,9 @@
   backdrop-filter: blur(2px);
   white-space: normal;
   scroll-snap-align: start;
+}
+.homepage .box-section.leagues-list .leagues > *:hover {
+  backdrop-filter: none;
 }
 .homepage .box-section.leagues-list .leagues > *:not(:last-child) {
   margin-right: var(--box-margin);

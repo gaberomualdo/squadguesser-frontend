@@ -1,7 +1,5 @@
 .squadsdatabase-page {
   margin-bottom: 1rem;
-  height: calc(var(--fullheight) - 2.25rem);
-  min-height: 0;
   display: flex;
   flex-direction: column;
 }
@@ -14,6 +12,27 @@
 .squadsdatabase-page > .description,
 .squadsdatabase-page > .title {
   flex: 1 0 auto;
+}
+
+.squadsdatabase-page .list-detail-bar {
+  padding: 0;
+}
+.squadsdatabase-page .list-detail-bar .input-container {
+  position: relative;
+}
+.squadsdatabase-page .list-detail-bar input {
+  padding-left: 2.25rem;
+}
+.squadsdatabase-page .list-detail-bar .input-container i {
+  position: absolute;
+  left: 0.65rem;
+  top: 50%;
+  line-height: 1;
+  width: 2.5rem;
+  color: var(--light);
+  opacity: 0.35;
+  font-size: 1.2rem;
+  transform: translateY(-50%) scale(0.85);
 }
 
 .squadsdatabase-page .dropdown-container:not(:first-child) {
@@ -67,7 +86,7 @@
 .squadsdatabase-page .dropdown-icon {
   flex: 1 0 1.5rem;
   height: 1.5rem;
-  transition: transform 0.25s;
+  transition: transform 0.5s;
 }
 .squadsdatabase-page .dropdown-container.open .dropdown-icon {
   transform: rotate(135deg);
@@ -79,7 +98,7 @@
 }
 .squadsdatabase-page .dropdown-contents {
   --current-height: 0;
-  transition: max-height 0.25s ease-in-out, opacity 0.25s ease-in-out;
+  transition: max-height 0.5s ease-in-out;
   overflow: hidden;
   height: auto;
 }
@@ -93,6 +112,33 @@
 .squadsdatabase-page .team-button {
   border: 2px solid var(--slightlydarkprimary);
   margin-top: 1rem;
+  float: left;
+}
+.squadsdatabase-page .team-button .icon span {
+  font-size: 0;
+}
+.squadsdatabase-page .list-view .team-button {
+  width: 100%;
+  position: relative;
+}
+.squadsdatabase-page .list-view .team-button .arrow {
+  background-color: transparent;
+}
+.squadsdatabase-page .list-view .team-button .extra-info {
+  position: absolute;
+  top: 50%;
+  right: 0.75rem;
+  text-align: right;
+  transform: translateY(-50%);
+}
+.squadsdatabase-page .list-view .team-button:hover .extra-info {
+  display: none;
+}
+.squadsdatabase-page .grid-view .team-button {
+  width: calc(50% - 0.5rem);
+}
+.squadsdatabase-page .grid-view .team-button:not(:nth-child(2n)) {
+  margin-right: 1rem;
 }
 .squadsdatabase-page .team-button:not(.primary) {
   --playbtn-color: var(--darkdark);
@@ -138,13 +184,7 @@
   float: left;
 }
 .squadsdatabase-page .main-container .teams-select {
-  position: absolute;
-  height: 100%;
-  left: 0;
-  top: 0;
-  overflow-y: scroll;
   padding-right: 0.75rem;
-  /* transition: width 0.25s; */
   width: 100%;
   z-index: 2;
 }
@@ -157,37 +197,18 @@
 .squadsdatabase-page .main-container .teams-select::-webkit-scrollbar-thumb {
   background: var(--lightdark);
 }
-.squadsdatabase-page .main-container.show-squad .teams-select {
-  width: 50%;
+
+.squadsdatabase-page .squad-formation-modal > .inner {
+  width: 40rem;
 }
-.squadsdatabase-page .main-container.show-squad {
-  display: flex;
-}
-.squadsdatabase-page .squad-content {
-  position: absolute;
-  height: 100%;
-  right: 0;
-  top: 0;
-  overflow: hidden;
-  border-radius: 6px;
-  /* transition: max-width 0.5s; */
-  width: calc(50% - 1.5rem);
-  z-index: 1;
-}
-.squadsdatabase-page .squad-content-inner {
-  width: 100%;
-  height: 100%;
+.squadsdatabase-page .squad-formation-container {
+  height: 40rem;
+  max-height: 80vh;
   position: relative;
   display: flex;
   flex-direction: column;
-  transition: transform 0.25s;
-}
-.squadsdatabase-page .squad-content-inner.show-squad {
-  transform: translate3d(0, 0, 0);
-}
-
-.squadsdatabase-page .main-container.hide-squad .squad-content-inner {
-  transform: translate3d(100%, 0, 0);
+  border-radius: 4px;
+  overflow: hidden;
 }
 
 .squadsdatabase-page .mobile-banner {

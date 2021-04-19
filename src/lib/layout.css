@@ -92,3 +92,101 @@ table.styled-table tr th {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
 }
+
+/* list detail bar */
+.list-detail-bar {
+  width: 100%;
+  padding: 0.75rem 1.25rem;
+  background-color: var(--darker);
+  margin-bottom: 1.5rem;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.list-detail-bar > * {
+  --height: 2.25rem;
+  height: var(--height);
+}
+.list-detail-bar .left {
+  float: left;
+}
+.list-detail-bar .left h1 {
+  font-size: 1.3rem;
+  opacity: 0.8;
+  font-weight: 400;
+  line-height: var(--height);
+}
+.list-detail-bar .left input {
+  font-size: 1rem;
+  height: var(--height);
+  line-height: var(--height);
+  padding: 0 0.75rem;
+  background-color: var(--darkdark);
+  border-radius: 3px;
+  width: 25rem;
+  transition: background-color 0.2s;
+}
+.list-detail-bar .left input::placeholder {
+  color: var(--light);
+  opacity: 0.5;
+}
+.list-detail-bar .left input:focus {
+  background-color: var(--dark);
+}
+@media only screen and (max-width: 600px) {
+  .list-detail-bar .left h1 {
+    font-size: 1.1rem;
+  }
+  .list-detail-bar .left h1 i {
+    display: none;
+  }
+}
+.list-detail-bar .right {
+  float: right;
+}
+.list-detail-bar .right > *,
+.list-detail-bar .right > * > * {
+  display: inline-block;
+  vertical-align: middle;
+}
+.list-detail-bar .right .select p {
+  line-height: var(--height);
+  font-size: 1rem;
+  opacity: 0.8;
+  margin-right: 0.5rem;
+}
+.list-detail-bar .right .select select {
+  color: #fff;
+  border: none;
+  background-color: var(--dark);
+  outline: none;
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  height: 1.75rem;
+}
+
+.list-detail-bar .right .view {
+  margin-left: 2rem;
+}
+.list-detail-bar .right .view:not(.displayed) {
+  display: none;
+}
+.list-detail-bar .right .view > button {
+  height: var(--height);
+  width: var(--height);
+  border-radius: 50%;
+  font-size: 1.1rem;
+  opacity: 0.6;
+  background-color: transparent;
+  transition: opacity 0.2s, background-color 0.2s;
+  cursor: pointer;
+}
+.list-detail-bar .right .view > button.active,
+.list-detail-bar .right .view > button:hover {
+  opacity: 1;
+}
+.list-detail-bar .right .view > button.active {
+  background-color: var(--dark);
+}
+.list-detail-bar .right .view > button:not(:last-child) {
+  margin-right: 0.25rem;
+}

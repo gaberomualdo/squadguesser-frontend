@@ -77,14 +77,14 @@ export default function ByNationalityPage(props) {
             <h1 className='title'>Play</h1>
             <p className='description'>Choose a league to guess teams from.</p>
           </div>
-          <div className='detail'>
+          <div className='list-detail-bar'>
             <div className='left'>
               <h1>
                 <i className='fas fa-futbol mr'></i>Leagues
               </h1>
             </div>
             <div className='right'>
-              <div className='sort'>
+              <div className='select'>
                 <p>Sort By</p>
                 <select onChange={(e) => setSortBy(e.target.value)}>
                   <option value='best-to-worst'>Best To Worst</option>

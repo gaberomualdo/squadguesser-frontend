@@ -24,8 +24,16 @@
 
   --lightdanger: #d75b5e;
 
-  --darker: #233140;
   --lightdark: #354a61;
+  --lighterdark-1: #354a61;
+  --lighterdark-2: #495c70;
+  --lighterdark-3: #5d6e80;
+  --lighterdark-4: #718090;
+  --lighterdark-5: #8592a0;
+  --lighterdark-6: #9aa4b0;
+  --lighterdark-7: #aeb6bf;
+  --lighterdark-8: #c2c8cf;
+  --darker: #233140;
   --darkdark: #253749;
 }
 

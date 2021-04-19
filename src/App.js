@@ -25,14 +25,14 @@ const pages = [
     icon: <i className='fas fa-futbol'></i>,
     code: 'play',
     name: 'Play SquadGuessr',
-    description: <>Guess teams from the Premier League, La Liga, Bundesliga, and more.</>,
+    description: <>Guess teams from the Premier League, La Liga, Serie A, and more.</>,
     type: 'game',
   },
   {
     icon: <i className='fas fa-calendar-alt'></i>,
     code: 'dailychallenge',
     name: 'Daily Challenge',
-    description: <>Test your skills with today's challenge.</>,
+    description: <>Test your skills with today's unique challenge.</>,
     type: 'game',
   },
   {

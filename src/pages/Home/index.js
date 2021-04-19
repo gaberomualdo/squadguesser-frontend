@@ -1,9 +1,10 @@
 import './styles.css';
-import React, { Component } from 'react';
-import { PlayButton, ResponsiveContainer } from '../../components';
+import React, { Component, createRef } from 'react';
+import { PlayButton, ResponsiveContainer, LeagueButton } from '../../components';
 import { APIBaseURL } from '../../lib/config';
 import { toBase64 } from '../../lib/utils';
 import AnimatedNumber from './animatedNumber';
+import leagueInfo from '../../lib/leagueInfo';
 
 const topTeamsLeagueName = 'Top 25 Teams';
 
@@ -16,7 +17,9 @@ export default class Home extends Component {
       top25Teams: [],
       videoLoaded: false,
       stats: {},
+      leagues: {},
     };
+    this.leaguesSlideshow = createRef();
   }
   componentDidMount() {
     this.demoVideo.current.playbackRate = 1.75;
@@ -31,6 +34,12 @@ export default class Home extends Component {
       (async () => {
         const data = await (await fetch(`${APIBaseURL}/stats`)).json();
         this.setState({ stats: data });
+      })();
+    }
+    if (Object.keys(this.state.leagues).length === 0) {
+      (async () => {
+        const data = await (await fetch(`${APIBaseURL}/teams/all/by-league/onlynamesandlogos`)).json();
+        this.setState({ leagues: data });
       })();
     }
   }
@@ -66,12 +75,6 @@ export default class Home extends Component {
                 width: 25,
                 rotate: 10,
               },
-              // {
-              //   x: 50,
-              //   y: 10,
-              //   width: 15,
-              //   rotate: 15,
-              // },
             ].map(({ x, y, width, rotate }, i) => (
               <img
                 src={`/homepage-icon-${(i % 2) + 1}.svg`}
@@ -227,34 +230,9 @@ export default class Home extends Component {
                 />
               </div>
             </div>
-            <hr />
-            <div className='box-section right-first no-background no-margin'>
-              <div className='right'>
-                <h1 className='main-header'>Compete against your friends on the public leaderboard</h1>
-                <PlayButton
-                  onClick={() => this.props.setPage('leaderboard')}
-                  className='secondary'
-                  icon={<i className='fas fa-trophy' style={{ transform: 'translateY(3px)' }}></i>}
-                  name='Check Out The Leaderboard'
-                  description={<>See it now.</>}
-                />
-              </div>
-              <div className='left leaderboard'>
-                <div className='inner'>
-                  {Array(5)
-                    .fill(<></>)
-                    .map((e, i) => (
-                      <div className='row' key={i}>
-                        <div className='number'>{i + 1}</div>
-                        <div className='text'></div>
-                      </div>
-                    ))}
-                </div>
-              </div>
-            </div>
           </ResponsiveContainer>
         </div>
-        <div className='box-section grid-list column guess-by less-padding'>
+        <div className='box-section grid-list column guess-by less-padding no-margin'>
           <ResponsiveContainer>
             <div className='inner'>
               <h1>Every Squad Has Countless Factors To Guess From</h1>
@@ -295,6 +273,80 @@ export default class Home extends Component {
                   </svg>
                   <p>Team Transfer Budget</p>
                 </div>
+              </div>
+            </div>
+          </ResponsiveContainer>
+        </div>
+        <div style={{ backgroundColor: 'var(--darker)' }}>
+          <ResponsiveContainer>
+            <div className='box-section right-first no-background no-margin'>
+              <div className='right'>
+                <h1 className='main-header'>Compete against your friends on the public leaderboard</h1>
+                <PlayButton
+                  onClick={() => this.props.setPage('leaderboard')}
+                  className='secondary'
+                  icon={<i className='fas fa-trophy' style={{ transform: 'translateY(3px)' }}></i>}
+                  name='Check Out The Leaderboard'
+                  description={<>See it now.</>}
+                />
+              </div>
+              <div className='left leaderboard'>
+                <div className='inner'>
+                  {Array(5)
+                    .fill(<></>)
+                    .map((e, i) => (
+                      <div className='row' key={i}>
+                        <div className='number'>{i + 1}</div>
+                        <div className='text'></div>
+                      </div>
+                    ))}
+                </div>
+              </div>
+            </div>
+          </ResponsiveContainer>
+        </div>
+        <div className='box-section leagues-list column less-padding no-margin'>
+          <ResponsiveContainer>
+            <div className='inner'>
+              <h1>Play Now</h1>
+              <div className='leagues-container'>
+                <div className='leagues' ref={this.leaguesSlideshow}>
+                  {Object.keys(this.state.leagues)
+                    .slice(3)
+                    .map((e, i) => {
+                      let images = this.state.leagues[e].slice(0, 6).map((e) => e.logoURL);
+                      return (
+                        <LeagueButton
+                          key={i}
+                          name={e}
+                          images={images}
+                          description={leagueInfo.descriptions[e] ? leagueInfo.descriptions[e] : <>Guess from this league.</>}
+                          location={leagueInfo.locations[e] ? leagueInfo.locations[e] : 'Worldwide'}
+                          teamsCount={this.state.leagues[e].length}
+                          horizontal={false}
+                          darkBackground={true}
+                        />
+                      );
+                    })}
+                </div>
+                <button
+                  className='left'
+                  onClick={() => {
+                    const { current } = this.leaguesSlideshow;
+                    current.scrollTo(current.scrollLeft - 15 * 16, 0);
+                  }}
+                >
+                  <i class='fas fa-chevron-left'></i>
+                </button>
+                <button
+                  className='right'
+                  onClick={() => {
+                    const { current } = this.leaguesSlideshow;
+                    current.scrollTo(current.scrollLeft + 15 * 16, 0);
+                  }}
+                >
+                  <i class='fas fa-chevron-right'></i>
+                </button>
               </div>
             </div>
           </ResponsiveContainer>

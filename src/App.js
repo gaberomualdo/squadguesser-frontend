@@ -11,7 +11,7 @@ const SITE_TITLE = 'SquadGuessr';
 
 const pages = [
   {
-    icon: <i class='fas fa-futbol'></i>,
+    icon: <i className='fas fa-futbol'></i>,
     code: 'home',
     name: 'Home',
     isHomepage: true,
@@ -22,21 +22,21 @@ const pages = [
     type: 'info',
   },
   {
-    icon: <i class='fas fa-futbol'></i>,
+    icon: <i className='fas fa-futbol'></i>,
     code: 'play',
     name: 'Play SquadGuessr',
     description: <>Guess teams from the Premier League, La Liga, Bundesliga, and more.</>,
     type: 'game',
   },
   {
-    icon: <i class='fas fa-calendar-alt'></i>,
+    icon: <i className='fas fa-calendar-alt'></i>,
     code: 'dailychallenge',
     name: 'Daily Challenge',
     description: <>Test your skills with today's challenge.</>,
     type: 'game',
   },
   {
-    icon: <i class='fas fa-trophy'></i>,
+    icon: <i className='fas fa-trophy'></i>,
     code: 'leaderboard',
     name: 'Leaderboard',
     type: 'other',

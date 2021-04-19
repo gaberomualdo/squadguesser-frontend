@@ -1,48 +1,24 @@
 /* eslint-disable no-restricted-globals */
 import React, { useState, useEffect } from 'react';
 import { APIBaseURL } from '../../lib/config';
+import leagueInfo from '../../lib/leagueInfo';
 import Game from './game';
 import { LeagueButton } from '../../components/';
 import './index-styles.css';
 import { fromBase64, toBase64 } from '../../lib/utils';
 
-const urlLeagueParam = 'league';
+const reversed = (arr) => {
+  return arr.slice().reverse();
+};
 
-const leagueDescriptions = {
-  'All Teams': <>Up for a challenge? Guess from 200+ teams.</>,
-  'Top 25 Teams': <>Guess from the greatest teams right now.</>,
-  'Premier League': <>England's first division, the biggest league.</>,
-  'La Liga': <>Spanish league home to Barcelona and Real Madrid.</>,
-  Bundesliga: <>Germany's league, with Bayern Munchen and more.</>,
-  'Serie A TIM': <>Italian league with famous players like Ronaldo.</>,
-  'Ligue 1': <>French league with Neymar, Mbappe, and more.</>,
-  Eredivisie: <>Dutch league home to Ajax, PSV, and more.</>,
-  'Liga NOS': <>Portugal's league with Benfica and Porto.</>,
-  'Süper Lig': <>Turkish league with Galatasaray and more.</>,
-  Libertadores: <>South American league.</>,
-  'Scottish Prem': <>Scottish league.</>,
-  'EFL Championship': <>England's second division.</>,
-};
-const leagueLocations = {
-  'All Teams': 'Worldwide',
-  'Top 25 Teams': 'Worldwide',
-  'Premier League': 'England',
-  'La Liga': 'Spain',
-  Bundesliga: 'Germany',
-  'Serie A TIM': 'Italy',
-  'Ligue 1': 'France',
-  Eredivisie: 'Netherlands',
-  'Liga NOS': 'Portugal',
-  'Süper Lig': 'Turkey',
-  Libertadores: 'South America',
-  'Scottish Prem': 'Scotland',
-  'EFL Championship': 'England',
-};
+const urlLeagueParam = 'league';
 
 export default function ByNationalityPage(props) {
   const [league, setLeague] = useState('');
   const [leagues, setLeagues] = useState([]);
   const [leagueTeams, setLeagueTeams] = useState([]);
+  const [viewType, setViewType] = useState('grid');
+  const [sortBy, setSortBy] = useState('best-to-worst');
 
   const updateLeagueFromURLParam = (leaguesArr) => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -81,6 +57,8 @@ export default function ByNationalityPage(props) {
     window.open(urlStr, '_self');
   };
 
+  const allowHorizontalList = window.innerWidth > 775; // 775px width is minimum for horizontal list
+
   return leagues.length > 0 ? (
     league ? (
       <Game
@@ -99,17 +77,47 @@ export default function ByNationalityPage(props) {
             <h1 className='title'>Play</h1>
             <p className='description'>Choose a league to guess teams from.</p>
           </div>
-          <div className='leagues'>
-            {leagues.map((e, i) => {
+          <div className='detail'>
+            <div className='left'>
+              <h1>
+                <i className='fas fa-futbol mr'></i>Leagues
+              </h1>
+            </div>
+            <div className='right'>
+              <div className='sort'>
+                <p>Sort By</p>
+                <select onChange={(e) => setSortBy(e.target.value)}>
+                  <option value='best-to-worst'>Best To Worst</option>
+                  <option value='worst-to-best'>Worst To Best</option>
+                </select>
+              </div>
+              <div className={`view ${allowHorizontalList ? 'displayed' : ''}`}>
+                <button onClick={() => setViewType('grid')} className={`grid ${viewType === 'grid' ? 'active' : ''}`}>
+                  <i className='fas fa-th'></i>
+                </button>
+                <button onClick={() => setViewType('list')} className={`list ${viewType === 'list' ? 'active' : ''}`}>
+                  <i className='fas fa-list'></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className={`leagues ${viewType === 'list' ? 'list-view' : ''}`}>
+            {(sortBy === 'worst-to-best' ? reversed(leagues) : leagues).map((e, i) => {
+              const isHorizontal = allowHorizontalList && viewType === 'list';
+              let images = leagueTeams[e].slice(0, 6).map((e) => e.logoURL);
+              if (i % 2 === 0) {
+                images = reversed(images);
+              }
               return (
                 <LeagueButton
                   onClick={() => setLeagueAndParam(e)}
                   key={i}
                   name={e}
-                  images={leagueTeams[e].slice(0, 9).map((e) => e.logoURL)}
-                  description={leagueDescriptions[e] ? leagueDescriptions[e] : <>Guess from this league.</>}
-                  location={leagueLocations[e] ? leagueLocations[e] : 'Worldwide'}
+                  images={images}
+                  description={leagueInfo.descriptions[e] ? leagueInfo.descriptions[e] : <>Guess from this league.</>}
+                  location={leagueInfo.locations[e] ? leagueInfo.locations[e] : 'Worldwide'}
                   teamsCount={leagueTeams[e].length}
+                  horizontal={isHorizontal}
                 />
               );
             })}

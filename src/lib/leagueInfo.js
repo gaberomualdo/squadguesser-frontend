@@ -1,0 +1,33 @@
+const leagueInfo = {
+  descriptions: {
+    'All Teams': <>Up for a challenge? Guess from 200+ teams.</>,
+    'Top 25 Teams': <>Guess from the greatest teams right now, sorted by FIFA rating.</>,
+    'Premier League': <>England's most prestigious league, home to many great teams.</>,
+    'La Liga': <>Spanish league home to Barcelona, Real Madrid, Atletico Madrid, and more.</>,
+    Bundesliga: <>Germany's league, with Bayern Munchen and Dortmund among others.</>,
+    'Serie A TIM': <>Italian league with famous players such as Cristiano Ronaldo.</>,
+    'Ligue 1': <>French league with major teams and players like Neymar and Mbappe.</>,
+    Eredivisie: <>Dutch league home to major teams such as Ajax, PSV, and more.</>,
+    'Liga NOS': <>Portugal's league with Benfica and Porto.</>,
+    'Süper Lig': <>Turkish league with Galatasaray and more.</>,
+    Libertadores: <>South American league.</>,
+    'Scottish Prem': <>Scottish league.</>,
+    'EFL Championship': <>England's second division.</>,
+  },
+  locations: {
+    'All Teams': 'Worldwide',
+    'Top 25 Teams': 'Worldwide',
+    'Premier League': 'England',
+    'La Liga': 'Spain',
+    Bundesliga: 'Germany',
+    'Serie A TIM': 'Italy',
+    'Ligue 1': 'France',
+    Eredivisie: 'Netherlands',
+    'Liga NOS': 'Portugal',
+    'Süper Lig': 'Turkey',
+    Libertadores: 'South America',
+    'Scottish Prem': 'Scotland',
+    'EFL Championship': 'England',
+  },
+};
+export default leagueInfo;

@@ -50,14 +50,21 @@
   }
 }
 
-.bynationalitypage-selectleague .leagues > * {
+.bynationalitypage-selectleague .leagues.list-view > * {
   margin-right: 0 !important;
 }
-.bynationalitypage-selectleague .leagues > * {
+.bynationalitypage-selectleague .leagues.list-view > * {
   width: 100%;
   margin-bottom: 0.675rem;
 }
 @media only screen and (max-width: 900px) {
+  .bynationalitypage-selectleague .leagues > * {
+    margin-right: 0 !important;
+  }
+  .bynationalitypage-selectleague .leagues > * {
+    width: 100%;
+    margin-bottom: 0.675rem;
+  }
   .bynationalitypage-selectleague .title {
     margin-top: 2rem;
   }
@@ -66,4 +73,84 @@
   .bynationalitypage-selectleague .leagues {
     padding: 0 0.5rem;
   }
+}
+
+.bynationalitypage-selectleague .detail {
+  width: 100%;
+  padding: 0.75rem 1.25rem;
+  background-color: var(--darker);
+  margin-bottom: 1.5rem;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.bynationalitypage-selectleague .detail > * {
+  --height: 2.25rem;
+  height: var(--height);
+}
+.bynationalitypage-selectleague .detail .left {
+  float: left;
+}
+.bynationalitypage-selectleague .detail .left h1 {
+  font-size: 1.3rem;
+  opacity: 0.8;
+  font-weight: 400;
+  line-height: var(--height);
+}
+@media only screen and (max-width: 600px) {
+  .bynationalitypage-selectleague .detail .left h1 {
+    font-size: 1.1rem;
+  }
+  .bynationalitypage-selectleague .detail .left h1 i {
+    display: none;
+  }
+}
+.bynationalitypage-selectleague .detail .right {
+  float: right;
+}
+.bynationalitypage-selectleague .detail .right > *,
+.bynationalitypage-selectleague .detail .right > * > * {
+  display: inline-block;
+  vertical-align: middle;
+}
+.bynationalitypage-selectleague .detail .right .sort p {
+  line-height: var(--height);
+  font-size: 1rem;
+  opacity: 0.8;
+  margin-right: 0.5rem;
+}
+.bynationalitypage-selectleague .detail .right .sort select {
+  color: #fff;
+  border: none;
+  background-color: var(--dark);
+  outline: none;
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  height: 1.75rem;
+}
+
+.bynationalitypage-selectleague .detail .right .view {
+  margin-left: 2rem;
+}
+.bynationalitypage-selectleague .detail .right .view:not(.displayed) {
+  display: none;
+}
+.bynationalitypage-selectleague .detail .right .view > button {
+  height: var(--height);
+  width: var(--height);
+  border-radius: 50%;
+  font-size: 1.1rem;
+  opacity: 0.6;
+  background-color: transparent;
+  transition: opacity 0.2s, background-color 0.2s;
+  cursor: pointer;
+}
+.bynationalitypage-selectleague .detail .right .view > button.active,
+.bynationalitypage-selectleague .detail .right .view > button:hover {
+  opacity: 1;
+}
+.bynationalitypage-selectleague .detail .right .view > button.active {
+  background-color: var(--dark);
+}
+.bynationalitypage-selectleague .detail .right .view > button:not(:last-child) {
+  margin-right: 0.25rem;
 }

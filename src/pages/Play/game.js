@@ -159,11 +159,11 @@ export default function Game(props) {
             <h1 className='title'>
               {gameData.doneGuessing ? (
                 <>
-                  <i className='fas fa-check mr'></i> Correct!
+                  <i className='fas fa-check mr'></i> Correct
                 </>
               ) : (
                 <>
-                  <i className='fas fa-play mr'></i> Make a Guess:
+                  <i className='fas fa-play mr'></i> Make a Guess
                 </>
               )}
             </h1>

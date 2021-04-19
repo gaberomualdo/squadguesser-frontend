@@ -282,7 +282,8 @@
 }
 
 .homepage .box-section.horizontal-list,
-.homepage .box-section.grid-list {
+.homepage .box-section.grid-list,
+.homepage .box-section.leagues-list {
   background-position: center center;
   background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('http://localhost:3000/bg4.jpg');
   background-size: cover;
@@ -376,6 +377,84 @@
   width: 3.5rem;
   fill: var(--light);
   margin-bottom: 0.75rem;
+}
+
+.homepage .box-section.leagues-list {
+  text-align: center;
+  margin-bottom: 2rem;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('http://localhost:3000/bg1.jpg');
+}
+.homepage .box-section.leagues-list h1 {
+  font-size: 1.75rem;
+  padding-top: 1rem;
+}
+.homepage .box-section.leagues-list .leagues-container {
+  position: relative;
+  overflow: hidden;
+  margin-top: 2rem;
+}
+.homepage .box-section.leagues-list .leagues-container > button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 4rem;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+  cursor: pointer;
+}
+.homepage .box-section.leagues-list .leagues-container > button.disabled {
+  opacity: 0.2;
+  touch-action: none;
+  pointer-events: none;
+}
+.homepage .box-section.leagues-list .leagues-container > button:hover {
+  opacity: 1;
+}
+.homepage .box-section.leagues-list .leagues-container > button.left {
+  left: 0;
+}
+.homepage .box-section.leagues-list .leagues-container > button.right {
+  right: 0;
+}
+.homepage .box-section.leagues-list .leagues {
+  --box-width: 20rem;
+  --box-margin: 2rem;
+  width: calc(var(--box-width) * 3 + var(--box-margin) * 2);
+  overflow-x: hidden;
+  white-space: nowrap;
+  margin: 0 auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+}
+@media only screen and (max-width: 1175px) {
+  .homepage .box-section.leagues-list .leagues {
+    overflow-x: scroll;
+  }
+  .homepage .box-section.leagues-list .leagues-container > button {
+    display: none;
+  }
+}
+@media only screen and (max-width: 1150px) {
+  .homepage .box-section.leagues-list .leagues {
+    width: calc(var(--box-width) * 2 + var(--box-margin));
+  }
+}
+@media only screen and (max-width: 740px) {
+  .homepage .box-section.leagues-list .leagues {
+    --box-width: 100%;
+    width: var(--box-width);
+  }
+}
+.homepage .box-section.leagues-list .leagues > * {
+  width: var(--box-width);
+  display: inline-block;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(2px);
+  white-space: normal;
+  scroll-snap-align: start;
+}
+.homepage .box-section.leagues-list .leagues > *:not(:last-child) {
+  margin-right: var(--box-margin);
 }
 
 @media only screen and (max-width: 950px) {

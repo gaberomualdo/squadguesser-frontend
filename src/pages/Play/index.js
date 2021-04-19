@@ -23,6 +23,21 @@ const leagueDescriptions = {
   'Scottish Prem': <>Scottish league.</>,
   'EFL Championship': <>England's second division.</>,
 };
+const leagueLocations = {
+  'All Teams': 'Worldwide',
+  'Top 25 Teams': 'Worldwide',
+  'Premier League': 'England',
+  'La Liga': 'Spain',
+  Bundesliga: 'Germany',
+  'Serie A TIM': 'Italy',
+  'Ligue 1': 'France',
+  Eredivisie: 'Netherlands',
+  'Liga NOS': 'Portugal',
+  'Süper Lig': 'Turkey',
+  Libertadores: 'South America',
+  'Scottish Prem': 'Scotland',
+  'EFL Championship': 'England',
+};
 
 export default function ByNationalityPage(props) {
   const [league, setLeague] = useState('');
@@ -93,6 +108,8 @@ export default function ByNationalityPage(props) {
                   name={e}
                   images={leagueTeams[e].slice(0, 9).map((e) => e.logoURL)}
                   description={leagueDescriptions[e] ? leagueDescriptions[e] : <>Guess from this league.</>}
+                  location={leagueLocations[e] ? leagueLocations[e] : 'Worldwide'}
+                  teamsCount={leagueTeams[e].length}
                 />
               );
             })}

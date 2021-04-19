@@ -4,7 +4,6 @@ import { PlayButton, ResponsiveContainer } from '../../components';
 import { APIBaseURL } from '../../lib/config';
 import { toBase64 } from '../../lib/utils';
 import AnimatedNumber from './animatedNumber';
-import seedrandom from 'seedrandom';
 
 const topTeamsLeagueName = 'Top 25 Teams';
 

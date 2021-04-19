@@ -1,44 +1,148 @@
 .leaguebutton {
   width: 22rem;
-  background-color: var(--darker);
-  padding: 3.5rem 1.5rem;
   transition: transform 0.25s, background-color 0.25s, clip-path 0.25s, border-radius 0.25s;
   cursor: pointer;
   clip-path: polygon(0 2rem, 100% 0, 100% calc(100% - 2rem), 0 100%);
-}
-.leaguebutton:hover {
-  transform: scale(1.05);
-  background-color: var(--primary);
-  clip-path: polygon(0 0, 100% 0, 100% calc(100%), 0 100%);
-  border-radius: 4px;
-}
-.leaguebutton:active {
-  transform: scale(1.025);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
+@media only screen and (min-width: 600px) {
+  .leaguebutton:hover {
+    background-color: var(--primary);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    border-radius: 4px;
+  }
+  .leaguebutton:not(.horizontal):hover {
+    transform: scale(1.05);
+  }
+  .leaguebutton:not(.horizontal):active {
+    transform: scale(1.025);
+  }
+  .leaguebutton:hover > .image {
+    background-color: var(--primary);
+  }
+  .leaguebutton:hover > .bottom {
+    background-color: var(--darkprimary);
+  }
+  .leaguebutton:not(.horizontal):hover .badge {
+    background-color: transparent;
+    opacity: 0;
+  }
+  .leaguebutton.horizontal:hover .badge {
+    background-color: var(--slightlydarkprimary);
+  }
+  .leaguebutton .tertiarybutton {
+    display: none;
+  }
+}
+
+.leaguebutton > * {
+  flex: 0 0 auto;
+  width: 100%;
+}
 .leaguebutton .image {
-  width: 90%;
-  margin: 0 auto;
+  background-color: var(--darker);
+  padding: 0 3rem;
   height: auto;
-  margin-bottom: 1.5rem;
+  padding-bottom: 2.5rem;
+  padding-top: 4rem;
 }
 .leaguebutton .image .logos img {
   --margin: 2rem;
   --rows: 3;
   width: calc((100% - var(--margin) * (var(--rows) - 1)) / var(--rows));
 }
-.leaguebutton .image .logos img:not(:nth-child(3n)) {
+.leaguebutton:not(.horizontal) .image .logos img:not(:nth-child(3n)) {
   margin-right: var(--margin);
 }
-.leaguebutton .image .logos img:not(:nth-last-child(-n + 3)) {
+.leaguebutton:not(.horizontal) .image .logos img:not(:nth-last-child(-n + 3)) {
   margin-bottom: calc(var(--margin) * 0.75);
 }
+.leaguebutton .bottom {
+  background-color: var(--darkdark);
+  padding: 0 1.5rem;
+  padding-bottom: 3.5rem;
+  padding-top: 2.5rem;
+  position: relative;
+}
 .leaguebutton .bottom h1 {
-  font-size: 1.5rem;
+  font-size: 1.65rem;
 }
 .leaguebutton .bottom p {
   font-size: 0.9rem;
   line-height: 1.35;
   opacity: 0.8;
   margin-top: 0.25rem;
+  height: 2.5rem;
+}
+.leaguebutton > * {
+  transition: background-color 0.25s;
+}
+
+.leaguebutton:not(.horizontal) .badges {
+  position: absolute;
+  top: 0;
+  transform: translateY(-50%);
+  text-align: center;
+  width: 100%;
+  left: 0;
+}
+.leaguebutton .badge {
+  --height: 2.1rem;
+  display: inline-block;
+  height: var(--height);
+  line-height: var(--height);
+  background-color: var(--dark);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  color: #fff;
+  padding: 0 0.75rem;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  transition: opacity 0.25s, background-color 0.25s;
+}
+.leaguebutton .badge:not(:last-child) {
+  margin-right: 0.5rem;
+}
+
+/* horizontal */
+.leaguebutton.horizontal {
+  flex-direction: row;
+  clip-path: none;
+  border-radius: 4px;
+  --height: 10rem;
+  height: var(--height);
+}
+.leaguebutton.horizontal .image {
+  flex: 0 0 calc(var(--height) * 1.85);
+  padding: 1.25rem;
+}
+.leaguebutton.horizontal .bottom {
+  flex: 1 1 100%;
+}
+
+.leaguebutton.horizontal > * {
+  height: 100%;
+}
+.leaguebutton .image .logos img {
+  --margin: 1.25rem;
+  --rows: 4;
+}
+.leaguebutton.horizontal .image .logos img:not(:nth-child(4n)) {
+  margin-right: var(--margin);
+}
+.leaguebutton.horizontal .image .logos img:not(:nth-last-child(-n + 5)) {
+  margin-bottom: var(--margin);
+}
+.leaguebutton .image .logos img:last-child {
+  display: none;
+}
+.leaguebutton.horizontal .bottom {
+  padding: 1.25rem 0;
+  padding-left: 1.75rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }

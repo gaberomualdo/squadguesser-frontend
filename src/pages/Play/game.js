@@ -391,7 +391,14 @@ export default function Game(props) {
                 ))}
               </div>
             ) : (
-              <PrimaryButton text='Sign In to Get Your Stats' onClick={() => props.setAuthModal(true, true)} />
+              <PrimaryButton
+                text={
+                  <>
+                    <i className='fas fa-sign-in-alt mr'></i>Sign In To Get Stats
+                  </>
+                }
+                onClick={() => props.setAuthModal(true, true)}
+              />
             )}
           </div>
         </div>

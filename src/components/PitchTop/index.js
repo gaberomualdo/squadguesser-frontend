@@ -8,11 +8,11 @@ export default function PitchTop(props) {
     <div className={`pitch-top-component ${props.showAnswer ? 'show-answer' : 'hide-answer'}`}>
       <div className='header'>
         <div className='box'>
-          <h1>Guess That Team!</h1>
+          <h1>Guess The Team</h1>
           <p className='instructions'>
             Each item and its position represents a player<span className='no-display-mobile'> in a team</span>.
           </p>
-          {props.showLeague ? <p style={{ marginTop: '.2rem' }}>Team league: {props.league}</p> : null}
+          {props.showLeague ? <p style={{ marginTop: '.2rem' }}>League: {props.league}.</p> : null}
         </div>
       </div>
       <div className='left'>

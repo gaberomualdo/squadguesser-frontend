@@ -13,3 +13,6 @@ export { default as Formation } from './Formation';
 export { default as Modal } from './Modal';
 export { default as AuthModal } from './AuthModal';
 export { default as ProfileModal } from './ProfileModal';
+export { default as TeamSheetTable } from './TeamSheetTable';
+export { default as TeamInformationTable } from './TeamInformationTable';
+export { default as PlayModal } from './PlayModal';

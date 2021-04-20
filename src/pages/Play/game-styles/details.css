@@ -1,0 +1,246 @@
+.details-section {
+  background-color: var(--darker);
+  margin-bottom: 1.25rem;
+  display: flex;
+}
+.details-section .details-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+.details-section .left {
+  margin-right: 1.25rem;
+  flex: 0 0 auto;
+}
+
+.details-section .right {
+  flex: 1 1 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.details-section .right > * {
+  flex: 0 0 auto;
+}
+.details-section table {
+  margin-bottom: 0;
+}
+.details-section.blurred table {
+  user-select: none;
+}
+.details-section.blurred table tbody {
+  filter: blur(8px);
+  transition: filter 0.2s;
+}
+.details-section.blurred table .nationality img {
+  display: none;
+}
+@media only screen and (max-width: 800px) {
+  .details-section .left,
+  .details-section .team-information {
+    display: none !important;
+  }
+  .details-section .box {
+    margin-top: 0 !important;
+    padding: 0.75rem !important;
+  }
+  .details-section {
+    padding: 1rem;
+  }
+}
+@media only screen and (max-width: 1150px) {
+  .details-section {
+    flex-direction: column;
+  }
+  .details-section .left {
+    margin-right: 0;
+    margin-bottom: 1rem;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+  .details-section .left table {
+    width: auto !important;
+    min-width: 0;
+    margin: 0 auto;
+  }
+}
+
+.details-section .how-to > *:not(h1) {
+  font-size: 1rem;
+  opacity: 0.8;
+  line-height: 1.5;
+}
+.details-section .how-to > *:not(h1):not(:last-child) {
+  margin-bottom: 1rem;
+}
+.details-section .how-to ul {
+  padding-left: 2.5rem;
+  margin-top: 0;
+}
+.details-section .how-to ul li:not(:last-child) {
+  margin-bottom: 0.25rem;
+}
+.details-section .box {
+  flex: 1 1 100%;
+  background-color: var(--darkdark);
+  margin: 1.25rem 0;
+  border-radius: 4px;
+}
+.details-section .share {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem 1.5rem;
+  padding-bottom: 1.25rem;
+}
+.details-section .share > h1 {
+  margin-top: 0.5rem;
+}
+
+.details-section .share > .section {
+  width: 100%;
+  flex: 1 1 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.details-section .share > .section .input-container {
+  width: 100%;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+  --copy-button-size: 8rem;
+}
+.details-section .share > .section .input-container > * {
+  height: 100%;
+  display: block;
+  float: left;
+}
+.details-section .share > .section .input-container input {
+  font-size: 1rem;
+  background-color: var(--darker);
+  padding: 0 1rem;
+  user-select: all;
+  transition: background-color 0.2s;
+  width: calc(100% - var(--copy-button-size));
+}
+.details-section .share > .section .input-container input:not(:focus) {
+  text-overflow: ellipsis;
+}
+.details-section .share > .section .input-container button {
+  padding: 0 0.75rem;
+  flex: 0 0 var(--copy-button-size);
+  background-color: var(--darkprimary);
+  font-weight: 500;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.2s, opacity 0.2s;
+  width: var(--copy-button-size);
+}
+.details-section .share > .section .input-container button.copied {
+  touch-action: none;
+  pointer-events: none;
+  opacity: 0.7;
+}
+.details-section .share > .section .input-container button:hover {
+  background-color: var(--primary);
+}
+.details-section .share > .section .input-container button:active {
+  background-color: var(--darkprimary);
+}
+.details-section .share > .section .input-container button > * {
+  display: inline-block;
+  vertical-align: middle;
+}
+.details-section .share > .section .input-container button i {
+  font-size: 1.1rem;
+  margin-right: 0.25rem;
+}
+.details-section .share > .section .grid > button {
+  cursor: pointer;
+  --margin: 0.5rem;
+  --height: 2.2rem;
+  width: calc((100% - var(--margin) * 2) / 3);
+  height: var(--height);
+  background-color: var(--bg);
+  border-radius: 3px;
+  padding: 0;
+  text-align: left;
+  overflow: hidden;
+  transition: filter 0.2s;
+}
+.details-section .share > .section .grid > button:not(:nth-child(3n)) {
+  margin-right: var(--margin);
+}
+.details-section .share > .section .grid > button:not(:nth-last-child(-n + 3)) {
+  margin-bottom: var(--margin);
+}
+.details-section .share > .section .grid > button > * {
+  display: block;
+  float: left;
+}
+.details-section .share > .section .grid > button > i:first-child {
+  font-size: 1.25rem;
+  width: var(--height);
+  height: var(--height);
+  line-height: var(--height);
+  text-align: center;
+  background-color: var(--bg);
+  filter: brightness(90%);
+}
+.details-section .share > .section .grid > button > p {
+  font-size: 1rem;
+  height: var(--height);
+  line-height: var(--height);
+  width: calc(100% - var(--height));
+  padding-left: 0.5rem;
+}
+@media only screen and (max-width: 1150px) {
+  .details-section .share > .section .grid > button > i:first-child {
+    display: none;
+  }
+  .details-section .share > .section .grid > button > p {
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 750px) {
+  .details-section .share > .section .grid > button > i:first-child {
+    display: block;
+    width: 100%;
+  }
+  .details-section .share > .section .grid > button > p {
+    display: none;
+  }
+}
+@media only screen and (max-width: 700px) {
+  .details-section .share > .section .input-container button span {
+    display: none;
+  }
+  .details-section .share > .section .input-container button i {
+    margin-right: 0 !important;
+    transform: translateY(-1px);
+  }
+  .details-section .share > .section .input-container {
+    --copy-button-size: 3rem;
+  }
+}
+.details-section .share > .section .grid > button > p i {
+  line-height: 2.3rem;
+  float: right;
+  padding-right: 0.5rem;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+.details-section .share > .section .grid > button:hover {
+  filter: brightness(110%);
+}
+.details-section .share > .section .grid > button:active {
+  filter: brightness(95%);
+}
+.details-section .share > .section .grid > button:hover > p i {
+  opacity: 1;
+}

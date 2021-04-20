@@ -17,7 +17,9 @@ export default function Pitch() {
       <div className='circle dot gk top'></div>
       <div className='circle dot gk bottom'></div>
       <div className='overlay'></div>
-      <p className='site-title'>SquadGuessr</p>
+      <p className='site-title'>
+        <i class='fas fa-futbol' style={{ position: 'relative' }}></i>&nbsp; SquadGuessr
+      </p>
     </div>
   );
 }

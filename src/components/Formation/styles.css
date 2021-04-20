@@ -32,6 +32,10 @@
   /* animation-duration: 0.35s; */
   animation-name: bounce-appear;
 }
+.formation-component .player img.alternate-team {
+  width: 100%;
+  transform: translateY(1.2rem);
+}
 
 .formation-component .player p {
   line-height: normal;
@@ -75,7 +79,7 @@
   display: none;
 }
 
-.formation-component .player .game .image {
+/* .formation-component .player .game .image {
   width: 100%;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
   height: 4rem;
@@ -83,7 +87,7 @@
   background-size: auto 210%;
   background-position: center;
   border-radius: 4px;
-}
+} */
 .formation-component .player h3 {
   background: rgba(0, 0, 0, 0.4);
   color: #fff;
@@ -91,7 +95,7 @@
   font-weight: 600;
   width: 90%;
   padding: 0.5rem 0.75rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
 }
 .formation-component .player h3 > * {
   display: block;
@@ -105,4 +109,9 @@
 .formation-component .player h3 span {
   font-size: 1.5rem;
   letter-spacing: 0.05rem;
+}
+@media only screen and (max-width: 600px) {
+  .formation-component .player h3 {
+    padding: 0.5rem 0.1rem;
+  }
 }

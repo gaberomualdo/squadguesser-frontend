@@ -10,6 +10,11 @@
   float: left;
   flex-shrink: 0;
 }
+@media only screen and (max-width: 1050px) {
+  .gamepage > * {
+    margin-bottom: 0 !important;
+  }
+}
 @media only screen and (min-width: 1075px) {
   .gamepage {
     padding-top: 1rem;

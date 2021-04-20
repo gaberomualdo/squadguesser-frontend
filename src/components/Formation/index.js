@@ -13,11 +13,12 @@ export default function Formation(props) {
         }
         let gameComponent = <></>;
         if (gameType === 'alternate-team') {
-          gameComponent = <div className='image' style={{ '--image': `url(${alternateTeamImageURL})` }}></div>;
+          // gameComponent = <div className='image' style={{ '--image': `url(${alternateTeamImageURL})` }}></div>;
+          gameComponent = <img src={alternateTeamImageURL} alt={player.fullName} className='alternate-team' />;
         } else if (gameType === 'initials') {
           gameComponent = (
             <h3>
-              <strong>Player Initials</strong>
+              <strong>Initials</strong>
               <span>
                 {player.fullName
                   .split(' ')
@@ -36,14 +37,14 @@ export default function Formation(props) {
         } else if (gameType === 'rating-overall') {
           gameComponent = (
             <h3>
-              <strong>FIFA Rating</strong>
+              <strong>Rating</strong>
               <span>{player.fifaRating.overall}</span>
             </h3>
           );
         } else if (gameType === 'rating-potential') {
           gameComponent = (
             <h3>
-              <strong>FIFA Rating Potential</strong>
+              <strong>Rating Potential</strong>
               <span>{player.fifaRating.potential}</span>
             </h3>
           );

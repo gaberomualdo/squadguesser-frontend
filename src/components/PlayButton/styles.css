@@ -2,16 +2,11 @@
   border-radius: 4px;
   --playbtn-color: var(--darker);
   background-color: var(--playbtn-color);
-  display: block;
+  display: flex;
   padding: 1rem;
   transition: transform 0.2s, box-shadow 0.2s;
   position: relative;
   user-select: none;
-  overflow: hidden;
-}
-.playbutton > * {
-  display: block;
-  float: left;
 }
 .playbutton.primary {
   --playbtn-color: var(--darkprimary);

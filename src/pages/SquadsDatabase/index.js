@@ -2,7 +2,7 @@ import './styles.css';
 import React, { useEffect, useState } from 'react';
 import { APIBaseURL } from '../../lib/config';
 import { halfStar, emptyStar, fullStar } from '../../lib/starIcons';
-import { Loading, PlayButton, Pitch, PitchTop, Formation, Modal } from '../../components';
+import { Loading, PlayButton, Pitch, PitchTop, Formation, Modal, TeamSheetTable, TeamInformationTable } from '../../components';
 import commaNumber from 'comma-number';
 import Dropdown from './dropdown';
 
@@ -63,7 +63,7 @@ export default function SquadsDatabase() {
         const fetchedData = await (await fetch(`${APIBaseURL}/teams/all/by-league/`)).json();
         setData(fetchedData);
       })();
-    }, 0);
+    }, 100);
   }, []);
 
   const createTeamButton = (team, teamIdx) => {
@@ -117,7 +117,7 @@ export default function SquadsDatabase() {
         <div className='list-detail-bar'>
           <div className='left'>
             <div className='input-container'>
-              <i class='fas fa-search'></i>
+              <i className='fas fa-search'></i>
               <input
                 type='text'
                 placeholder='Search for a league, team name, player, etc.'
@@ -225,7 +225,10 @@ export default function SquadsDatabase() {
 
         {Object.keys(activeSquad).length > 0 ? (
           <Modal closeModal={() => setActiveSquad({})} className='squad-formation-modal'>
-            <div class='squad-formation-container'>
+            <h1 className='no-margin-top'>
+              <i className='fas fa-sitemap mr'></i>Formation
+            </h1>
+            <div className='squad-formation-container'>
               <Pitch />
               <PitchTop
                 showAnswer={true}
@@ -255,6 +258,18 @@ export default function SquadsDatabase() {
                   };
                 })}
               />
+            </div>
+            <h1>
+              <i className='fas fa-info-circle mr'></i>Team Information
+            </h1>
+            <div style={{ width: 'auto' }}>
+              <TeamInformationTable squad={activeSquad} />
+            </div>
+            <h1>
+              <i className='fas fa-th-list mr'></i>Team Sheet
+            </h1>
+            <div style={{ width: 'auto' }}>
+              <TeamSheetTable players={activeSquad.formation} includeRatingPotential={false} />
             </div>
           </Modal>
         ) : null}

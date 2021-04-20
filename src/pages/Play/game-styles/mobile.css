@@ -66,7 +66,10 @@
   .gamepage > .misc-section > * {
     flex-shrink: 1 !important;
     flex-grow: 0 !important;
+    margin-top: 0;
     margin-bottom: 0 !important;
+  }
+  .gamepage > .misc-section > *:not(:last-child) {
     margin-top: 0.75rem !important;
   }
   .gamepage > .misc-section > .menu-btn {
@@ -76,6 +79,7 @@
   .gamepage .tab-select {
     display: block;
     height: auto;
+    margin-bottom: 0.5rem !important;
   }
   .gamepage > *:not(.tab-select) > *:first-child,
   .gamepage > *:not(.tab-select) {
@@ -98,5 +102,20 @@
   }
   .gamepage .main > .top > .header .box p {
     font-size: 85%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .game-outer-container > div > div {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .game-outer-container .panel {
+    border-radius: 0 !important;
+  }
+}
+@media only screen and (max-width: 1074px) {
+  .game-outer-container {
+    margin-top: 0.75rem;
   }
 }

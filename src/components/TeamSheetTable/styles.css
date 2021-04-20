@@ -1,0 +1,25 @@
+.team-sheet-table {
+  max-width: none;
+  zoom: 90%;
+}
+.team-sheet-table .nationality,
+.team-sheet-table .name {
+  text-align: left;
+}
+.team-sheet-table td.nationality > *,
+.team-sheet-table td.name > * {
+  display: inline-block;
+  vertical-align: middle;
+}
+.team-sheet-table td.nationality > img {
+  height: 1.5rem;
+  width: auto;
+  margin-right: 0.25rem;
+}
+.team-sheet-table td.name > img {
+  height: 2.2rem;
+  width: 2.2rem;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  margin-right: 0.35rem;
+}

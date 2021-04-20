@@ -25,7 +25,7 @@ export default class Dropdown extends Component {
           }}
         >
           <div className='dropdown-title'>
-            <div className='left'>
+            <div className={`left ${this.props.snippetTeams.length === 1 ? 'large–icon' : ''}`}>
               {this.props.snippetTeams.map((team, teamIdx) => (
                 <img key={teamIdx} src={team.logoURL} alt={team.name} />
               ))}

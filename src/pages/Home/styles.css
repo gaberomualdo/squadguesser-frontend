@@ -384,8 +384,8 @@
   margin-bottom: 2.75rem;
   background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('http://localhost:3000/bg1.jpg');
 }
-.homepage .box-section.leagues-list h1 {
-  font-size: 1.75rem;
+.homepage .box-section.leagues-list .inner > h1 {
+  font-size: 2rem;
   padding-top: 1rem;
 }
 .homepage .box-section.leagues-list .leagues-container {

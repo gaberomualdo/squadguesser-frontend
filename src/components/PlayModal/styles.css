@@ -1,0 +1,158 @@
+.play-modal-component .inner {
+  width: 35rem;
+}
+.play-modal-component .meta h1 {
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.05rem;
+  line-height: 1.5;
+  text-align: center;
+  font-size: 2rem;
+  color: var(--light);
+}
+
+.play-modal-component .meta p {
+  text-align: center;
+  margin: 0rem 0 1rem 0;
+  opacity: 0.75;
+}
+
+.play-modal-component .difficulty h1 {
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.05rem;
+  line-height: 1.5;
+  text-align: left;
+  font-size: 1rem !important;
+  color: var(--light);
+  opacity: 0.8;
+}
+.play-modal-component .difficulty .list {
+  display: flex;
+  margin-top: 0.5rem;
+}
+.play-modal-component .difficulty .list > * {
+  flex: 1 1 100%;
+}
+.play-modal-component .difficulty .list > *:not(:last-child) {
+  margin-right: 1rem;
+}
+@media only screen and (max-width: 700px) {
+  .play-modal-component .difficulty .list {
+    flex-direction: column;
+  }
+  .play-modal-component .difficulty .list > *:not(:last-child) {
+    margin-right: 0;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.play-modal-component .checkbox {
+  padding: 0.5rem 0.75rem;
+  text-align: center;
+  font-size: 1.1rem;
+  background-color: var(--dark);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  height: 2.5rem;
+}
+.play-modal-component .checkbox:hover {
+  background-color: var(--lightdark);
+}
+.play-modal-component .checkbox > * {
+  height: 1.5rem;
+  line-height: 1.5rem;
+}
+.play-modal-component .checkbox i {
+  font-size: 0.9rem;
+}
+.play-modal-component .checkbox i {
+  position: absolute;
+  margin-left: -0.2rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.play-modal-component .checkbox.checked,
+.play-modal-component .checkbox.checked:hover {
+  background-color: var(--theme);
+}
+.play-modal-component .checkbox.checked i {
+  opacity: 1;
+}
+.play-modal-component .checkbox span {
+  transition: margin-left 0.2s;
+}
+.play-modal-component .checkbox.checked span {
+  margin-left: 1.5rem;
+}
+.play-modal-component .play-button {
+  position: relative;
+  display: block;
+  width: 100%;
+  text-align: left;
+  --height: 5rem;
+  height: var(--height);
+  margin-top: 2rem;
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+.play-modal-component .play-button > * {
+  background-color: var(--dark);
+  transition: background-color 0.2s;
+}
+.play-modal-component .play-button:hover > * {
+  background-color: var(--primary);
+}
+.play-modal-component .play-button .icon {
+  border-radius: 50%;
+  font-size: 1.5rem;
+  line-height: var(--height);
+  height: var(--height);
+  width: var(--height);
+  position: absolute;
+  left: 0;
+  top: 0;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 2;
+}
+.play-modal-component .play-button .icon i {
+  transition: transform 0.2s;
+}
+.play-modal-component .play-button:hover > .icon i {
+  transform: scale(1.25);
+}
+.play-modal-component .play-button:active > .icon i {
+  transform: scale(1.1);
+}
+.play-modal-component .play-button .text {
+  z-index: 1;
+  min-height: 3.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 100rem;
+  width: 100%;
+  padding: 0.5rem 2rem;
+  padding-left: calc(var(--height) + 1rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.play-modal-component .play-button .text h1 {
+  font-size: 1.25rem;
+}
+
+.play-modal-component .play-button .text p {
+  font-size: 0.9rem;
+  line-height: 1.35;
+  opacity: 0.8;
+  max-width: 100%;
+}
+@media only screen and (min-width: 701px) {
+  .play-modal-component .play-button .text p {
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+  }
+}

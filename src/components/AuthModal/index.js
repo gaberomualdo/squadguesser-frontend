@@ -4,9 +4,6 @@ import React, { useState } from 'react';
 import { APIBaseURL } from '../../lib/config';
 const axios = require('axios');
 
-const alphabet = 'abcdefghijklmnopqrstuvwxyz';
-const numbers = '1234567890';
-
 export default function AuthModal(props) {
   const [showSignIn, setShowSignIn] = useState(props.signIn);
   const [slide, setSlide] = useState(0);
@@ -22,91 +19,55 @@ export default function AuthModal(props) {
 
   const nextBtnClick = () => {
     if (slide === 0) {
-      let valid = true;
-      let curError = '';
-
-      let bounds = [4, 20];
-      if (!(username.length >= bounds[0] && username.length <= bounds[1])) {
-        valid = false;
-        curError = `Username must be between ${bounds.join('-')} characters.`;
-      } else if (alphabet.indexOf(username[0]) === -1) {
-        valid = false;
-        curError = 'Username must start with a letter.';
-      } else {
-        const invalidChars = [...new Set(username.split('').filter((e) => (alphabet + numbers + '_').indexOf(e) === -1))];
-        if (invalidChars.length > 0) {
-          valid = false;
-          curError = `Username cannot include: ${invalidChars.map((e) => `'${e}'`).join(', ')}.`;
-        }
-      }
-      setError(curError);
-      if (valid) {
-        setNextLoading(true);
-        axios({
-          method: 'post',
-          baseURL: APIBaseURL,
-          url: `/api/users/usernameavailable/`,
-          data: {
-            username,
-          },
+      setNextLoading(true);
+      axios({
+        method: 'post',
+        baseURL: APIBaseURL,
+        url: `/api/users/validateusername/`,
+        data: {
+          username,
+          signingUp: !showSignIn,
+        },
+      })
+        .then(() => {
+          setSlide(slide + 1);
         })
-          .then((res) => {
-            const { available } = res.data;
-            if ((showSignIn && !available) || (!showSignIn && available)) {
-              setSlide(slide + 1);
-            } else {
-              setError(showSignIn ? 'User with username does not exist.' : 'Username not available.');
-            }
-          })
-          .catch((err) => {
-            try {
-              setError(err.response.data.errors[0].msg);
-            } catch (err) {
-              setError('Internal or server error occurred.');
-            }
-          })
-          .then(() => {
-            setNextLoading(false);
-          });
-      }
+        .catch((err) => {
+          try {
+            setError(err.response.data.errors[0].msg);
+          } catch (err) {
+            setError('Internal or server error occurred.');
+          }
+        })
+        .then(() => {
+          setNextLoading(false);
+        });
     } else {
-      let valid = true;
-      let curError = '';
-
-      let bounds = [8, 20];
-      if (!(password.length >= bounds[0] && password.length <= bounds[1])) {
-        valid = false;
-        curError = `Password must be between ${bounds.join('-')} characters.`;
-      }
-
-      setError(curError);
-      if (valid) {
-        setNextLoading(true);
-        axios({
-          method: 'post',
-          baseURL: APIBaseURL,
-          url: `/api/${showSignIn ? 'auth' : 'users'}/`,
-          data: {
-            username,
-            password,
-          },
+      setNextLoading(true);
+      axios({
+        method: 'post',
+        baseURL: APIBaseURL,
+        url: `/api/${showSignIn ? 'auth' : 'users'}/`,
+        data: {
+          username,
+          password,
+        },
+      })
+        .then((res) => {
+          const { token } = res.data;
+          localStorage.setItem('authtoken', token);
+          window.location.reload();
         })
-          .then((res) => {
-            const { token } = res.data;
-            localStorage.setItem('authtoken', token);
-            window.location.reload();
-          })
-          .catch((err) => {
-            try {
-              setError(err.response.data.errors[0].msg);
-            } catch (err) {
-              setError('Internal or Server Error Occurred');
-            }
-          })
-          .then(() => {
-            setNextLoading(false);
-          });
-      }
+        .catch((err) => {
+          try {
+            setError(err.response.data.errors[0].msg);
+          } catch (err) {
+            setError('Internal or server error occurred.');
+          }
+        })
+        .then(() => {
+          setNextLoading(false);
+        });
     }
   };
 

@@ -47,7 +47,7 @@ export default function PlayModal(props) {
           <i className='fas fa-play'></i>
         </div>
         <div className='text'>
-          <h1>Play</h1>
+          <h1>Play Now &rarr;</h1>
           <p>{difficulties[checked].description}</p>
         </div>
       </button>

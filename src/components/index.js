@@ -16,3 +16,4 @@ export { default as ProfileModal } from './ProfileModal';
 export { default as TeamSheetTable } from './TeamSheetTable';
 export { default as TeamInformationTable } from './TeamInformationTable';
 export { default as PlayModal } from './PlayModal';
+export { default as ScrollToTop } from './ScrollToTop';

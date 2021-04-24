@@ -1,6 +1,8 @@
+a + a > .secondarybutton {
+  margin-left: 0.5rem;
+}
 .secondarybutton {
   height: 1.9rem;
-  margin-top: calc((var(--height) - 1.9rem) / 2);
   cursor: pointer;
   padding: 0;
   position: relative;
@@ -16,14 +18,17 @@
   border-color: var(--light);
 }
 .secondarybutton:hover,
-.secondarybutton.active {
+.secondarybutton.active,
+a.active > .secondarybutton {
   opacity: 1;
 }
-.secondarybutton.active {
+.secondarybutton.active,
+a.active > .secondarybutton {
   border-color: var(--primary);
   color: var(--primary);
 }
-.secondarybutton.active span {
+.secondarybutton.active span,
+a.active > .secondarybutton span {
   font-weight: 600;
 }
 .secondarybutton.with-margin:not(:first-child) {

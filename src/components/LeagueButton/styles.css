@@ -55,10 +55,6 @@
   padding-top: 2.25rem;
   padding-top: 4.75rem;
 }
-.leaguebutton.dark-bg .image {
-  background-color: rgba(0, 0, 0, 0.2);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
 .leaguebutton .image .logos img {
   --margin: 2rem;
   --rows: 3;
@@ -77,9 +73,6 @@
   padding-bottom: 3.5rem;
   padding-top: 2.5rem;
   position: relative;
-}
-.leaguebutton.dark-bg .bottom {
-  background-color: rgba(0, 0, 0, 0.4);
 }
 .leaguebutton .bottom h1 {
   font-size: 1.65rem;
@@ -116,11 +109,23 @@
   border-radius: 4px;
   transition: opacity 0.25s, background-color 0.25s;
 }
-.leaguebutton.dark-bg .badge {
-  background-color: rgba(0, 0, 0, 0.7);
-}
 .leaguebutton .badge:not(:last-child) {
   margin-right: 0.5rem;
+}
+
+.leaguebutton.dark-bg .image {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+.leaguebutton.dark-bg .bottom {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.leaguebutton.dark-bg:not(:hover) .image,
+.leaguebutton.dark-bg:not(:hover) .bottom {
+  backdrop-filter: blur(4px);
+}
+.leaguebutton.dark-bg .badge {
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 /* horizontal */

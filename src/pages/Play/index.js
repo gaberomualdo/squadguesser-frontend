@@ -65,7 +65,6 @@ export default function ByNationalityPage(props) {
         setAuthModal={props.setAuthModal}
         setProfileModal={props.setProfileModal}
         league={league}
-        setPage={props.setPage}
         reloadUser={props.reloadUser}
         user={props.user}
         loggedIn={props.loggedIn}

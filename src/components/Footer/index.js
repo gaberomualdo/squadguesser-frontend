@@ -1,8 +1,9 @@
 import { ResponsiveContainer } from '../';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './styles.css';
 
-export default function Footer({ pages, setPage }) {
+export default function Footer({ pages }) {
   const currentYear = new Date().getFullYear();
   const homePage = pages.filter((e) => e.isHomepage)[0];
   return (
@@ -10,18 +11,18 @@ export default function Footer({ pages, setPage }) {
       <ResponsiveContainer>
         <div className='top'>
           <div className='left'>
-            <div className='logo' onClick={() => setPage(homePage.code)}>
+            <Link to='/' className='logo'>
               <div className='icon'>{homePage.icon}</div>
               <p>SquadGuessr</p>
-            </div>
+            </Link>
           </div>
           <div className='right'>
             {pages.map((e, i) => {
               if (!e.isHomepage) {
                 return (
-                  <button key={i} onClick={() => setPage(e.code)} className='link'>
+                  <Link key={i} to={`/${e.code}`} className='link'>
                     {e.name}
-                  </button>
+                  </Link>
                 );
               }
               return null;

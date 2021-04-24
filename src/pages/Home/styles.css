@@ -269,15 +269,15 @@
   margin-bottom: 1rem;
 }
 
-.homepage .box-section.column.auth .row {
+.homepage .box-section.column.bottom .row {
   display: flex;
   flex-direction: row;
 }
-.homepage .box-section.column.auth .row > * {
+.homepage .box-section.column.bottom .row > * {
   flex: 1 1 50%;
 }
 
-.homepage .box-section.column.auth .row > *:not(:last-child) {
+.homepage .box-section.column.bottom .row > *:not(:last-child) {
   margin-right: 2rem;
 }
 
@@ -382,7 +382,8 @@
 .homepage .box-section.leagues-list {
   text-align: center;
   margin-bottom: 2.75rem;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('http://localhost:3000/bg1.jpg');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('http://localhost:3000/bg1.jpg');
+  position: relative;
 }
 .homepage .box-section.leagues-list .inner > h1 {
   font-size: 2rem;
@@ -449,7 +450,6 @@
   width: var(--box-width);
   display: inline-block;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(2px);
   white-space: normal;
   scroll-snap-align: start;
 }
@@ -458,6 +458,11 @@
 }
 .homepage .box-section.leagues-list .leagues > *:not(:last-child) {
   margin-right: var(--box-margin);
+}
+
+.homepage .box-section.column.bottom a > * {
+  width: 100%;
+  height: 100%;
 }
 
 @media only screen and (max-width: 950px) {
@@ -494,10 +499,10 @@
   .homepage .box-section .left {
     display: none !important;
   }
-  .homepage .box-section.column.auth .row {
+  .homepage .box-section.column.bottom .row {
     flex-direction: column;
   }
-  .homepage .box-section.column.auth .row > *:not(:last-child) {
+  .homepage .box-section.column.bottom .row > *:not(:last-child) {
     margin-right: 0;
     margin-bottom: 1rem;
   }

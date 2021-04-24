@@ -2,20 +2,28 @@ import './styles.css';
 import React from 'react';
 
 export default function PrimaryButton(props) {
-  return (
-    <a
-      {...props}
-      className={`primarybutton ${props.className}`}
-      style={{ '--button-theme-color': props.color ? props.color : 'var(--primary)', ...props.style }}
-      role='button'
-    >
-      {props.icon ? (
+  const { icon, text, isNotButton, className, color, style, ...otherProps } = props;
+  const inner = (
+    <>
+      {icon ? (
         <>
-          <span className='icon'>{props.icon}</span>
-          &nbsp;&nbsp;
+          <span className='icon'>{icon}</span>
         </>
       ) : null}
-      <span className='text'>{props.text}</span>
-    </a>
+      <span className='text'>{text}</span>
+    </>
   );
+  if (isNotButton) {
+    return (
+      <div {...otherProps} className={`primarybutton ${className}`} style={{ '--button-theme-color': color ? color : 'var(--primary)', ...style }}>
+        {inner}
+      </div>
+    );
+  } else {
+    return (
+      <button {...otherProps} className={`primarybutton ${className}`} style={{ '--button-theme-color': color ? color : 'var(--primary)', ...style }}>
+        {inner}
+      </button>
+    );
+  }
 }

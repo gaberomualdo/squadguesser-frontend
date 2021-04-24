@@ -1,10 +1,13 @@
 /* eslint-disable no-restricted-globals */
 import './lib/main.css';
 import './lib/layout.css';
-import { NavBar, ResponsiveContainer, ProfileModal, Footer, AuthModal } from './components/';
+import { NavBar, ResponsiveContainer, ProfileModal, Footer, AuthModal, ScrollToTop } from './components/';
 import { Home, Play, DailyChallenge, SquadsDatabase, Leaderboard } from './pages/';
 import { Component } from 'react';
 import { APIBaseURL } from './lib/config';
+import { matchPath } from 'react-router';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+
 const axios = require('axios');
 
 const SITE_TITLE = 'SquadGuessr';
@@ -15,11 +18,13 @@ const pages = [
     code: 'home',
     name: 'Home',
     isHomepage: true,
+    useExactURLMatching: true,
   },
   {
     code: 'database',
     name: 'Squads Database',
     type: 'info',
+    useExactURLMatching: false,
   },
   {
     icon: <i className='fas fa-futbol'></i>,
@@ -27,22 +32,24 @@ const pages = [
     name: 'Play SquadGuessr',
     description: <>Guess teams from the Premier League, La Liga, Serie A, and more.</>,
     type: 'game',
+    useExactURLMatching: false,
   },
   {
     icon: <i className='fas fa-calendar-alt'></i>,
-    code: 'dailychallenge',
+    code: 'daily',
     name: 'Daily Challenge',
     description: <>Test your skills with today's unique challenge.</>,
     type: 'game',
+    useExactURLMatching: true,
   },
   {
     icon: <i className='fas fa-trophy'></i>,
     code: 'leaderboard',
     name: 'Leaderboard',
     type: 'other',
+    useExactURLMatching: false,
   },
 ];
-const urlPageParam = 'page';
 
 const isLoggedIn = (user) => {
   return Object.keys(user).length > 0 && !user.currentlyLoading;
@@ -51,24 +58,11 @@ const isLoggedIn = (user) => {
 class App extends Component {
   constructor(props) {
     super(props);
-    this.parsePageURLParam = this.parsePageURLParam.bind(this);
-    this.updatePageTitle = this.updatePageTitle.bind(this);
-    this.updateOnURLChange = this.updateOnURLChange.bind(this);
     this.reloadUser = this.reloadUser.bind(this);
-
-    const homePage = pages.filter((e) => e.isHomepage)[0];
-    let initialPage = homePage.code;
-    this.parsePageURLParam((param) => {
-      initialPage = param;
-      this.updatePageTitle(param);
-    });
 
     const token = localStorage.getItem('authtoken');
 
     this.state = {
-      activePage: initialPage,
-      currentURL:
-        window.location.href /* the 'currentURL' and 'url' state and prop is used to require refresh of the component if the page URL changes */,
       user: token ? { currentlyLoading: true } : {},
       showAuthModal: false,
       showProfileModal: false,
@@ -96,36 +90,6 @@ class App extends Component {
         });
     }
   }
-  parsePageURLParam(callback) {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has(urlPageParam)) {
-      const param = urlParams.get(urlPageParam).toLowerCase();
-      if (pages.map((e) => e.code).indexOf(param) > -1) {
-        callback(param);
-      }
-    }
-  }
-  updatePageTitle(p) {
-    const curPage = pages.filter((e) => e.code === p)[0];
-    if (curPage.isHomepage) {
-      document.title = SITE_TITLE;
-    } else {
-      document.title = `${curPage.name} ${curPage.icon ? /* curPage.icon */ '' : ''} • ${SITE_TITLE}`;
-    }
-  }
-  updateOnURLChange() {
-    this.parsePageURLParam((param) => {
-      this.updatePageTitle(param);
-      this.setState({ activePage: param, currentURL: window.location.href });
-    });
-  }
-  componentDidMount() {
-    window.addEventListener('popstate', this.updateOnURLChange);
-    this.reloadUser();
-  }
-  componentWillUnmount() {
-    window.removeEventListener('popstate', this.updateOnURLChange);
-  }
   render() {
     const setAuthModal = (open, signIn = true) => {
       this.setState({ showAuthModal: open, authModalSignIn: signIn });
@@ -134,74 +98,52 @@ class App extends Component {
       this.setState({ showProfileModal: open });
     };
 
-    const setPage = (p, getNewURL = false) => {
-      const url = new URL(window.location.href);
-      url.searchParams.set(urlPageParam, p);
-      ['game', 'league'].forEach((e) => url.searchParams.delete(e));
-      const newURL = url.toString();
-
-      if (getNewURL) {
-        return newURL;
-      }
-
-      window.scrollTo(0, 0);
-      this.updatePageTitle(p);
-
-      history.pushState({}, 'Navigate to New Page', newURL);
-      this.setState({ activePage: p, currentURL: window.location.href });
-    };
-
     const loggedIn = isLoggedIn(this.state.user);
 
     return (
-      <div className='App'>
-        <NavBar
-          setAuthModal={setAuthModal}
-          setProfileModal={setProfileModal}
-          pages={pages}
-          setPage={setPage}
-          active={this.state.activePage}
-          user={this.state.user}
-        />
-        {this.state.activePage === 'home' ? (
-          <Home user={this.state.user} setPage={setPage} url={this.state.currentURL} pages={pages} setAuthModal={setAuthModal} />
-        ) : null}
-        {this.state.activePage === 'play' ? (
-          <Play
-            reloadUser={this.reloadUser}
-            user={this.state.user}
-            loggedIn={loggedIn}
-            setPage={setPage}
-            url={this.state.currentURL}
-            pages={pages}
-            setAuthModal={setAuthModal}
-            setProfileModal={setProfileModal}
-          />
-        ) : null}
-        <ResponsiveContainer>
-          {this.state.activePage === 'dailychallenge' ? (
-            <DailyChallenge
-              reloadUser={this.reloadUser}
-              user={this.state.user}
-              loggedIn={loggedIn}
-              setPage={setPage}
-              url={this.state.currentURL}
-              pages={pages}
-              setAuthModal={setAuthModal}
-              setProfileModal={setProfileModal}
-            />
+      <Router>
+        <ScrollToTop />
+        <div className='App'>
+          <NavBar setAuthModal={setAuthModal} setProfileModal={setProfileModal} pages={pages} user={this.state.user} />
+          <Switch>
+            <Route exact path='/'>
+              <Home user={this.state.user} pages={pages} setAuthModal={setAuthModal} />
+            </Route>
+            <Route path='/play'>
+              <Play
+                reloadUser={this.reloadUser}
+                user={this.state.user}
+                loggedIn={loggedIn}
+                setAuthModal={setAuthModal}
+                setProfileModal={setProfileModal}
+              />
+            </Route>
+            <ResponsiveContainer>
+              <Route exact path='/daily'>
+                <DailyChallenge
+                  reloadUser={this.reloadUser}
+                  user={this.state.user}
+                  loggedIn={loggedIn}
+                  setAuthModal={setAuthModal}
+                  setProfileModal={setProfileModal}
+                />
+              </Route>
+              <Route path='/database'>
+                <SquadsDatabase />
+              </Route>
+              <Route path='/leaderboard'>
+                <Leaderboard user={this.state.user} loggedIn={loggedIn} />
+              </Route>
+              <Route path='*'>{/* 404 Page Here */}</Route>
+            </ResponsiveContainer>
+          </Switch>
+          <Footer pages={pages} />
+          {this.state.showAuthModal ? <AuthModal setAuthModal={setAuthModal} signIn={this.state.authModalSignIn} /> : null}
+          {this.state.showProfileModal && loggedIn ? (
+            <ProfileModal profileIsSignedIn={true} setProfileModal={setProfileModal} profile={this.state.user} />
           ) : null}
-          {this.state.activePage === 'database' ? <SquadsDatabase setPage={setPage} url={this.state.currentURL} pages={pages} /> : null}
-          {this.state.activePage === 'leaderboard' ? (
-            <Leaderboard setPage={setPage} url={this.state.currentURL} pages={pages} user={this.state.user} loggedIn={loggedIn} />
-          ) : null}
-        </ResponsiveContainer>
-        <Footer pages={pages} setPage={setPage} />
-        {this.state.showAuthModal ? <AuthModal setAuthModal={setAuthModal} signIn={this.state.authModalSignIn} /> : null}
-        {this.state.showProfileModal && loggedIn ? (
-          <ProfileModal profileIsSignedIn={true} setProfileModal={setProfileModal} profile={this.state.user} />
-        ) : null}
-      </div>
+        </div>
+      </Router>
     );
   }
 }

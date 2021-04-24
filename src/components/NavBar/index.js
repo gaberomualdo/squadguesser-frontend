@@ -1,5 +1,6 @@
 import './styles.css';
 import { Component } from 'react';
+import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
 import { Loading, ResponsiveContainer, PrimaryButton, SecondaryButton } from '../';
 
 class NavBar extends Component {
@@ -43,48 +44,36 @@ class NavBar extends Component {
     document.removeEventListener('mousedown', this.mouseDown);
   }
   render() {
-    const { pages, active, setPage, user } = this.props;
+    const { pages, user } = this.props;
     const homePage = pages.filter((e) => e.isHomepage)[0];
-
     const mainButtonColor = 'var(--primary)';
 
-    const openPage = (p) => {
-      this.setState({ menuOpen: false });
-      setPage(p);
-    };
+    const closeMenu = () => this.setState({ menuOpen: false });
 
     const logoButton = (
-      <PrimaryButton
-        icon={homePage.icon}
-        text={'SquadGuessr'}
-        className={`logo ${active === homePage.code ? 'active' : ''}`}
-        onClick={() => openPage(homePage.code)}
-        color={mainButtonColor}
-      ></PrimaryButton>
+      <NavLink onClick={() => closeMenu()} to='/' exact={homePage.useExactURLMatching} activeClassName='active'>
+        <PrimaryButton isNotButton icon={homePage.icon} text={'SquadGuessr'} color={mainButtonColor} className='logo'></PrimaryButton>
+      </NavLink>
     );
     const infoButtons = pages
       .filter((e) => e.type && e.type === 'info')
       .map((e, i) => (
-        <SecondaryButton
-          key={i}
-          icon={e.icon}
-          text={e.name}
-          className={`${active === e.code ? 'active' : ''} light with-margin infobutton`}
-          color={mainButtonColor}
-          onClick={() => openPage(e.code)}
-        ></SecondaryButton>
+        <NavLink onClick={() => closeMenu()} key={e.name} exact={e.useExactURLMatching} to={`/${e.code}`} activeClassName='active'>
+          <SecondaryButton isNotButton icon={e.icon} text={e.name} className='light with-margin infobutton' color={mainButtonColor}></SecondaryButton>
+        </NavLink>
       ));
     const mainButtons = pages
       .filter((e) => !e.isHomepage && !(e.type && e.type === 'info'))
       .map((e, i) => (
-        <PrimaryButton
-          key={i}
-          icon={e.icon}
-          text={e.name}
-          className={`${this.state.mobile ? 'fixed-icon-width' : ''} ${active === e.code ? 'active' : ''}`}
-          color={mainButtonColor}
-          onClick={() => openPage(e.code)}
-        ></PrimaryButton>
+        <NavLink onClick={() => closeMenu()} key={e.name} exact={e.useExactURLMatching} to={`/${e.code}`} activeClassName='active'>
+          <PrimaryButton
+            isNotButton
+            icon={e.icon}
+            text={e.name}
+            className={`${this.state.mobile ? 'fixed-icon-width' : ''}`}
+            color={mainButtonColor}
+          ></PrimaryButton>
+        </NavLink>
       ));
     const authArea = (
       <div className='auth-area'>
@@ -116,7 +105,6 @@ class NavBar extends Component {
                 ) : (
                   <>
                     <span className='username'>You ({user.rating ? user.rating : '0'})</span>
-                    {/* <span className='hover'>Your Profile</span> */}
                   </>
                 )}
               </button>

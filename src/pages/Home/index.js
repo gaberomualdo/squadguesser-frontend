@@ -1,5 +1,6 @@
 import './styles.css';
 import React, { Component, createRef } from 'react';
+import { Link } from 'react-router-dom';
 import { PlayButton, ResponsiveContainer, LeagueButton } from '../../components';
 import { APIBaseURL } from '../../lib/config';
 import { toBase64 } from '../../lib/utils';
@@ -101,14 +102,15 @@ export default class Home extends Component {
                   </div>
                   <div className='play'>
                     {[0, 1].map((i) => (
-                      <PlayButton
-                        icon={pages[i].icon}
-                        name={pages[i].name}
-                        description={pages[i].description ? pages[i].description : <>play now.</>}
-                        onClick={() => this.props.setPage(pages[i].code)}
-                        className={i === 0 ? 'primary' : ''}
-                        key={i}
-                      />
+                      <Link to={`/${pages[i].code}`}>
+                        <PlayButton
+                          icon={pages[i].icon}
+                          name={pages[i].name}
+                          description={pages[i].description ? pages[i].description : <>play now.</>}
+                          className={i === 0 ? 'primary' : ''}
+                          key={i}
+                        />
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -166,10 +168,10 @@ export default class Home extends Component {
                     )}
                   </button>
                 </div>
-                <button className='video-cta' onClick={() => this.props.setPage('play')}>
+                <Link className='video-cta' to='/play'>
                   <span className='left'>Play SquadGuessr</span>
                   <span className='right'>&rarr;</span>
-                </button>
+                </Link>
               </div>
             </div>
           </ResponsiveContainer>
@@ -277,18 +279,19 @@ export default class Home extends Component {
             </div>
           </ResponsiveContainer>
         </div>
-        <div style={{ backgroundColor: 'var(--darker)' }}>
+        <div style={{ backgroundColor: 'var(--darker)', paddingTop: '1.25rem', paddingBottom: '1.25rem' }}>
           <ResponsiveContainer>
             <div className='box-section right-first no-background no-margin'>
               <div className='right'>
                 <h1 className='main-header'>Compete against your friends on the public leaderboard</h1>
-                <PlayButton
-                  onClick={() => this.props.setPage('leaderboard')}
-                  className='secondary'
-                  icon={<i className='fas fa-trophy' style={{ transform: 'translateY(3px)' }}></i>}
-                  name='Check Out The Leaderboard'
-                  description={<>See it now.</>}
-                />
+                <Link to='/leaderboard'>
+                  <PlayButton
+                    className='secondary'
+                    icon={<i className='fas fa-trophy' style={{ transform: 'translateY(3px)' }}></i>}
+                    name='Check Out The Leaderboard'
+                    description={<>See it now.</>}
+                  />
+                </Link>
               </div>
               <div className='left leaderboard'>
                 <div className='inner'>
@@ -336,7 +339,7 @@ export default class Home extends Component {
                     current.scrollTo(current.scrollLeft - 15 * 16, 0);
                   }}
                 >
-                  <i class='fas fa-chevron-left'></i>
+                  <i className='fas fa-chevron-left'></i>
                 </button>
                 <button
                   className='right'
@@ -345,7 +348,7 @@ export default class Home extends Component {
                     current.scrollTo(current.scrollLeft + 15 * 16, 0);
                   }}
                 >
-                  <i class='fas fa-chevron-right'></i>
+                  <i className='fas fa-chevron-right'></i>
                 </button>
               </div>
             </div>
@@ -353,7 +356,7 @@ export default class Home extends Component {
         </div>
         <ResponsiveContainer>
           {Object.keys(this.props.user).length === 0 ? (
-            <div className='box-section column auth'>
+            <div className='box-section column bottom'>
               <h1 className='main-header'>
                 Want to <span>compete</span> with other players, save your <span>progress</span>, see your <span>stats</span>, and more?
               </h1>
@@ -375,18 +378,19 @@ export default class Home extends Component {
               </div>
             </div>
           ) : null}
-          <div className='box-section column auth'>
+          <div className='box-section column bottom'>
             <h1 className='main-header'>Ready to Play SquadGuessr?</h1>
             <div className='row'>
               {[0, 1].map((i) => (
-                <PlayButton
-                  icon={pages[i].icon}
-                  name={pages[i].code === 'play' ? 'Play Now' : pages[i].name}
-                  description={pages[i].description ? pages[i].description : <>Play it now.</>}
-                  onClick={() => this.props.setPage(pages[i].code)}
-                  className='secondary'
-                  key={i}
-                />
+                <Link to={`/${pages[i].code}`}>
+                  <PlayButton
+                    icon={pages[i].icon}
+                    name={pages[i].code === 'play' ? 'Play Now' : pages[i].name}
+                    description={pages[i].description ? pages[i].description : <>Play it now.</>}
+                    className='secondary'
+                    key={i}
+                  />
+                </Link>
               ))}
             </div>
           </div>

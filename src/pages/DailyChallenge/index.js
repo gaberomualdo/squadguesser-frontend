@@ -23,7 +23,6 @@ export default function DailyChallenge(props) {
 
   return loaded ? (
     <Game
-      setPage={props.setPage}
       league={leagueName}
       dailyChallenge={true}
       reloadUser={props.reloadUser}

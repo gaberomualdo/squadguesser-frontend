@@ -32,7 +32,7 @@ export default function LeagueButton(props) {
               {teamsCount} Squads
             </div>
           </div>
-          <TertiaryButton style={{ marginTop: '1rem', boxShadow: 'none' }} text={<>Play This League &rarr;</>} />
+          <TertiaryButton isNotButton style={{ marginTop: '1rem', boxShadow: 'none' }} text={<>Play This League &rarr;</>} />
         </div>
       </button>
       {playModalOpen ? <PlayModal leagueName={name} closeModal={() => setPlayModalOpen(false)} /> : null}

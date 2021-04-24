@@ -30,11 +30,13 @@
   transform: scale(1);
   opacity: 0.5;
 }
-.primarybutton.active:before {
+.primarybutton.active:before,
+a.active > .primarybutton:before {
   opacity: 0.75;
   transform: scale(1.025, 1.1);
 }
-.primarybutton:active:before {
+.primarybutton:active:before,
+a.active > .primarybutton:active:before {
   transform: scale(1.05, 1.15);
   opacity: 0.85;
 }
@@ -51,7 +53,7 @@
   white-space: nowrap;
 }
 .primarybutton:not(.fixed-icon-width) span.icon {
-  margin-right: 0.25rem;
+  margin-right: 0.65rem;
 }
 .primarybutton.fixed-icon-width span.icon {
   width: 1.9rem;

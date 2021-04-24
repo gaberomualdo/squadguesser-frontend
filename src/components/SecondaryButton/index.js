@@ -2,14 +2,20 @@ import './styles.css';
 import React from 'react';
 
 export default function SecondaryButton(props) {
-  return (
-    <a
-      {...props}
-      className={`secondarybutton ${props.className}`}
-      style={{ ...{ '--button-theme-color': props.color ? props.color : 'var(--primary)' }, ...props.style }}
-      role='button'
-    >
-      <span>{props.text}</span>
-    </a>
-  );
+  const { className, color, style, text, isNotButton, ...otherProps } = props;
+  const classNameProp = `secondarybutton ${className}`;
+  const styleProp = { ...{ '--button-theme-color': color ? color : 'var(--primary)' }, ...style };
+  if (isNotButton) {
+    return (
+      <div {...otherProps} className={classNameProp} style={styleProp}>
+        <span>{text}</span>
+      </div>
+    );
+  } else {
+    return (
+      <button {...otherProps} className={classNameProp} style={styleProp}>
+        <span>{text}</span>
+      </button>
+    );
+  }
 }

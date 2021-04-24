@@ -16,6 +16,7 @@ import {
   ResponsiveContainer,
 } from '../../components';
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { APIBaseURL } from '../../lib/config';
 import { toBase64, fromBase64, getAverageRating } from '../../lib/utils';
 import getStats from '../../lib/stats';
@@ -308,7 +309,9 @@ export default function Game(props) {
               </div>
             ) : null}
             {!props.dailyChallenge ? (
-              <SecondaryButton className='menu-btn' onClick={() => props.setPage('play')} text={<>&larr; Back to Menu</>} />
+              <Link to='/play'>
+                <SecondaryButton className='menu-btn' text={<>&larr; Back to Menu</>} />
+              </Link>
             ) : null}
 
             <div className='panel side-panel hints'>

@@ -63,6 +63,9 @@
   .gamepage:not([activetab='main-section']) {
     height: auto;
   }
+  .gamepage > .guess-section {
+    max-height: calc(var(--fullheight) - 2rem);
+  }
   .gamepage > .misc-section > * {
     flex-shrink: 1 !important;
     flex-grow: 0 !important;

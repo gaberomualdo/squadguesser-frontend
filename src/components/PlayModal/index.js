@@ -1,6 +1,6 @@
-import './styles.css';
-import { Modal } from '..';
 import React, { useState } from 'react';
+import { Modal } from '..';
+import './styles.css';
 
 function CheckBox(props) {
   const { text, className, checked, ...otherProps } = props;
@@ -14,9 +14,17 @@ function CheckBox(props) {
 
 export default function PlayModal(props) {
   const difficulties = {
-    Easy: { color: 'var(--primary)', description: 'Guess by nationalities.' },
-    Normal: { color: 'var(--info)', description: 'Guess by nationalities and initials.' },
-    Hard: { color: 'var(--danger)', description: 'Guess by nationalities, initials, ratings, and age.' },
+    Easy: { color: 'var(--primary)', description: 'Guess by nationalities.', gameMode: [true, false, false, false, false, false, false, false] },
+    Normal: {
+      color: 'var(--info)',
+      description: 'Guess by nationalities, initials, and overall rating.',
+      gameMode: [true, true, false, true, false, false, false, false],
+    },
+    Hard: {
+      color: 'var(--danger)',
+      description: 'Guess by initials, ratings, and age.',
+      gameMode: [false, true, true, true, true, false, false, false],
+    },
   };
   const difficultyNames = Object.keys(difficulties);
   const [checked, setChecked] = useState(difficultyNames[0]);
@@ -42,7 +50,12 @@ export default function PlayModal(props) {
           ))}
         </div>
       </div>
-      <button className='play-button'>
+      <button
+        className='play-button'
+        onClick={() => {
+          props.onPlayLeague(difficulties[checked].gameMode);
+        }}
+      >
         <div className='icon'>
           <i className='fas fa-play'></i>
         </div>

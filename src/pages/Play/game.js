@@ -1,30 +1,28 @@
 /* eslint-disable no-restricted-globals */
-import './game-styles/misc.css';
-import './game-styles/guessteam.css';
-import './game-styles/extras-section.css';
-import './game-styles/mobile.css';
-import './game-styles/details.css';
+import React, { useEffect, useState } from 'react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { Link } from 'react-router-dom';
 import {
-  PrimaryButton,
-  SecondaryButton,
-  TertiaryButton,
+  Formation,
   Pitch,
   PitchTop,
-  Formation,
-  TeamSheetTable,
-  TeamInformationTable,
+  PrimaryButton,
   ResponsiveContainer,
+  SecondaryButton,
+  TeamInformationTable,
+  TeamSheetTable,
+  TertiaryButton,
 } from '../../components';
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { APIBaseURL } from '../../lib/config';
-import { toBase64, fromBase64, getAverageRating } from '../../lib/utils';
 import getStats from '../../lib/stats';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { getAverageRating } from '../../lib/utils';
+import './game-styles/details.css';
+import './game-styles/extras-section.css';
+import './game-styles/guessteam.css';
+import './game-styles/misc.css';
+import './game-styles/mobile.css';
 
 const axios = require('axios');
-
-const urlGameParam = 'game';
 
 export default function Game(props) {
   const [gameData, setGameData] = useState({
@@ -97,34 +95,13 @@ export default function Game(props) {
     }
   };
 
-  const newTeam = async (gameCode = '', onlyUpdateWithGameCode = false) => {
-    const { league } = props;
+  const initializeGame = async () => {
+    const { league, correctTeamName } = props;
     const data = await (await fetch(`${APIBaseURL}/teams/by-league/onlynamesandlogos/${league}`)).json();
-    let teamAPIURL = `${APIBaseURL}/team/random/by-league/${league}`;
-    const teamNames = data.map((e) => e.name);
-
-    if (gameCode) {
-      let gameCodeWasValid = false;
-      try {
-        const decodedTeam = fromBase64(gameCode);
-        if (teamNames.indexOf(decodedTeam) > -1) {
-          teamAPIURL = `${APIBaseURL}/team/${decodedTeam}`;
-          gameCodeWasValid = true;
-        }
-      } catch (err) {}
-      if (!gameCodeWasValid && onlyUpdateWithGameCode) {
-        return;
-      }
-    }
+    const teamAPIURL = `${APIBaseURL}/team/${correctTeamName}`;
+    // let teamAPIURL = `${APIBaseURL}/team/random/by-league/${league}`;
 
     const { name, formation, ...extraData } = await (await fetch(teamAPIURL)).json();
-
-    if (!gameCode) {
-      const url = new URL(window.location.href);
-      url.searchParams.set(urlGameParam, toBase64(name));
-      const urlStr = url.toString();
-      history.replaceState({}, 'Navigate to New Page', urlStr);
-    }
 
     setGameData({
       wrongTeams: [],
@@ -142,12 +119,7 @@ export default function Game(props) {
   };
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has(urlGameParam)) {
-      const param = urlParams.get(urlGameParam);
-      return newTeam(param);
-    }
-    newTeam();
+    initializeGame();
   }, []);
 
   return (
@@ -218,7 +190,7 @@ export default function Game(props) {
                   <TertiaryButton
                     className='newchallenge'
                     onClick={() => {
-                      newTeam();
+                      props.openNewGame();
                     }}
                     text={<>New Game &rarr;</>}
                   />
@@ -281,7 +253,7 @@ export default function Game(props) {
               isGame={true}
               players={gameData.teamFormation.map((player, i) => {
                 return {
-                  gameType: ['alternate-team', 'initials'][Math.floor(Math.random() * 2)],
+                  gameType: props.formationTypes[i],
                   alternateTeamImageURL: player.nationality.flagURL.split('/2/').join('/6/'),
                   alternateTeamName: player.nationality.name,
                   imageURL: player.photoURL.split('/5/').join('/6/'),

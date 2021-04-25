@@ -1,11 +1,10 @@
-import './styles.css';
 import React, { Component, createRef } from 'react';
 import { Link } from 'react-router-dom';
-import { PlayButton, ResponsiveContainer, LeagueButton } from '../../components';
+import { LeagueButton, PlayButton, ResponsiveContainer } from '../../components';
 import { APIBaseURL } from '../../lib/config';
-import { toBase64 } from '../../lib/utils';
-import AnimatedNumber from './animatedNumber';
 import leagueInfo from '../../lib/leagueInfo';
+import AnimatedNumber from './animatedNumber';
+import './styles.css';
 
 const topTeamsLeagueName = 'Top 25 Teams';
 
@@ -215,21 +214,14 @@ export default class Home extends Component {
               </div>
               <div className='right'>
                 <h1 className='main-header'>Try guessing from the world's most famous teams!</h1>
-                <PlayButton
-                  className='secondary'
-                  name={`Play The ${topTeamsLeagueName}`}
-                  icon={<i className='fas fa-th-list' style={{ transform: 'translateY(3px)' }}></i>}
-                  description={<>Guess from the greatest teams right now.</>}
-                  onClick={() => {
-                    const leagueNameCode = toBase64(topTeamsLeagueName);
-                    const url = new URL(window.location.href);
-                    url.searchParams.delete('game');
-                    url.searchParams.set('league', leagueNameCode);
-                    url.searchParams.set('page', 'play');
-                    const urlStr = url.toString();
-                    window.open(urlStr, '_self');
-                  }}
-                />
+                <Link to='/play/ARWAKEIKA'>
+                  <PlayButton
+                    className='secondary'
+                    name={`Play The ${topTeamsLeagueName}`}
+                    icon={<i className='fas fa-th-list' style={{ transform: 'translateY(3px)' }}></i>}
+                    description={<>Guess from the greatest teams right now.</>}
+                  />
+                </Link>
               </div>
             </div>
           </ResponsiveContainer>

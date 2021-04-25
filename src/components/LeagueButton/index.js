@@ -1,10 +1,10 @@
-import './styles.css';
 import React, { useState } from 'react';
-import { TertiaryButton, PlayModal } from '../';
+import { PlayModal, TertiaryButton } from '../';
+import './styles.css';
 
 export default function LeagueButton(props) {
   const [playModalOpen, setPlayModalOpen] = useState(false);
-  const { className, horizontal, darkBackground, images, name, description, location, teamsCount, ...otherProps } = props;
+  const { className, horizontal, darkBackground, images, name, description, location, teamsCount, onPlayLeague, ...otherProps } = props;
   return (
     <div className='leaguebutton-outer'>
       <button
@@ -35,7 +35,16 @@ export default function LeagueButton(props) {
           <TertiaryButton isNotButton style={{ marginTop: '1rem', boxShadow: 'none' }} text={<>Play This League &rarr;</>} />
         </div>
       </button>
-      {playModalOpen ? <PlayModal leagueName={name} closeModal={() => setPlayModalOpen(false)} /> : null}
+      {playModalOpen ? (
+        <PlayModal
+          leagueName={name}
+          closeModal={() => setPlayModalOpen(false)}
+          onPlayLeague={(gameMode) => {
+            setPlayModalOpen(false);
+            onPlayLeague(gameMode, name);
+          }}
+        />
+      ) : null}
     </div>
   );
 }

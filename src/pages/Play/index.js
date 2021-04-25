@@ -1,136 +1,175 @@
 /* eslint-disable no-restricted-globals */
-import React, { useState, useEffect } from 'react';
+import assert from 'assert';
+import React, { useEffect, useState } from 'react';
+import { matchPath } from 'react-router';
+import { BrowserRouter as Switch, Route, useHistory } from 'react-router-dom';
+import { FullHeightLoading, LeagueButton, ResponsiveContainer } from '../../components/';
 import { APIBaseURL } from '../../lib/config';
+import { decodeGameCode, encodeGameCode } from '../../lib/gameCode';
+import gameTypes from '../../lib/gameTypes';
 import leagueInfo from '../../lib/leagueInfo';
 import Game from './game';
-import { LeagueButton, Loading, ResponsiveContainer } from '../../components/';
 import './index-styles.css';
-import { fromBase64, toBase64 } from '../../lib/utils';
 
 const reversed = (arr) => {
   return arr.slice().reverse();
 };
 
-const urlLeagueParam = 'league';
-
-export default function ByNationalityPage(props) {
+function PlayPage(props) {
+  const [currentGameCode, setCurrentGameCode] = useState('');
   const [league, setLeague] = useState('');
+  const [correctTeamName, setCorrectTeamName] = useState('');
+  const [gameMode, setGameMode] = useState([]);
+  const [formationTypes, setFormationTypes] = useState([]);
   const [leagues, setLeagues] = useState([]);
-  const [leagueTeams, setLeagueTeams] = useState([]);
+  const [leagueTeams, setLeagueTeams] = useState({});
   const [viewType, setViewType] = useState('grid');
   const [sortBy, setSortBy] = useState('best-to-worst');
-
-  const updateLeagueFromURLParam = (leaguesArr) => {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has(urlLeagueParam)) {
-      const param = urlParams.get(urlLeagueParam);
-      try {
-        const decodedParam = fromBase64(param);
-        if (leaguesArr.indexOf(decodedParam) > -1 && league !== decodedParam) {
-          setLeague(decodedParam);
-        }
-      } catch (err) {}
-    } else if (league !== '') {
-      setLeague('');
-    }
-  };
-
-  if (leagues) {
-    updateLeagueFromURLParam(leagues);
-  }
 
   useEffect(() => {
     (async () => {
       const data = await (await fetch(`${APIBaseURL}/teams/all/by-league/onlynamesandlogos`)).json();
-      updateLeagueFromURLParam(Object.keys(data));
       setLeagueTeams(data);
       setLeagues(Object.keys(data));
     })();
   }, []);
 
-  const setLeagueAndParam = (leagueName) => {
-    const leagueNameCode = toBase64(leagueName);
-    const url = new URL(window.location.href);
-    url.searchParams.delete('game');
-    url.searchParams.set(urlLeagueParam, leagueNameCode);
-    const urlStr = url.toString();
-    window.open(urlStr, '_self');
-  };
-
   const allowHorizontalList = window.innerWidth > 775; // 775px width is minimum for horizontal list
 
+  const getNewGamePath = (passedGameMode = gameMode, passedLeague = league) => {
+    const leagueNumber = leagues.indexOf(passedLeague);
+    const correctTeamNumber = Math.floor(Math.random() * leagueTeams[passedLeague].length);
+    const possibleFormationTypes = [];
+    passedGameMode.forEach((e, i) => {
+      if (e) possibleFormationTypes.push(i);
+    });
+    const formationTypesArr = [];
+    for (let i = 0; i < 11; i++) {
+      formationTypesArr.push(possibleFormationTypes[Math.floor(Math.random() * possibleFormationTypes.length)]);
+    }
+    const gameCode = encodeGameCode(leagueNumber, passedGameMode, correctTeamNumber, formationTypesArr);
+    return `/play/${gameCode}`;
+  };
+  const history = useHistory();
+  const openNewGame = (passedGameMode = gameMode, passedLeague = league, hardRefresh = false) => {
+    history.push(getNewGamePath(passedGameMode, passedLeague));
+    if (hardRefresh) {
+      window.location.reload();
+    } else {
+      refreshGameWithCode();
+    }
+  };
+
+  const refreshGameWithCode = () => {
+    const match = matchPath(window.location.pathname, {
+      path: '/play/:gameCode',
+      exact: true,
+    });
+    if (match) {
+      try {
+        const { gameCode } = match.params;
+
+        const decodedGameCode = decodeGameCode(gameCode);
+        assert(decodedGameCode.leagueNumber < leagues.length);
+
+        const leagueName = leagues[decodedGameCode.leagueNumber];
+        assert(decodedGameCode.game < leagueTeams[leagueName].length);
+
+        const teamName = leagueTeams[leagueName][decodedGameCode.game].name;
+
+        setLeague(leagueName);
+        setCorrectTeamName(teamName);
+        setGameMode(decodedGameCode.gameMode);
+        setFormationTypes(decodedGameCode.formation.map((e) => gameTypes[e]));
+        setCurrentGameCode(gameCode);
+      } catch (err) {
+        window.location.assign('/play');
+      }
+    }
+  };
+  if (leagues.length > 0 && !currentGameCode) {
+    refreshGameWithCode();
+  }
+
   return leagues.length > 0 ? (
-    league ? (
-      <Game
-        setAuthModal={props.setAuthModal}
-        setProfileModal={props.setProfileModal}
-        league={league}
-        reloadUser={props.reloadUser}
-        user={props.user}
-        loggedIn={props.loggedIn}
-      />
-    ) : (
-      <ResponsiveContainer>
-        <div className='bynationalitypage-selectleague fullheight-section'>
-          <div className='inner'>
-            <div className='meta'>
-              <h1 className='title'>Play</h1>
-              <p className='description'>Choose a league to guess teams from.</p>
-            </div>
-            <div className='list-detail-bar'>
-              <div className='left'>
-                <h1>
-                  <i className='fas fa-futbol mr'></i>Leagues
-                </h1>
+    <Switch>
+      {currentGameCode ? (
+        <Game
+          key={correctTeamName}
+          correctTeamName={correctTeamName}
+          formationTypes={formationTypes}
+          league={league}
+          openNewGame={openNewGame}
+          setAuthModal={props.setAuthModal}
+          setProfileModal={props.setProfileModal}
+          reloadUser={props.reloadUser}
+          user={props.user}
+          loggedIn={props.loggedIn}
+        />
+      ) : null}
+      <Route exact path='/play'>
+        <ResponsiveContainer>
+          <div className='bynationalitypage-selectleague fullheight-section'>
+            <div className='inner'>
+              <div className='meta'>
+                <h1 className='title'>Play</h1>
+                <p className='description'>Choose a league to guess teams from.</p>
               </div>
-              <div className='right'>
-                <div className='select'>
-                  <p>Sort By</p>
-                  <select onChange={(e) => setSortBy(e.target.value)}>
-                    <option value='best-to-worst'>Best To Worst</option>
-                    <option value='worst-to-best'>Worst To Best</option>
-                  </select>
+              <div className='list-detail-bar'>
+                <div className='left'>
+                  <h1>
+                    <i className='fas fa-futbol mr'></i>Leagues
+                  </h1>
                 </div>
-                <div className={`view ${allowHorizontalList ? 'displayed' : ''}`}>
-                  <button onClick={() => setViewType('grid')} className={`grid ${viewType === 'grid' ? 'active' : ''}`}>
-                    <i className='fas fa-th'></i>
-                  </button>
-                  <button onClick={() => setViewType('list')} className={`list ${viewType === 'list' ? 'active' : ''}`}>
-                    <i className='fas fa-list'></i>
-                  </button>
+                <div className='right'>
+                  <div className='select'>
+                    <p>Sort By</p>
+                    <select onChange={(e) => setSortBy(e.target.value)}>
+                      <option value='best-to-worst'>Best To Worst</option>
+                      <option value='worst-to-best'>Worst To Best</option>
+                    </select>
+                  </div>
+                  <div className={`view ${allowHorizontalList ? 'displayed' : ''}`}>
+                    <button onClick={() => setViewType('grid')} className={`grid ${viewType === 'grid' ? 'active' : ''}`}>
+                      <i className='fas fa-th'></i>
+                    </button>
+                    <button onClick={() => setViewType('list')} className={`list ${viewType === 'list' ? 'active' : ''}`}>
+                      <i className='fas fa-list'></i>
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className={`leagues ${viewType === 'list' ? 'list-view' : ''}`}>
-              {(sortBy === 'worst-to-best' ? reversed(leagues) : leagues).map((e, i) => {
-                const isHorizontal = allowHorizontalList && viewType === 'list';
-                let images = leagueTeams[e].slice(0, 6).map((e) => e.logoURL);
-                if (i % 2 === 0) {
-                  images = reversed(images);
-                }
-                return (
-                  <LeagueButton
-                    onClick={() => setLeagueAndParam(e)}
-                    key={i}
-                    name={e}
-                    images={images}
-                    description={leagueInfo.descriptions[e] ? leagueInfo.descriptions[e] : <>Guess from this league.</>}
-                    location={leagueInfo.locations[e] ? leagueInfo.locations[e] : 'Worldwide'}
-                    teamsCount={leagueTeams[e].length}
-                    horizontal={isHorizontal}
-                  />
-                );
-              })}
+              <div className={`leagues ${viewType === 'list' ? 'list-view' : ''}`}>
+                {(sortBy === 'worst-to-best' ? reversed(leagues) : leagues).map((e, i) => {
+                  const isHorizontal = allowHorizontalList && viewType === 'list';
+                  let images = leagueTeams[e].slice(0, 6).map((e) => e.logoURL);
+                  if (i % 2 === 0) {
+                    images = reversed(images);
+                  }
+                  return (
+                    <LeagueButton
+                      onPlayLeague={(chosenGameMode, chosenLeague) => openNewGame(chosenGameMode, chosenLeague, true)}
+                      key={i}
+                      name={e}
+                      images={images}
+                      description={leagueInfo.descriptions[e] ? leagueInfo.descriptions[e] : <>Guess from this league.</>}
+                      location={leagueInfo.locations[e] ? leagueInfo.locations[e] : 'Worldwide'}
+                      teamsCount={leagueTeams[e].length}
+                      horizontal={isHorizontal}
+                    />
+                  );
+                })}
+              </div>
             </div>
           </div>
-        </div>
-      </ResponsiveContainer>
-    )
+        </ResponsiveContainer>
+      </Route>
+    </Switch>
   ) : (
     <ResponsiveContainer>
-      <div className='fullheight-section' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'var(--fullheight)' }}>
-        <Loading />
-      </div>
+      <FullHeightLoading />
     </ResponsiveContainer>
   );
 }
+
+export default PlayPage;

@@ -81,7 +81,7 @@ const GAMEMODE_NUMBER_CEILING = 2 ** GAMEMODE_SIZE;
 //  - the max of the game value is CLENGTH^GAME_LENGTH, which is 676 at the moment
 //  - elements in the formation list must be integers in the range [0, GAMEMODE_SIZE - 1]
 
-const encodePin = (leagueNumber, gameMode, game, formation) => {
+const encodeGameCode = (leagueNumber, gameMode, game, formation) => {
   assert(gameMode.length === GAMEMODE_SIZE);
   assert(formation.length === FORMATION_SIZE);
 
@@ -100,7 +100,7 @@ const encodePin = (leagueNumber, gameMode, game, formation) => {
   ];
   return toChars(numbers[0], LEAGUE_AND_GAMEMODE_LENGTH) + toChars(numbers[1], GAME_LENGTH) + toChars(numbers[2]);
 };
-const decodePin = (data) => {
+const decodeGameCode = (data) => {
   const leagueAndGameModeNumber = fromChars(data.substring(0, LEAGUE_AND_GAMEMODE_LENGTH));
   const leagueNumber = Math.floor(leagueAndGameModeNumber / GAMEMODE_NUMBER_CEILING);
   const gameModeNumber = leagueAndGameModeNumber % GAMEMODE_NUMBER_CEILING;
@@ -160,8 +160,8 @@ const testEncodeAndDecode = () => {
         return ret;
       })(),
     };
-    const encoded = encodePin(data.leagueNumber, data.gameMode, data.game, data.formation);
-    const decoded = decodePin(encoded);
+    const encoded = encodeGameCode(data.leagueNumber, data.gameMode, data.game, data.formation);
+    const decoded = decodeGameCode(encoded);
     if (JSON.stringify(decoded) !== JSON.stringify(data)) {
       console.log('Failure: ' + encoded);
       failures++;
@@ -172,6 +172,6 @@ const testEncodeAndDecode = () => {
   console.log(`Failures Count: ${failures}`);
   console.log(`Total Count: ${count}`);
 };
-testEncodeAndDecode();
+// testEncodeAndDecode();
 
-export { encodePin, decodePin };
+export { encodeGameCode, decodeGameCode };

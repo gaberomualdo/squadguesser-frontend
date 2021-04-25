@@ -5,8 +5,7 @@ import { NavBar, ResponsiveContainer, ProfileModal, Footer, AuthModal, ScrollToT
 import { Home, Play, DailyChallenge, SquadsDatabase, Leaderboard } from './pages/';
 import { Component } from 'react';
 import { APIBaseURL } from './lib/config';
-import { matchPath } from 'react-router';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 const axios = require('axios');
 
@@ -134,7 +133,9 @@ class App extends Component {
               <Route path='/leaderboard'>
                 <Leaderboard user={this.state.user} loggedIn={loggedIn} />
               </Route>
-              <Route path='*'>{/* 404 Page Here */}</Route>
+              {/* <Route path='*'>
+                <Redirect to='/' />
+              </Route> */}
             </ResponsiveContainer>
           </Switch>
           <Footer pages={pages} />

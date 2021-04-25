@@ -1,28 +1,30 @@
 /* eslint-disable no-restricted-globals */
 import React, { useEffect, useState } from 'react';
+import { FullHeightLoading } from '../../components/';
 import { APIBaseURL } from '../../lib/config';
 import Game from '../Play/game';
-import { toBase64 } from '../../lib/utils';
-
-const leagueName = 'Daily Challenge';
+import gameTypes from '../../lib/gameTypes';
 
 export default function DailyChallenge(props) {
   const [loaded, setLoaded] = useState(false);
-  const leagueNameCode = toBase64(leagueName);
+  const [correctTeamName, setCorrectTeamName] = useState('');
+  const [correctTeamFormationTypes, setCorrectTeamFormationTypes] = useState([]);
+  const leagueName = 'Daily Challenge';
+
   useEffect(() => {
     (async () => {
       const correctTeam = await (await fetch(`${APIBaseURL}/dailychallenge/team`)).json();
-      const url = new URL(window.location.href);
-      url.searchParams.set('game', toBase64(correctTeam.name));
-      url.searchParams.set('league', leagueNameCode);
-      const urlStr = url.toString();
-      history.replaceState({}, 'Navigate to New Page', urlStr);
+      const correctTeamFormationTypes = (await (await fetch(`${APIBaseURL}/dailychallenge/formationtypes`)).json()).map((e) => gameTypes[e]);
+      setCorrectTeamName(correctTeam.name);
+      setCorrectTeamFormationTypes(correctTeamFormationTypes);
       setLoaded(true);
     })();
   }, []);
 
   return loaded ? (
     <Game
+      correctTeamName={correctTeamName}
+      formationTypes={correctTeamFormationTypes}
       league={leagueName}
       dailyChallenge={true}
       reloadUser={props.reloadUser}
@@ -32,6 +34,6 @@ export default function DailyChallenge(props) {
       setProfileModal={props.setProfileModal}
     />
   ) : (
-    <div className='fullheight-section'></div>
+    <FullHeightLoading />
   );
 }

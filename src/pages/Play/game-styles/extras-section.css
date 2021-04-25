@@ -8,23 +8,23 @@
 .gamepage .extras-section .stats {
   flex: 1 1 100% !important;
 }
-.gamepage .extras-section [role='button'] {
+.gamepage .extras-section .primarybutton {
   width: 100%;
   background-color: var(--dark);
   border-radius: 3px;
   --inner-height: 2.5rem;
   user-select: none;
 }
-.gamepage .extras-section [role='button'] span {
+.gamepage .extras-section .primarybutton span {
   font-weight: normal;
   font-size: 0.95rem;
 }
-.gamepage .extras-section [role='button'].disabled,
+.gamepage .extras-section .primarybutton.disabled,
 .gamepage .guessteam .button.disabled {
   pointer-events: none;
   opacity: 0.5;
 }
-.gamepage .extras-section [role='button'].disabled span,
+.gamepage .extras-section .primarybutton.disabled span,
 .gamepage .guessteam .button.disabled span {
   text-decoration: line-through;
 }
@@ -79,6 +79,8 @@
   background-color: var(--darker) !important;
   margin-bottom: 0.75rem !important;
   flex-shrink: 0 !important;
+  width: 100%;
+  border-radius: 4px;
 }
 
 .gamepage .extras-section .stats {

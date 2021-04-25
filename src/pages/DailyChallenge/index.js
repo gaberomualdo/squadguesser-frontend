@@ -1,13 +1,13 @@
 /* eslint-disable no-restricted-globals */
-import './styles.css';
-import React, { useEffect, useState } from 'react';
-import { FullHeightLoading, LargeCalendar, PageHeader, PlayButton, LinedHeader } from '../../components/';
-import { BrowserRouter as Switch, Route, Link } from 'react-router-dom';
-import { APIBaseURL } from '../../lib/config';
-import getNumberEnding from '../../lib/getNumberEnding';
-import Game from '../Play/game';
-import gameTypes from '../../lib/gameTypes';
+import assert from 'assert';
 import isLeapYear from 'leap-year';
+import React, { useState } from 'react';
+import { Redirect } from 'react-router';
+import { BrowserRouter as Switch, Link, Route } from 'react-router-dom';
+import { LargeCalendar, LinedHeader, PageHeader, PlayButton } from '../../components/';
+import getNumberEnding from '../../lib/getNumberEnding';
+import DailyChallengeGame from './DailyChallengeGame';
+import './styles.css';
 
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const getObjFromDate = (d) => {
@@ -81,23 +81,8 @@ function ChallengeButton(props) {
 }
 
 export default function DailyChallenge(props) {
-  const [loaded, setLoaded] = useState(false);
-  const [correctTeamName, setCorrectTeamName] = useState('');
-  const [correctTeamFormationTypes, setCorrectTeamFormationTypes] = useState([]);
-  const leagueName = 'Daily Challenge';
-
   const todayObj = getObjFromDate(new Date());
   const [selectedDay, setSelectedDay] = useState(todayObj);
-
-  useEffect(() => {
-    (async () => {
-      const correctTeam = await (await fetch(`${APIBaseURL}/dailychallenge/team`)).json();
-      const correctTeamFormationTypes = (await (await fetch(`${APIBaseURL}/dailychallenge/formationtypes`)).json()).map((e) => gameTypes[e]);
-      setCorrectTeamName(correctTeam.name);
-      setCorrectTeamFormationTypes(correctTeamFormationTypes);
-      setLoaded(true);
-    })();
-  }, []);
 
   const isToday = JSON.stringify(selectedDay) === JSON.stringify(todayObj);
   const buttonDates = isToday
@@ -132,10 +117,35 @@ export default function DailyChallenge(props) {
         current: generateDateTitleNotToday(buttonDates.current),
         next: generateDateTitleNotToday(buttonDates.next),
       };
-  const boundsError = getBoundsError(getDateFromObj(selectedDay), new Date('January 1 2020'), new Date());
+  const lowerBound = 'January 1 2020';
+  const boundsError = getBoundsError(getDateFromObj(selectedDay), new Date(lowerBound), new Date());
 
   return (
     <Switch>
+      <Route
+        exact
+        path='/daily/:mm-:dd-:yyyy'
+        component={(routeProps) => {
+          const { mm, dd, yyyy } = routeProps.match.params;
+          try {
+            const dateObj = { day: parseInt(dd), month: parseInt(mm), year: parseInt(yyyy) };
+            assert(`${mm}-${dd}-${yyyy}` === getDateStr(dateObj));
+            assert(getBoundsError(getDateFromObj(dateObj), new Date(lowerBound), new Date()) === '');
+          } catch (err) {
+            return <Redirect to='/daily' />;
+          }
+          return (
+            <DailyChallengeGame
+              reloadUser={props.reloadUser}
+              user={props.user}
+              loggedIn={props.loggedIn}
+              setAuthModal={props.setAuthModal}
+              setProfileModal={props.setProfileModal}
+              date={`${mm}-${dd}-${yyyy}`}
+            />
+          );
+        }}
+      />
       <Route exact path='/daily'>
         <div className='dailychallenge-page page panel'>
           <div className='details'>
@@ -171,23 +181,6 @@ export default function DailyChallenge(props) {
           </div>
         </div>
       </Route>
-      <Route exact path='/daily/:date-str'></Route>
     </Switch>
-  );
-
-  return loaded ? (
-    <Game
-      correctTeamName={correctTeamName}
-      formationTypes={correctTeamFormationTypes}
-      league={leagueName}
-      dailyChallenge={true}
-      reloadUser={props.reloadUser}
-      user={props.user}
-      loggedIn={props.loggedIn}
-      setAuthModal={props.setAuthModal}
-      setProfileModal={props.setProfileModal}
-    />
-  ) : (
-    <FullHeightLoading />
   );
 }

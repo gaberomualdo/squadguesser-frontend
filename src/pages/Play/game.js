@@ -12,7 +12,7 @@ import {
   TertiaryButton,
   ShareBox,
 } from '../../components';
-import { APIBaseURL } from '../../lib/config';
+import { APIBaseURL, siteTitle } from '../../lib/config';
 import getStats from '../../lib/stats';
 import { getAverageRating } from '../../lib/utils';
 import './game-styles/details.css';
@@ -418,7 +418,7 @@ export default function Game(props) {
               <h1 className='details-title'>
                 <i className='fas fa-question-circle mr'></i>How To Play
               </h1>
-              <p>SquadGuessr is a puzzle game where players try to guess a given squad based on limited information.</p>
+              <p>{siteTitle} is a puzzle game where players try to guess a given squad based on limited information.</p>
               <ul>
                 <li>To make a guess, click on your guess on the bar on the left.</li>
                 <li>To give up and see the answer, click the Show Answer button.</li>

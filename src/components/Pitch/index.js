@@ -1,4 +1,5 @@
 import './styles.css';
+import { siteTitle } from '../../lib/config';
 import React from 'react';
 
 export default function Pitch() {
@@ -18,7 +19,7 @@ export default function Pitch() {
       <div className='circle dot gk bottom'></div>
       <div className='overlay'></div>
       <p className='site-title'>
-        <i className='fas fa-futbol' style={{ position: 'relative' }}></i>&nbsp; SquadGuessr
+        <i className='fas fa-futbol' style={{ position: 'relative' }}></i>&nbsp; {siteTitle}
       </p>
     </div>
   );

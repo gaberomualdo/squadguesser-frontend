@@ -8,7 +8,9 @@ import assert from 'assert';
 
 // currently only uppercase chars are used
 // include more chars here to logorithmically decrease overall pin size
-const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+// const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+// use a shuffled alphabet simply to make it less obvious for a user to decode codes alphanumerically (and basically cheat at the game, albeit in a very clever manner)
+const characters = 'KCTOWQVLIGPBEMYSFHANXZJDUR'.split('');
 
 function logBase(base, number) {
   return Math.log(number) / Math.log(base);

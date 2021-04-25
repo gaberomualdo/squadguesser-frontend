@@ -1,5 +1,2 @@
-const config = {
-  APIBaseURL: 'http://localhost:6773',
-};
-
-module.exports = config;
+export const APIBaseURL = 'http://localhost:6773';
+export const siteTitle = 'FootballQuiz';

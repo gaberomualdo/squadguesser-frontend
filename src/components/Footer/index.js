@@ -2,6 +2,7 @@ import { ResponsiveContainer } from '../';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './styles.css';
+import { siteTitle } from '../../lib/config';
 
 export default function Footer({ pages }) {
   const currentYear = new Date().getFullYear();
@@ -13,7 +14,7 @@ export default function Footer({ pages }) {
           <div className='left'>
             <Link to='/' className='logo'>
               <div className='icon'>{homePage.icon}</div>
-              <p>SquadGuessr</p>
+              <p>{siteTitle}</p>
             </Link>
           </div>
           <div className='right'>

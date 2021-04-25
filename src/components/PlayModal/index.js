@@ -15,7 +15,7 @@ function CheckBox(props) {
 export default function PlayModal(props) {
   const difficulties = {
     Easy: { color: 'var(--primary)', description: 'Guess by nationalities.', gameMode: [true, false, false, false, false, false, false, false] },
-    Normal: {
+    Medium: {
       color: 'var(--info)',
       description: 'Guess by nationalities, initials, and overall rating.',
       gameMode: [true, true, false, true, false, false, false, false],

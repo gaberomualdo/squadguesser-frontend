@@ -9,8 +9,6 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 const axios = require('axios');
 
-const SITE_TITLE = 'SquadGuessr';
-
 const pages = [
   {
     icon: <i className='fas fa-futbol'></i>,
@@ -23,12 +21,12 @@ const pages = [
     code: 'database',
     name: 'Squads Database',
     type: 'info',
-    useExactURLMatching: false,
+    useExactURLMatching: true,
   },
   {
     icon: <i className='fas fa-futbol'></i>,
     code: 'play',
-    name: 'Play SquadGuessr',
+    name: 'Play',
     description: <>Guess teams from the Premier League, La Liga, Serie A, and more.</>,
     type: 'game',
     useExactURLMatching: false,
@@ -39,14 +37,14 @@ const pages = [
     name: 'Daily Challenge',
     description: <>Test your skills with today's unique challenge.</>,
     type: 'game',
-    useExactURLMatching: true,
+    useExactURLMatching: false,
   },
   {
     icon: <i className='fas fa-trophy'></i>,
     code: 'leaderboard',
     name: 'Leaderboard',
     type: 'other',
-    useExactURLMatching: false,
+    useExactURLMatching: true,
   },
 ];
 
@@ -118,7 +116,7 @@ class App extends Component {
               />
             </Route>
             <ResponsiveContainer>
-              <Route exact path='/daily'>
+              <Route path='/daily'>
                 <DailyChallenge
                   reloadUser={this.reloadUser}
                   user={this.state.user}
@@ -127,10 +125,10 @@ class App extends Component {
                   setProfileModal={setProfileModal}
                 />
               </Route>
-              <Route path='/database'>
+              <Route exact path='/database'>
                 <SquadsDatabase />
               </Route>
-              <Route path='/leaderboard'>
+              <Route exact path='/leaderboard'>
                 <Leaderboard user={this.state.user} loggedIn={loggedIn} />
               </Route>
               {/* <Route path='*'>

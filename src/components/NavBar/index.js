@@ -2,6 +2,7 @@ import './styles.css';
 import { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
 import { Loading, ResponsiveContainer, PrimaryButton, SecondaryButton } from '../';
+import { siteTitle } from '../../lib/config';
 
 class NavBar extends Component {
   constructor(props) {
@@ -52,7 +53,7 @@ class NavBar extends Component {
 
     const logoButton = (
       <NavLink onClick={() => closeMenu()} to='/' exact={homePage.useExactURLMatching} activeClassName='active'>
-        <PrimaryButton isNotButton icon={homePage.icon} text={'SquadGuessr'} color={mainButtonColor} className='logo'></PrimaryButton>
+        <PrimaryButton isNotButton icon={homePage.icon} text={siteTitle} color={mainButtonColor} className='logo'></PrimaryButton>
       </NavLink>
     );
     const infoButtons = pages

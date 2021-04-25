@@ -1,7 +1,7 @@
 import React, { Component, createRef } from 'react';
 import { Link } from 'react-router-dom';
 import { LeagueButton, PlayButton, ResponsiveContainer } from '../../components';
-import { APIBaseURL } from '../../lib/config';
+import { APIBaseURL, siteTitle } from '../../lib/config';
 import leagueInfo from '../../lib/leagueInfo';
 import getNewGamePath from '../../lib/getNewGamePath';
 import AnimatedNumber from './animatedNumber';
@@ -169,7 +169,7 @@ export default class Home extends Component {
                   </button>
                 </div>
                 <Link className='video-cta' to='/play'>
-                  <span className='left'>Play SquadGuessr</span>
+                  <span className='left'>Play {siteTitle}</span>
                   <span className='right'>&rarr;</span>
                 </Link>
               </div>
@@ -376,7 +376,7 @@ export default class Home extends Component {
             </div>
           ) : null}
           <div className='box-section column bottom'>
-            <h1 className='main-header'>Ready to Play SquadGuessr?</h1>
+            <h1 className='main-header'>Ready to Play {siteTitle}?</h1>
             <div className='row'>
               {[0, 1].map((i) => (
                 <Link to={`/${pages[i].code}`}>

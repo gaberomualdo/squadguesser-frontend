@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { LeagueButton, PlayButton, ResponsiveContainer } from '../../components';
 import { APIBaseURL } from '../../lib/config';
 import leagueInfo from '../../lib/leagueInfo';
+import getNewGamePath from '../../lib/getNewGamePath';
 import AnimatedNumber from './animatedNumber';
 import './styles.css';
 
@@ -312,6 +313,10 @@ export default class Home extends Component {
                       let images = this.state.leagues[e].slice(0, 6).map((e) => e.logoURL);
                       return (
                         <LeagueButton
+                          onPlayLeague={(chosenGameMode, chosenLeague) => {
+                            const leagueNames = Object.keys(this.state.leagues);
+                            window.location.assign(getNewGamePath(leagueNames, this.state.leagues, chosenGameMode, chosenLeague));
+                          }}
                           key={i}
                           name={e}
                           images={images}

@@ -2,7 +2,17 @@ import './styles.css';
 import React, { useEffect, useState } from 'react';
 import { APIBaseURL } from '../../lib/config';
 import { halfStar, emptyStar, fullStar } from '../../lib/starIcons';
-import { Loading, PlayButton, Pitch, PitchTop, Formation, Modal, TeamSheetTable, TeamInformationTable } from '../../components';
+import {
+  Loading,
+  PlayButton,
+  Pitch,
+  PitchTop,
+  Formation,
+  Modal,
+  TeamSheetTable,
+  TeamInformationTable,
+  NotAvailableOnMobileBanner,
+} from '../../components';
 import commaNumber from 'comma-number';
 import Dropdown from './dropdown';
 
@@ -217,12 +227,7 @@ export default function SquadsDatabase() {
             </div>
           )}
         </main>
-        <div className='mobile-banner'>
-          <p>This page is not yet available on mobile.</p>
-          <p>Please switch to a larger screen or rotate your device.</p>
-          <p>Apologies for the inconvenience.</p>
-        </div>
-
+        <NotAvailableOnMobileBanner />
         {Object.keys(activeSquad).length > 0 ? (
           <Modal closeModal={() => setActiveSquad({})} className='squad-formation-modal'>
             <h1 className='no-margin-top'>

@@ -1,0 +1,47 @@
+.large-calendar-component {
+  zoom: 150%;
+}
+.large-calendar-component * {
+  --cl-color-primary: var(--primary) !important;
+  --cl-color-primary-light: var(--darkdark) !important;
+  --cl-color-black: #fff !important;
+  --cl-color-disabled: rgba(255, 255, 255, 0.4) !important;
+  --cl-color-error: var(--danger) !important;
+}
+.large-calendar-component > * {
+  background-color: var(--darkdark) !important;
+  box-shadow: none !important;
+}
+.large-calendar-component .Calendar__day {
+  color: rgba(255, 255, 255, 1) !important;
+}
+.large-calendar-component .Calendar__day:not(.-blank):not(.-selectedStart):not(.-selectedEnd):not(.-selectedBetween):not(.-selected):hover {
+  background-color: var(--dark) !important;
+}
+.large-calendar-component .Calendar__monthArrowWrapper {
+  filter: invert(10000%) !important;
+}
+.large-calendar-component .Calendar__monthSelector,
+.large-calendar-component .Calendar__yearSelector {
+  background-color: var(--dark) !important;
+}
+.large-calendar-component .Calendar__yearSelectorWrapper::before {
+  background-image: linear-gradient(to top, var(--dark), var(--dark) 10%, rgba(245, 245, 245, 0)) !important;
+}
+
+.large-calendar-component .Calendar__yearSelectorWrapper::after {
+  background-image: linear-gradient(to bottom, var(--dark), var(--dark) 10%, rgba(245, 245, 245, 0)) !important;
+}
+.large-calendar-component .Calendar__monthYear.-shown > *:hover,
+.large-calendar-component .Calendar:not(.-noFocusOutline) .Calendar__monthYear.-shown > *:focus,
+.large-calendar-component .Calendar__monthYear > *.-activeBackground {
+  background: var(--lightdark) !important;
+}
+
+.large-calendar-component .Calendar__monthSelectorItem:not(.-active) .Calendar__monthSelectorItemText:not(:disabled):hover,
+.large-calendar-component .Calendar__yearSelectorItem:not(.-active) .Calendar__yearSelectorText:not(:disabled):hover {
+  background: var(--lightdark) !important;
+}
+.large-calendar-component .Calendar__day.-today:not(.-selectedStart):not(.-selectedEnd):not(.-selectedBetween)::after {
+  background-color: #fff !important;
+}

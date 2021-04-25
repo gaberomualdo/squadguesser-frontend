@@ -1,0 +1,118 @@
+.dailychallenge-page {
+  display: flex;
+  margin-bottom: 2rem;
+}
+.dailychallenge-page > * {
+  flex: 1 1 100%;
+  display: block;
+}
+.dailychallenge-page > *:not(:last-child) {
+  margin-right: 1.5rem;
+}
+.dailychallenge-page > .calendar > * {
+  width: auto;
+  float: right;
+}
+
+.dailychallenge-page > .details {
+  display: flex;
+  flex-direction: column;
+}
+
+/* .dailychallenge-page > .details .page-header-component * {
+  text-align: left;
+} */
+.dailychallenge-page .page-header-component {
+  flex: 0 0 auto;
+}
+.dailychallenge-page .page-header-component p {
+  margin-bottom: 1.5rem !important;
+}
+
+.dailychallenge-page .buttons {
+  flex: 1 1 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.dailychallenge-page .buttons > * {
+  width: 100%;
+  zoom: 90%;
+}
+.dailychallenge-page .buttons > *:not(:last-child):not(:first-child) {
+  margin-bottom: 1rem;
+}
+.dailychallenge-page .buttons sup {
+  display: inline !important;
+}
+
+.dailychallenge-page .out-of-bounds {
+  padding: 1.5rem;
+  background-color: var(--darkdark);
+  display: flex;
+  padding-left: 0;
+  border-radius: 4px;
+}
+.dailychallenge-page .out-of-bounds .icon {
+  flex: 0 0 7.5rem;
+  color: var(--danger);
+  font-size: 4rem;
+  text-align: center;
+}
+.dailychallenge-page .out-of-bounds h1 {
+  margin-bottom: 0.5rem;
+  line-height: 1.35;
+  font-size: 1.8rem;
+}
+.dailychallenge-page .out-of-bounds p {
+  opacity: 0.75;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+@media only screen and (max-width: 1000px) {
+  .dailychallenge-page {
+    flex-direction: column;
+  }
+  .dailychallenge-page .buttons {
+    zoom: 90%;
+  }
+  .dailychallenge-page .lined-header-component {
+    display: none;
+  }
+  .dailychallenge-page .buttons > *:not(:last-child) {
+    margin-bottom: 1rem !important;
+  }
+  .dailychallenge-page > *:not(:last-child) {
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+  .dailychallenge-page > .calendar {
+    text-align: center;
+  }
+  .dailychallenge-page .large-calendar-component {
+    zoom: 100%;
+    display: inline-block;
+    float: none;
+  }
+}
+@media only screen and (max-width: 700px) {
+  .dailychallenge-page .large-calendar-component {
+    zoom: 90%;
+  }
+}
+@media only screen and (max-width: 370px) {
+  .dailychallenge-page .large-calendar-component {
+    zoom: 85%;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .dailychallenge-page .large-calendar-component {
+    zoom: 80%;
+  }
+}
+@media only screen and (max-width: 315px) {
+  .dailychallenge-page .large-calendar-component {
+    zoom: 75%;
+  }
+}

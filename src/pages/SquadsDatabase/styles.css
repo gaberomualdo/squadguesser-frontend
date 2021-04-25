@@ -226,21 +226,6 @@
   overflow: hidden;
 }
 
-.squadsdatabase-page .mobile-banner {
-  display: none;
-  flex: 1 1 100%;
-}
-.squadsdatabase-page .mobile-banner p {
-  width: 100%;
-  border-radius: 6px;
-  background-color: var(--dark);
-  font-size: 1.25rem;
-  line-height: 1.5;
-  padding: 0.75rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-}
-
 @media only screen and (max-width: 950px) {
   .squadsdatabase-page .main-container,
   .squadsdatabase-page .list-detail-bar {

@@ -5,9 +5,10 @@ import { matchPath } from 'react-router';
 import { BrowserRouter as Switch, Route, useHistory } from 'react-router-dom';
 import { FullHeightLoading, LeagueButton, ResponsiveContainer } from '../../components/';
 import { APIBaseURL } from '../../lib/config';
-import { decodeGameCode, encodeGameCode } from '../../lib/gameCode';
+import { decodeGameCode } from '../../lib/gameCode';
 import gameTypes from '../../lib/gameTypes';
 import leagueInfo from '../../lib/leagueInfo';
+import getNewGamePath from '../../lib/getNewGamePath';
 import Game from './game';
 import './index-styles.css';
 
@@ -36,23 +37,9 @@ function PlayPage(props) {
 
   const allowHorizontalList = window.innerWidth > 775; // 775px width is minimum for horizontal list
 
-  const getNewGamePath = (passedGameMode = gameMode, passedLeague = league) => {
-    const leagueNumber = leagues.indexOf(passedLeague);
-    const correctTeamNumber = Math.floor(Math.random() * leagueTeams[passedLeague].length);
-    const possibleFormationTypes = [];
-    passedGameMode.forEach((e, i) => {
-      if (e) possibleFormationTypes.push(i);
-    });
-    const formationTypesArr = [];
-    for (let i = 0; i < 11; i++) {
-      formationTypesArr.push(possibleFormationTypes[Math.floor(Math.random() * possibleFormationTypes.length)]);
-    }
-    const gameCode = encodeGameCode(leagueNumber, passedGameMode, correctTeamNumber, formationTypesArr);
-    return `/play/${gameCode}`;
-  };
   const history = useHistory();
   const openNewGame = (passedGameMode = gameMode, passedLeague = league, hardRefresh = false) => {
-    history.push(getNewGamePath(passedGameMode, passedLeague));
+    history.push(getNewGamePath(leagues, leagueTeams, passedGameMode, passedLeague));
     if (hardRefresh) {
       window.location.reload();
     } else {

@@ -1,7 +1,5 @@
 /* eslint-disable no-restricted-globals */
 import React, { useEffect, useState } from 'react';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { Link } from 'react-router-dom';
 import {
   Formation,
   Pitch,
@@ -12,6 +10,7 @@ import {
   TeamInformationTable,
   TeamSheetTable,
   TertiaryButton,
+  ShareBox,
 } from '../../components';
 import { APIBaseURL } from '../../lib/config';
 import getStats from '../../lib/stats';
@@ -39,12 +38,6 @@ export default function Game(props) {
   const [teamsEliminated, setTeamsEliminated] = useState([]);
   const [activeTab, setActiveTab] = useState('main-section');
   const [gameComplete, setGameComplete] = useState(false);
-
-  const [copiedShareURL, setCopiedShareURL] = useState(false);
-
-  const getShareURL = () => {
-    return window.location.href;
-  };
 
   const endGame = (gaveUp = false) => {
     if (!gameComplete) {
@@ -99,7 +92,6 @@ export default function Game(props) {
     const { league, correctTeamName } = props;
     const data = await (await fetch(`${APIBaseURL}/teams/by-league/onlynamesandlogos/${league}`)).json();
     const teamAPIURL = `${APIBaseURL}/team/${correctTeamName}`;
-    // let teamAPIURL = `${APIBaseURL}/team/random/by-league/${league}`;
 
     const { name, formation, ...extraData } = await (await fetch(teamAPIURL)).json();
 
@@ -281,9 +273,9 @@ export default function Game(props) {
               </div>
             ) : null}
             {!props.dailyChallenge ? (
-              <Link to='/play'>
+              <a href='/play'>
                 <SecondaryButton className='menu-btn' text={<>&larr; Back to Menu</>} />
-              </Link>
+              </a>
             ) : null}
 
             <div className='panel side-panel hints'>
@@ -421,109 +413,7 @@ export default function Game(props) {
                 }}
               />
             </div>
-            <div className='share box'>
-              <h1 className='details-title'>
-                <i className='fas fa-share-alt mr'></i>Share Game
-              </h1>
-              <div className='section'>
-                <div className='input-container'>
-                  <input
-                    type='text'
-                    onClick={(e) => {
-                      e.target.setSelectionRange(0, e.target.value.length);
-                    }}
-                    value={getShareURL()}
-                    onInput={(e) => e.preventDefault()}
-                  />
-                  <CopyToClipboard
-                    text={getShareURL()}
-                    onCopy={() => {
-                      setCopiedShareURL(true);
-                      setTimeout(() => {
-                        setCopiedShareURL(false);
-                      }, 750);
-                    }}
-                  >
-                    <button className={`copy ${copiedShareURL ? 'copied' : ''}`}>
-                      {copiedShareURL ? (
-                        <>
-                          <i className='fas fa-thumbs-up'></i> <span>Copied!</span>
-                        </>
-                      ) : (
-                        <>
-                          <i className='fas fa-copy'></i> <span>Copy URL</span>
-                        </>
-                      )}
-                    </button>
-                  </CopyToClipboard>
-                </div>
-                <div className='grid'>
-                  <button style={{ '--bg': '#00aced' }}>
-                    <i className='fab fa-twitter'></i>
-                    <p>
-                      <span>Twitter</span>
-                      <i className='fas fa-share'></i>
-                    </p>
-                  </button>
-                  <button style={{ '--bg': 'var(--lighterdark-1)' }}>
-                    <i className='fas fa-envelope'></i>
-                    <p>
-                      <span>Email</span>
-                      <i className='fas fa-share'></i>
-                    </p>
-                  </button>
-                  <button style={{ '--bg': '#3b5998' }}>
-                    <i className='fab fa-facebook-f'></i>
-                    <p>
-                      <span>Facebook</span>
-                      <i className='fas fa-share'></i>
-                    </p>
-                  </button>
-                  <button style={{ '--bg': '#25D366' }}>
-                    <i className='fab fa-whatsapp'></i>
-                    <p>
-                      <span>WhatsApp</span>
-                      <i className='fas fa-share'></i>
-                    </p>
-                  </button>
-                  <button style={{ '--bg': '#FF4500' }}>
-                    <i className='fab fa-reddit-alien'></i>
-                    <p>
-                      <span>Reddit</span>
-                      <i className='fas fa-share'></i>
-                    </p>
-                  </button>
-                  <button style={{ '--bg': '#49a9e9' }}>
-                    <i className='fab fa-telegram-plane'></i>
-                    <p>
-                      <span>Telegram</span>
-                      <i className='fas fa-share'></i>
-                    </p>
-                  </button>
-                  <button style={{ '--bg': '#45668e' }}>
-                    <i className='fab fa-vk'></i>
-                    <p>
-                      <span>VK</span>
-                      <i className='fas fa-share'></i>
-                    </p>
-                  </button>
-                  <button style={{ '--bg': '#00c80f' }}>
-                    <i className='fab fa-weixin'></i>
-                    <p>
-                      <span>WeChat</span>
-                      <i className='fas fa-share'></i>
-                    </p>
-                  </button>
-                  <button style={{ '--bg': '#2c4762' }}>
-                    <i className='fab fa-tumblr'></i>
-                    <p>
-                      <span>Tumblr</span>
-                      <i className='fas fa-share'></i>
-                    </p>
-                  </button>
-                </div>
-              </div>
-            </div>
+            <ShareBox />
             <div className='how-to'>
               <h1 className='details-title'>
                 <i className='fas fa-question-circle mr'></i>How To Play

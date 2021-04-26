@@ -3,8 +3,9 @@ import assert from 'assert';
 import React, { useEffect, useState } from 'react';
 import { matchPath } from 'react-router';
 import { BrowserRouter as Switch, Route, useHistory } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import { FullHeightLoading, LeagueButton, ResponsiveContainer } from '../../components/';
-import { APIBaseURL } from '../../lib/config';
+import { APIBaseURL, siteTitle } from '../../lib/config';
 import { decodeGameCode } from '../../lib/gameCode';
 import gameTypes from '../../lib/gameTypes';
 import leagueInfo from '../../lib/leagueInfo';
@@ -81,18 +82,25 @@ function PlayPage(props) {
   return leagues.length > 0 ? (
     <Switch>
       {currentGameCode ? (
-        <Game
-          key={correctTeamName}
-          correctTeamName={correctTeamName}
-          formationTypes={formationTypes}
-          league={league}
-          openNewGame={openNewGame}
-          setAuthModal={props.setAuthModal}
-          setProfileModal={props.setProfileModal}
-          reloadUser={props.reloadUser}
-          user={props.user}
-          loggedIn={props.loggedIn}
-        />
+        <>
+          <Helmet>
+            <title>
+              Game - Play {league} - {siteTitle}
+            </title>
+          </Helmet>
+          <Game
+            key={correctTeamName}
+            correctTeamName={correctTeamName}
+            formationTypes={formationTypes}
+            league={league}
+            openNewGame={openNewGame}
+            setAuthModal={props.setAuthModal}
+            setProfileModal={props.setProfileModal}
+            reloadUser={props.reloadUser}
+            user={props.user}
+            loggedIn={props.loggedIn}
+          />
+        </>
       ) : null}
       <Route exact path='/play'>
         <ResponsiveContainer>

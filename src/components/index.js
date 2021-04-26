@@ -23,3 +23,4 @@ export { default as NotAvailableOnMobileBanner } from './NotAvailableOnMobileBan
 export { default as LargeCalendar } from './LargeCalendar';
 export { default as PageHeader } from './PageHeader';
 export { default as LinedHeader } from './LinedHeader';
+export { default as ShareButton } from './ShareButton';

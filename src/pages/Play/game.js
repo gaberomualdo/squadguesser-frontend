@@ -11,6 +11,7 @@ import {
   TeamSheetTable,
   TertiaryButton,
   ShareBox,
+  ShareButton,
 } from '../../components';
 import { APIBaseURL, siteTitle } from '../../lib/config';
 import getStats from '../../lib/stats';
@@ -116,6 +117,7 @@ export default function Game(props) {
 
   return (
     <div className='game-outer-container'>
+      <ShareButton />
       <ResponsiveContainer>
         <style>
           {`.navbar-container {
@@ -267,16 +269,14 @@ export default function Game(props) {
                   Challenge
                 </h1>
                 <div className='title-number'>
-                  <h1>{['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][new Date().getMonth()]}</h1>
-                  <p>{new Date().getDate()}</p>
+                  <h1>{['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][props.dailyChallengeDate.month - 1]}</h1>
+                  <p>{props.dailyChallengeDate.day}</p>
                 </div>
               </div>
             ) : null}
-            {!props.dailyChallenge ? (
-              <a href='/play'>
-                <SecondaryButton className='menu-btn' text={<>&larr; Back to Menu</>} />
-              </a>
-            ) : null}
+            <a href={props.dailyChallenge ? '/daily' : '/play'}>
+              <SecondaryButton className='menu-btn' text={<>&larr; Back to Menu</>} />
+            </a>
 
             <div className='panel side-panel hints'>
               <h1 className='title'>

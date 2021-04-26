@@ -28,6 +28,7 @@ export default function DailyChallengeGame(props) {
       formationTypes={correctTeamFormationTypes}
       league={leagueName}
       dailyChallenge={true}
+      dailyChallengeDate={props.dateObj}
       reloadUser={props.reloadUser}
       user={props.user}
       loggedIn={props.loggedIn}

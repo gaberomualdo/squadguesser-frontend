@@ -1,8 +1,9 @@
 import './styles.css';
 import React, { useEffect, useState } from 'react';
-import { APIBaseURL } from '../../lib/config';
+import { APIBaseURL, siteTitle } from '../../lib/config';
 import { processDate, processRankNumber } from '../../lib/utils';
 import { ProfileModal, Loading } from '../../components/';
+import { Helmet } from 'react-helmet';
 
 export default function Leaderboard(props) {
   const [data, setData] = useState([]);
@@ -68,6 +69,7 @@ export default function Leaderboard(props) {
       </div>
       {profileModal ? (
         <ProfileModal
+          outerPageTitle='Leaderboard'
           profileIsSignedIn={false}
           setProfileModal={(v) => {
             setProfileModal(v);

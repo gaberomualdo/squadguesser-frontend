@@ -5,8 +5,10 @@ import React, { useState } from 'react';
 import { Redirect } from 'react-router';
 import { BrowserRouter as Switch, Link, Route } from 'react-router-dom';
 import { LargeCalendar, LinedHeader, PageHeader, PlayButton } from '../../components/';
+import { siteTitle } from '../../lib/config';
 import getNumberEnding from '../../lib/getNumberEnding';
 import DailyChallengeGame from './DailyChallengeGame';
+import { Helmet } from 'react-helmet';
 import './styles.css';
 
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -21,8 +23,8 @@ const getDateFromObj = (obj) => new Date(`${months[obj.month - 1]} ${obj.day} ${
 const getDateAfter = (jsDate, afterDays) => {
   return new Date(jsDate.setDate(jsDate.getDate() + afterDays));
 };
-const generateDateTitleNotToday = (dateObj) => {
-  return `${months[dateObj.month - 1]} ${dateObj.day}${getNumberEnding(dateObj.day)}${
+const generateDateTitleNotToday = (dateObj, ending = true) => {
+  return `${months[dateObj.month - 1]} ${dateObj.day}${ending ? getNumberEnding(dateObj.day) : ''}${
     dateObj.year !== new Date().getFullYear() ? `, ${dateObj.year}` : ''
   }`;
 };
@@ -127,22 +129,34 @@ export default function DailyChallenge(props) {
         path='/daily/:mm-:dd-:yyyy'
         component={(routeProps) => {
           const { mm, dd, yyyy } = routeProps.match.params;
+          const getDateObjFromRoute = (mm, dd, yyyy) => {
+            return { day: parseInt(dd), month: parseInt(mm), year: parseInt(yyyy) };
+          };
           try {
-            const dateObj = { day: parseInt(dd), month: parseInt(mm), year: parseInt(yyyy) };
+            const dateObj = getDateObjFromRoute(mm, dd, yyyy);
             assert(`${mm}-${dd}-${yyyy}` === getDateStr(dateObj));
             assert(getBoundsError(getDateFromObj(dateObj), new Date(lowerBound), new Date()) === '');
           } catch (err) {
             return <Redirect to='/daily' />;
           }
+          const dateObj = getDateObjFromRoute(mm, dd, yyyy);
           return (
-            <DailyChallengeGame
-              reloadUser={props.reloadUser}
-              user={props.user}
-              loggedIn={props.loggedIn}
-              setAuthModal={props.setAuthModal}
-              setProfileModal={props.setProfileModal}
-              date={`${mm}-${dd}-${yyyy}`}
-            />
+            <>
+              <Helmet>
+                <title>
+                  {generateDateTitleNotToday(dateObj)} - Daily Challenge - {siteTitle}
+                </title>
+              </Helmet>
+              <DailyChallengeGame
+                reloadUser={props.reloadUser}
+                user={props.user}
+                loggedIn={props.loggedIn}
+                setAuthModal={props.setAuthModal}
+                setProfileModal={props.setProfileModal}
+                date={`${mm}-${dd}-${yyyy}`}
+                dateObj={dateObj}
+              />
+            </>
           );
         }}
       />

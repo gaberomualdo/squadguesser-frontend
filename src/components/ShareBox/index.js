@@ -1,18 +1,45 @@
 import './styles.css';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import React, { useState } from 'react';
+import { siteTitle } from '../../lib/config';
+import getShareURL from '../../lib/getShareURL';
 
-export default function ShareBox() {
+function SmallShareButton(props) {
+  return (
+    <a target='_blank' rel='noopener noreferrer' href={getShareURL(props.name, props.shareURLOptions)} style={{ '--bg': props.bg }}>
+      <i className={`${props.notBrandIcon ? 'fas' : 'fab'} fa-${props.iconName}`}></i>
+      <p>
+        <span>{props.name}</span>
+        <i className='fas fa-share'></i>
+      </p>
+    </a>
+  );
+}
+
+export default function ShareBox(props) {
   const [copiedShareURL, setCopiedShareURL] = useState(false);
+
+  const getShareTextPrefix = () => {
+    return `${props.shareTextPrefix || `Check out this game from ${siteTitle}`}`;
+  };
+  const getShareText = () => {
+    return `${getShareTextPrefix()}: ${getShareURL()}.`;
+  };
 
   const getShareURL = () => {
     return window.location.href;
   };
 
+  const shareURLOptions = {
+    text: getShareText(),
+    title: getShareTextPrefix(),
+    url: getShareURL(),
+  };
+
   return (
     <div className='share-box-component'>
       <h1 className='details-title'>
-        <i className='fas fa-share-alt mr'></i>Share Game
+        <i className='fas fa-share-alt mr'></i>Share This Game
       </h1>
       <div className='section'>
         <div className='input-container'>
@@ -47,69 +74,12 @@ export default function ShareBox() {
           </CopyToClipboard>
         </div>
         <div className='grid'>
-          <button style={{ '--bg': '#00aced' }}>
-            <i className='fab fa-twitter'></i>
-            <p>
-              <span>Twitter</span>
-              <i className='fas fa-share'></i>
-            </p>
-          </button>
-          <button style={{ '--bg': 'var(--lighterdark-1)' }}>
-            <i className='fas fa-envelope'></i>
-            <p>
-              <span>Email</span>
-              <i className='fas fa-share'></i>
-            </p>
-          </button>
-          <button style={{ '--bg': '#3b5998' }}>
-            <i className='fab fa-facebook-f'></i>
-            <p>
-              <span>Facebook</span>
-              <i className='fas fa-share'></i>
-            </p>
-          </button>
-          <button style={{ '--bg': '#25D366' }}>
-            <i className='fab fa-whatsapp'></i>
-            <p>
-              <span>WhatsApp</span>
-              <i className='fas fa-share'></i>
-            </p>
-          </button>
-          <button style={{ '--bg': '#FF4500' }}>
-            <i className='fab fa-reddit-alien'></i>
-            <p>
-              <span>Reddit</span>
-              <i className='fas fa-share'></i>
-            </p>
-          </button>
-          <button style={{ '--bg': '#49a9e9' }}>
-            <i className='fab fa-telegram-plane'></i>
-            <p>
-              <span>Telegram</span>
-              <i className='fas fa-share'></i>
-            </p>
-          </button>
-          <button style={{ '--bg': '#45668e' }}>
-            <i className='fab fa-vk'></i>
-            <p>
-              <span>VK</span>
-              <i className='fas fa-share'></i>
-            </p>
-          </button>
-          <button style={{ '--bg': '#00c80f' }}>
-            <i className='fab fa-weixin'></i>
-            <p>
-              <span>WeChat</span>
-              <i className='fas fa-share'></i>
-            </p>
-          </button>
-          <button style={{ '--bg': '#2c4762' }}>
-            <i className='fab fa-tumblr'></i>
-            <p>
-              <span>Tumblr</span>
-              <i className='fas fa-share'></i>
-            </p>
-          </button>
+          <SmallShareButton name='twitter' bg='#00aced' iconName='twitter' shareURLOptions={shareURLOptions} />
+          <SmallShareButton name='email' bg='var(--lighterdark-1)' iconName='envelope' notBrandIcon shareURLOptions={shareURLOptions} />
+          <SmallShareButton name='facebook' bg='#3b5998' iconName='facebook-f' shareURLOptions={shareURLOptions} />
+          <SmallShareButton name='whatsapp' bg='#25D366' iconName='whatsapp' shareURLOptions={shareURLOptions} />
+          <SmallShareButton name='reddit' bg='#FF4500' iconName='reddit-alien' shareURLOptions={shareURLOptions} />
+          <SmallShareButton name='telegram' bg='#49a9e9' iconName='telegram-plane' shareURLOptions={shareURLOptions} />
         </div>
       </div>
     </div>

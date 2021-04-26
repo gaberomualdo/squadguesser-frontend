@@ -38,6 +38,7 @@
 .navbar .right > * {
   display: inline-block;
   vertical-align: top;
+  margin-right: -0.15rem;
 }
 .navbar-container .auth-area {
   --inner-height: 2.2rem;

@@ -76,7 +76,7 @@
   font-size: 1.1rem;
   margin-right: 0.25rem;
 }
-.share-box-component > .section .grid > button {
+.share-box-component > .section .grid > a {
   cursor: pointer;
   --margin: 0.5rem;
   --height: 2.2rem;
@@ -88,18 +88,19 @@
   text-align: left;
   overflow: hidden;
   transition: filter 0.2s;
+  display: inline-block;
 }
-.share-box-component > .section .grid > button:not(:nth-child(3n)) {
+.share-box-component > .section .grid > a:not(:nth-child(3n)) {
   margin-right: var(--margin);
 }
-.share-box-component > .section .grid > button:not(:nth-last-child(-n + 3)) {
+.share-box-component > .section .grid > a:not(:nth-last-child(-n + 3)) {
   margin-bottom: var(--margin);
 }
-.share-box-component > .section .grid > button > * {
+.share-box-component > .section .grid > a > * {
   display: block;
   float: left;
 }
-.share-box-component > .section .grid > button > i:first-child {
+.share-box-component > .section .grid > a > i:first-child {
   font-size: 1.25rem;
   width: var(--height);
   height: var(--height);
@@ -108,7 +109,7 @@
   background-color: var(--bg);
   filter: brightness(90%);
 }
-.share-box-component > .section .grid > button > p {
+.share-box-component > .section .grid > a > p {
   font-size: 1rem;
   height: var(--height);
   line-height: var(--height);
@@ -116,19 +117,19 @@
   padding-left: 0.5rem;
 }
 @media only screen and (max-width: 1150px) {
-  .share-box-component > .section .grid > button > i:first-child {
+  .share-box-component > .section .grid > a > i:first-child {
     display: none;
   }
-  .share-box-component > .section .grid > button > p {
+  .share-box-component > .section .grid > a > p {
     width: 100%;
   }
 }
 @media only screen and (max-width: 750px) {
-  .share-box-component > .section .grid > button > i:first-child {
+  .share-box-component > .section .grid > a > i:first-child {
     display: block;
     width: 100%;
   }
-  .share-box-component > .section .grid > button > p {
+  .share-box-component > .section .grid > a > p {
     display: none;
   }
 }
@@ -150,19 +151,19 @@
     padding: 0.75rem !important;
   }
 }
-.share-box-component > .section .grid > button > p i {
+.share-box-component > .section .grid > a > p i {
   line-height: 2.3rem;
   float: right;
   padding-right: 0.5rem;
   opacity: 0.5;
   transition: opacity 0.2s;
 }
-.share-box-component > .section .grid > button:hover {
+.share-box-component > .section .grid > a:hover {
   filter: brightness(110%);
 }
-.share-box-component > .section .grid > button:active {
+.share-box-component > .section .grid > a:active {
   filter: brightness(95%);
 }
-.share-box-component > .section .grid > button:hover > p i {
+.share-box-component > .section .grid > a:hover > p i {
   opacity: 1;
 }

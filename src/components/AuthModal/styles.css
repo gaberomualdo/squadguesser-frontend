@@ -35,7 +35,7 @@
 }
 
 .auth-modal-component .inner form {
-  margin-top: 0.5rem;
+  margin-top: 1.25rem;
 }
 
 .auth-modal-component .inner form > .error {
@@ -50,6 +50,9 @@
   opacity: 0.75;
 }
 
+.auth-modal-component .inner form .input-container input.mtop {
+  margin-top: 0.5rem;
+}
 .auth-modal-component .inner form .input-container {
   display: flex;
   flex-direction: column-reverse;
@@ -59,25 +62,28 @@
   flex: 1 1 auto;
 }
 .auth-modal-component .inner form .input-container label {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   opacity: 0.8;
-  padding: 0.5rem 0;
+  padding: 0.215rem 0;
   opacity: 0;
   transition: opacity 0.2s;
 }
 
 .auth-modal-component .inner form .input-container input {
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  background-color: var(--dark);
+  transition: background-color 0.2s, filter 0.2s;
   border-radius: 4px;
   padding: 0.5rem 0.75rem;
   font-size: 1.1rem;
-  transition: border-color 0.2s;
   position: relative;
+  filter: brightness(95%);
 }
 .auth-modal-component .inner form .input-container input:focus {
-  border-color: rgba(255, 255, 255, 0.65);
+  background-color: var(--lightdark);
+  filter: brightness(90%);
 }
 .auth-modal-component .inner form .input-container input::placeholder {
+  font-size: 1.05rem;
   color: rgba(255, 255, 255, 0.6);
 }
 
@@ -109,11 +115,6 @@
   cursor: default;
   pointer-events: none;
 }
-/* .auth-modal-component .inner form .slides-btn-container > .slide-counter {
-  font-size: 0.85rem;
-  opacity: 0.75;
-}
-.auth-modal-component .inner form .slides-btn-container > .slide-counter, */
 .auth-modal-component .inner form .slides-btn-container > .next-btn {
   float: right;
 }

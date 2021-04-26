@@ -1,6 +1,6 @@
 import './styles.css';
 import React, { useEffect, useState } from 'react';
-import { APIBaseURL } from '../../lib/config';
+import { APIBaseURL, siteTitle } from '../../lib/config';
 import { halfStar, emptyStar, fullStar } from '../../lib/starIcons';
 import {
   Loading,
@@ -13,6 +13,7 @@ import {
   TeamInformationTable,
   NotAvailableOnMobileBanner,
 } from '../../components';
+import { Helmet } from 'react-helmet';
 import commaNumber from 'comma-number';
 import Dropdown from './dropdown';
 
@@ -229,54 +230,61 @@ export default function SquadsDatabase() {
         </main>
         <NotAvailableOnMobileBanner />
         {Object.keys(activeSquad).length > 0 ? (
-          <Modal closeModal={() => setActiveSquad({})} className='squad-formation-modal'>
-            <h1 className='no-margin-top'>
-              <i className='fas fa-sitemap mr'></i>Formation
-            </h1>
-            <div className='squad-formation-container'>
-              <Pitch />
-              <PitchTop
-                showAnswer={true}
-                showLeague={true}
-                showTeamName={true}
-                showTeamLogo={true}
-                showStars={true}
-                showRatings={activeSquad.fifaMiscData ? true : false}
-                showTransferBudget={activeSquad.fifaMiscData ? true : false}
-                teamLogoURL={activeSquad.logoURL}
-                teamName={activeSquad.name}
-                stars={activeSquad.stars}
-                transferBudgetDollars={activeSquad.fifaMiscData ? activeSquad.fifaMiscData.transferBudgetDollars : 0}
-                ratings={activeSquad.fifaMiscData ? activeSquad.fifaMiscData.ratings : { defense: 0, attack: 0, midfield: 0 }}
-              />
-              <Formation
-                showAnswer={true}
-                players={activeSquad.formation.map((player, i) => {
-                  return {
-                    alternateTeamImageURL: player.nationality.flagURL.split('/2/').join('/6/'),
-                    imageURL: player.photoURL.split('/5/').join('/6/'),
-                    x: player.positionCoords.x,
-                    y: player.positionCoords.y,
-                    nationalityName: player.nationality.name,
-                    name: player.shortName,
-                    fullName: player.name,
-                  };
-                })}
-              />
-            </div>
-            <h1>
-              <i className='fas fa-info-circle mr'></i>Team Information
-            </h1>
-            <div style={{ width: 'auto' }}>
-              <TeamInformationTable squad={activeSquad} />
-            </div>
-            <h1>
-              <i className='fas fa-th-list mr'></i>Team Sheet
-            </h1>
-            <div style={{ width: 'auto' }}>
-              <TeamSheetTable players={activeSquad.formation} includeRatingPotential={false} />
-            </div>
-          </Modal>
+          <>
+            <Helmet>
+              <title>
+                {activeSquad.name} - Squads Database – {siteTitle}
+              </title>
+            </Helmet>
+            <Modal closeModal={() => setActiveSquad({})} className='squad-formation-modal'>
+              <h1 className='no-margin-top'>
+                <i className='fas fa-sitemap mr'></i>Formation
+              </h1>
+              <div className='squad-formation-container'>
+                <Pitch />
+                <PitchTop
+                  showAnswer={true}
+                  showLeague={true}
+                  showTeamName={true}
+                  showTeamLogo={true}
+                  showStars={true}
+                  showRatings={activeSquad.fifaMiscData ? true : false}
+                  showTransferBudget={activeSquad.fifaMiscData ? true : false}
+                  teamLogoURL={activeSquad.logoURL}
+                  teamName={activeSquad.name}
+                  stars={activeSquad.stars}
+                  transferBudgetDollars={activeSquad.fifaMiscData ? activeSquad.fifaMiscData.transferBudgetDollars : 0}
+                  ratings={activeSquad.fifaMiscData ? activeSquad.fifaMiscData.ratings : { defense: 0, attack: 0, midfield: 0 }}
+                />
+                <Formation
+                  showAnswer={true}
+                  players={activeSquad.formation.map((player, i) => {
+                    return {
+                      alternateTeamImageURL: player.nationality.flagURL.split('/2/').join('/6/'),
+                      imageURL: player.photoURL.split('/5/').join('/6/'),
+                      x: player.positionCoords.x,
+                      y: player.positionCoords.y,
+                      nationalityName: player.nationality.name,
+                      name: player.shortName,
+                      fullName: player.name,
+                    };
+                  })}
+                />
+              </div>
+              <h1>
+                <i className='fas fa-info-circle mr'></i>Team Information
+              </h1>
+              <div style={{ width: 'auto' }}>
+                <TeamInformationTable squad={activeSquad} />
+              </div>
+              <h1>
+                <i className='fas fa-th-list mr'></i>Team Sheet
+              </h1>
+              <div style={{ width: 'auto' }}>
+                <TeamSheetTable players={activeSquad.formation} includeRatingPotential={false} />
+              </div>
+            </Modal>
+          </>
         ) : null}
       </div>
     </>

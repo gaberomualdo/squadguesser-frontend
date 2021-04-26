@@ -4,8 +4,9 @@ import './lib/layout.css';
 import { NavBar, ResponsiveContainer, ProfileModal, Footer, AuthModal, ScrollToTop } from './components/';
 import { Home, Play, DailyChallenge, SquadsDatabase, Leaderboard } from './pages/';
 import { Component } from 'react';
-import { APIBaseURL } from './lib/config';
+import { APIBaseURL, siteTitle, siteDescription } from './lib/config';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 const axios = require('axios');
 
@@ -18,8 +19,20 @@ const pages = [
     useExactURLMatching: true,
   },
   {
-    code: 'database',
-    name: 'Squads Database',
+    code: 'about',
+    name: 'About',
+    type: 'info',
+    useExactURLMatching: true,
+  },
+  {
+    code: 'faq',
+    name: 'FAQ',
+    type: 'info',
+    useExactURLMatching: true,
+  },
+  {
+    code: 'instructions',
+    name: 'Instructions',
     type: 'info',
     useExactURLMatching: true,
   },
@@ -43,6 +56,13 @@ const pages = [
     icon: <i className='fas fa-trophy'></i>,
     code: 'leaderboard',
     name: 'Leaderboard',
+    type: 'other',
+    useExactURLMatching: true,
+  },
+  {
+    icon: <i class='fas fa-database'></i>,
+    code: 'database',
+    name: 'Database',
     type: 'other',
     useExactURLMatching: true,
   },
@@ -97,6 +117,8 @@ class App extends Component {
 
     const loggedIn = isLoggedIn(this.state.user);
 
+    this.reloadUser();
+
     return (
       <Router>
         <ScrollToTop />
@@ -104,32 +126,59 @@ class App extends Component {
           <NavBar setAuthModal={setAuthModal} setProfileModal={setProfileModal} pages={pages} user={this.state.user} />
           <Switch>
             <Route exact path='/'>
-              <Home user={this.state.user} pages={pages} setAuthModal={setAuthModal} />
+              <>
+                <Helmet>
+                  <title>
+                    {siteTitle} - {siteDescription}
+                  </title>
+                </Helmet>
+                <Home user={this.state.user} pages={pages} setAuthModal={setAuthModal} />
+              </>
             </Route>
             <Route path='/play'>
-              <Play
-                reloadUser={this.reloadUser}
-                user={this.state.user}
-                loggedIn={loggedIn}
-                setAuthModal={setAuthModal}
-                setProfileModal={setProfileModal}
-              />
-            </Route>
-            <ResponsiveContainer>
-              <Route path='/daily'>
-                <DailyChallenge
+              <>
+                <Helmet>
+                  <title>Play - {siteTitle}</title>
+                </Helmet>
+                <Play
                   reloadUser={this.reloadUser}
                   user={this.state.user}
                   loggedIn={loggedIn}
                   setAuthModal={setAuthModal}
                   setProfileModal={setProfileModal}
                 />
+              </>
+            </Route>
+            <ResponsiveContainer>
+              <Route path='/daily'>
+                <>
+                  <Helmet>
+                    <title>Daily Challenge - {siteTitle}</title>
+                  </Helmet>
+                  <DailyChallenge
+                    reloadUser={this.reloadUser}
+                    user={this.state.user}
+                    loggedIn={loggedIn}
+                    setAuthModal={setAuthModal}
+                    setProfileModal={setProfileModal}
+                  />
+                </>
               </Route>
               <Route exact path='/database'>
-                <SquadsDatabase />
+                <>
+                  <Helmet>
+                    <title>Squads Database - {siteTitle}</title>
+                  </Helmet>
+                  <SquadsDatabase />
+                </>
               </Route>
               <Route exact path='/leaderboard'>
-                <Leaderboard user={this.state.user} loggedIn={loggedIn} />
+                <>
+                  <Helmet>
+                    <title>Leaderboard - {siteTitle}</title>
+                  </Helmet>
+                  <Leaderboard user={this.state.user} loggedIn={loggedIn} />
+                </>
               </Route>
               {/* <Route path='*'>
                 <Redirect to='/' />

@@ -40,3 +40,13 @@
 .tertiarybutton.light:active {
   background-color: hsla(0, 0%, 100%, 0.15);
 }
+
+.tertiarybutton.secondary {
+  background-color: var(--dark);
+}
+.tertiarybutton.secondary:hover {
+  background-color: var(--lightdark);
+}
+.tertiarybutton.secondary:active {
+  background-color: var(--dark);
+}

@@ -1,0 +1,47 @@
+.share-button-component {
+  --margin: 0.75rem;
+  --size: 3rem;
+  position: fixed;
+  text-align: center;
+  bottom: var(--margin);
+  right: var(--margin);
+  width: var(--size);
+  height: var(--size);
+  line-height: var(--size);
+  font-size: 1.15rem;
+  background-color: var(--lighterdark-2);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  border-radius: 50%;
+  z-index: 99999;
+  cursor: pointer;
+}
+.share-button-component,
+.share-button-component i {
+  transition: transform 0.2s;
+}
+
+@media only screen and (max-width: 750px) {
+  .share-button-component:not(.navigator-share-enabled) {
+    display: none;
+  }
+}
+.share-button-component-modal > .inner {
+  min-width: 400px;
+  width: auto;
+  max-width: 600px;
+}
+
+.share-button-component-modal .share-box-component {
+  margin-bottom: 0;
+  background-color: transparent;
+  padding: 0 !important;
+  margin-top: 0;
+}
+.share-button-component-modal .share-box-component .details-title {
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+}
+.share-button-component-modal .share-box-component > .section .input-container input {
+  background-color: var(--darkdark);
+}

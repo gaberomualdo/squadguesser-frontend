@@ -15,6 +15,12 @@ body > * {
   border-radius: 4px;
   padding: 1.75rem 1.5rem;
 }
+@media screen and (max-width: 800px) {
+  .panel {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+}
 .page {
   margin-top: 1.25rem;
 }
@@ -74,6 +80,19 @@ table.styled-table tr th {
   background-color: var(--dark);
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
+}
+
+@media only screen and (max-width: 800px) {
+  table.styled-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  table.styled-table thead,
+  table.styled-table tbody {
+    width: 100%;
+    display: table;
+  }
 }
 
 /* list detail bar */

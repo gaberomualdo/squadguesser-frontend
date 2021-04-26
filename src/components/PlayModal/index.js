@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Modal } from '..';
+import { siteTitle } from '../../lib/config';
 import './styles.css';
+import { Helmet } from 'react-helmet';
 
 function CheckBox(props) {
   const { text, className, checked, ...otherProps } = props;
@@ -29,41 +31,48 @@ export default function PlayModal(props) {
   const difficultyNames = Object.keys(difficulties);
   const [checked, setChecked] = useState(difficultyNames[0]);
   return (
-    <Modal className='play-modal-component' closeModal={() => props.closeModal()}>
-      <div className='meta'>
-        <h1>Play</h1>
-        <p>League: {props.leagueName}.</p>
-      </div>
-      <div className='difficulty'>
-        <h1>Difficulty:</h1>
-        <div className='list'>
-          {difficultyNames.map((e, i) => (
-            <CheckBox
-              key={i}
-              style={{
-                '--theme': difficulties[e].color,
-              }}
-              text={e}
-              checked={checked === e}
-              onClick={() => setChecked(e)}
-            />
-          ))}
+    <>
+      <Helmet>
+        <title>
+          Play {props.leagueName} - {siteTitle}
+        </title>
+      </Helmet>
+      <Modal className='play-modal-component' closeModal={() => props.closeModal()}>
+        <div className='meta'>
+          <h1>Play</h1>
+          <p>League: {props.leagueName}.</p>
         </div>
-      </div>
-      <button
-        className='play-button'
-        onClick={() => {
-          props.onPlayLeague(difficulties[checked].gameMode);
-        }}
-      >
-        <div className='icon'>
-          <i className='fas fa-play'></i>
+        <div className='difficulty'>
+          <h1>Difficulty:</h1>
+          <div className='list'>
+            {difficultyNames.map((e, i) => (
+              <CheckBox
+                key={i}
+                style={{
+                  '--theme': difficulties[e].color,
+                }}
+                text={e}
+                checked={checked === e}
+                onClick={() => setChecked(e)}
+              />
+            ))}
+          </div>
         </div>
-        <div className='text'>
-          <h1>Play Now &rarr;</h1>
-          <p>{difficulties[checked].description}</p>
-        </div>
-      </button>
-    </Modal>
+        <button
+          className='play-button'
+          onClick={() => {
+            props.onPlayLeague(difficulties[checked].gameMode);
+          }}
+        >
+          <div className='icon'>
+            <i className='fas fa-play'></i>
+          </div>
+          <div className='text'>
+            <h1>Play Now &rarr;</h1>
+            <p>{difficulties[checked].description}</p>
+          </div>
+        </button>
+      </Modal>
+    </>
   );
 }

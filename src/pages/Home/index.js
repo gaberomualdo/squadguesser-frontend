@@ -216,7 +216,7 @@ export default class Home extends Component {
               </div>
               <div className='right'>
                 <h1 className='main-header'>Try guessing from the world's most famous teams!</h1>
-                <Link to='/play/ARWAKEIKA'>
+                <Link to='/play/KHJKYPPS'>
                   <PlayButton
                     className='secondary'
                     name={`Play The ${topTeamsLeagueName}`}

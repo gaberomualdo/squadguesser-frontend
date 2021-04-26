@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import commaNumber from 'comma-number';
 
-// currently I've removed the animation for performance reasons
-const frames = 1;
-const animationTimeMS = 0;
+const frames = 100;
+const animationTimeMS = 2000;
 
 export default class AnimatedNumber extends Component {
   constructor(props) {

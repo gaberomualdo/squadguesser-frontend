@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { matchPath } from 'react-router';
 import { BrowserRouter as Switch, Route, useHistory } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { FullHeightLoading, LeagueButton, ResponsiveContainer } from '../../components/';
+import { FullHeightLoading, LeagueButton, ResponsiveContainer, PageHeader, PlayButton } from '../../components/';
 import { APIBaseURL, siteTitle } from '../../lib/config';
 import { decodeGameCode } from '../../lib/gameCode';
 import gameTypes from '../../lib/gameTypes';
@@ -81,6 +81,70 @@ function PlayPage(props) {
 
   return leagues.length > 0 ? (
     <Switch>
+      <Route exact path='/play'>
+        <>
+          {/* it is possible for the play page to exist and the game page to still be present,
+          pretty much when a user is on the game page and clicks the back button. So this just
+          hides the game page with the page is present. */}
+          <style>{`.game-outer-container { display: none; }`}</style>
+
+          <ResponsiveContainer>
+            <div className='bynationalitypage-selectleague fullheight-section'>
+              <div className='inner'>
+                <div className='meta'>
+                  <h1 className='title'>Play</h1>
+                  <p className='description'>Choose a league to guess teams from.</p>
+                </div>
+                <div className='list-detail-bar'>
+                  <div className='left'>
+                    <h1>
+                      <i className='fas fa-futbol mr'></i>Leagues
+                    </h1>
+                  </div>
+                  <div className='right'>
+                    <div className='select'>
+                      <p>Sort By</p>
+                      <select onChange={(e) => setSortBy(e.target.value)}>
+                        <option value='best-to-worst'>Best To Worst</option>
+                        <option value='worst-to-best'>Worst To Best</option>
+                      </select>
+                    </div>
+                    <div className={`view ${allowHorizontalList ? 'displayed' : ''}`}>
+                      <button onClick={() => setViewType('grid')} className={`grid ${viewType === 'grid' ? 'active' : ''}`}>
+                        <i className='fas fa-th'></i>
+                      </button>
+                      <button onClick={() => setViewType('list')} className={`list ${viewType === 'list' ? 'active' : ''}`}>
+                        <i className='fas fa-list'></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div className={`leagues ${viewType === 'list' ? 'list-view' : ''}`}>
+                  {(sortBy === 'worst-to-best' ? reversed(leagues) : leagues).map((e, i) => {
+                    const isHorizontal = allowHorizontalList && viewType === 'list';
+                    let images = leagueTeams[e].slice(0, 6).map((e) => e.logoURL);
+                    if (i % 2 === 0) {
+                      images = reversed(images);
+                    }
+                    return (
+                      <LeagueButton
+                        onPlayLeague={(chosenGameMode, chosenLeague) => openNewGame(chosenGameMode, chosenLeague, true)}
+                        key={i}
+                        name={e}
+                        images={images}
+                        description={leagueInfo.descriptions[e] ? leagueInfo.descriptions[e] : <>Guess from this league.</>}
+                        location={leagueInfo.locations[e] ? leagueInfo.locations[e] : 'Worldwide'}
+                        teamsCount={leagueTeams[e].length}
+                        horizontal={isHorizontal}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </ResponsiveContainer>
+        </>
+      </Route>
       {currentGameCode ? (
         <>
           <Helmet>
@@ -102,62 +166,26 @@ function PlayPage(props) {
           />
         </>
       ) : null}
-      <Route exact path='/play'>
-        <ResponsiveContainer>
-          <div className='bynationalitypage-selectleague fullheight-section'>
-            <div className='inner'>
-              <div className='meta'>
-                <h1 className='title'>Play</h1>
-                <p className='description'>Choose a league to guess teams from.</p>
-              </div>
-              <div className='list-detail-bar'>
-                <div className='left'>
-                  <h1>
-                    <i className='fas fa-futbol mr'></i>Leagues
-                  </h1>
-                </div>
-                <div className='right'>
-                  <div className='select'>
-                    <p>Sort By</p>
-                    <select onChange={(e) => setSortBy(e.target.value)}>
-                      <option value='best-to-worst'>Best To Worst</option>
-                      <option value='worst-to-best'>Worst To Best</option>
-                    </select>
-                  </div>
-                  <div className={`view ${allowHorizontalList ? 'displayed' : ''}`}>
-                    <button onClick={() => setViewType('grid')} className={`grid ${viewType === 'grid' ? 'active' : ''}`}>
-                      <i className='fas fa-th'></i>
-                    </button>
-                    <button onClick={() => setViewType('list')} className={`list ${viewType === 'list' ? 'active' : ''}`}>
-                      <i className='fas fa-list'></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div className={`leagues ${viewType === 'list' ? 'list-view' : ''}`}>
-                {(sortBy === 'worst-to-best' ? reversed(leagues) : leagues).map((e, i) => {
-                  const isHorizontal = allowHorizontalList && viewType === 'list';
-                  let images = leagueTeams[e].slice(0, 6).map((e) => e.logoURL);
-                  if (i % 2 === 0) {
-                    images = reversed(images);
-                  }
-                  return (
-                    <LeagueButton
-                      onPlayLeague={(chosenGameMode, chosenLeague) => openNewGame(chosenGameMode, chosenLeague, true)}
-                      key={i}
-                      name={e}
-                      images={images}
-                      description={leagueInfo.descriptions[e] ? leagueInfo.descriptions[e] : <>Guess from this league.</>}
-                      location={leagueInfo.locations[e] ? leagueInfo.locations[e] : 'Worldwide'}
-                      teamsCount={leagueTeams[e].length}
-                      horizontal={isHorizontal}
-                    />
-                  );
-                })}
-              </div>
+      <Route exact path='/play/:gameCode'>
+        {/* it is possible for the correct route to be there but the game component to not be displayed,
+        typically when you are on a game, click back to go to play, reload, then click forward to go back.
+        This basically just prompts the user to reload the page in that case. I tried making it auto-reload
+        but that created an infinite loop and this is just a simpler solution. */}
+        {!currentGameCode ? (
+          <ResponsiveContainer>
+            <div className='page panel' style={{ marginBottom: '2rem' }}>
+              <PageHeader title='Continue To Game' description={`Click the button below to continue to the game.`} />
+              <PlayButton
+                icon={<i class='fas fa-play-circle'></i>}
+                name='Continue To Game'
+                description='Click here to go to the game.'
+                className='secondary'
+                style={{ width: '100%', maxWidth: '500px', margin: '0 auto', marginTop: '1.5rem' }}
+                onClick={() => window.location.reload()}
+              />
             </div>
-          </div>
-        </ResponsiveContainer>
+          </ResponsiveContainer>
+        ) : null}
       </Route>
     </Switch>
   ) : (

@@ -79,3 +79,9 @@ a.active > .primarybutton:active:before {
 .primarybutton:not(.logo) {
   transform: scale(0.9);
 }
+
+/* get rid of expanding background on this button */
+.primarybutton:before {
+  transform: opacity 0.2s !important;
+  transform: scale(1) !important;
+}

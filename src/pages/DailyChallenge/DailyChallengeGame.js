@@ -12,6 +12,9 @@ export default function DailyChallengeGame(props) {
 
   useEffect(() => {
     (async () => {
+      if (loaded) {
+        return;
+      }
       const correctTeam = await (await fetch(`${APIBaseURL}/dailychallenge/${props.date}/team`)).json();
       const correctTeamFormationTypes = (await (await fetch(`${APIBaseURL}/dailychallenge/${props.date}/formationtypes`)).json()).map(
         (e) => gameTypes[e]

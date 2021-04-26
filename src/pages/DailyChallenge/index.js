@@ -122,44 +122,42 @@ export default function DailyChallenge(props) {
   const lowerBound = 'January 1 2020';
   const boundsError = getBoundsError(getDateFromObj(selectedDay), new Date(lowerBound), new Date());
 
+  function GameRoute(routeProps) {
+    const { mm, dd, yyyy } = routeProps.match.params;
+    const getDateObjFromRoute = (mm, dd, yyyy) => {
+      return { day: parseInt(dd), month: parseInt(mm), year: parseInt(yyyy) };
+    };
+    try {
+      const dateObj = getDateObjFromRoute(mm, dd, yyyy);
+      assert(`${mm}-${dd}-${yyyy}` === getDateStr(dateObj));
+      assert(getBoundsError(getDateFromObj(dateObj), new Date(lowerBound), new Date()) === '');
+    } catch (err) {
+      return <Redirect to='/daily' />;
+    }
+    const dateObj = getDateObjFromRoute(mm, dd, yyyy);
+    return (
+      <>
+        <Helmet>
+          <title>
+            {generateDateTitleNotToday(dateObj)} - Daily Challenge - {siteTitle}
+          </title>
+        </Helmet>
+        <DailyChallengeGame
+          reloadUser={props.reloadUser}
+          user={props.user}
+          loggedIn={props.loggedIn}
+          setAuthModal={props.setAuthModal}
+          setProfileModal={props.setProfileModal}
+          date={`${mm}-${dd}-${yyyy}`}
+          dateObj={dateObj}
+        />
+      </>
+    );
+  }
+
   return (
     <Switch>
-      <Route
-        exact
-        path='/daily/:mm-:dd-:yyyy'
-        component={(routeProps) => {
-          const { mm, dd, yyyy } = routeProps.match.params;
-          const getDateObjFromRoute = (mm, dd, yyyy) => {
-            return { day: parseInt(dd), month: parseInt(mm), year: parseInt(yyyy) };
-          };
-          try {
-            const dateObj = getDateObjFromRoute(mm, dd, yyyy);
-            assert(`${mm}-${dd}-${yyyy}` === getDateStr(dateObj));
-            assert(getBoundsError(getDateFromObj(dateObj), new Date(lowerBound), new Date()) === '');
-          } catch (err) {
-            return <Redirect to='/daily' />;
-          }
-          const dateObj = getDateObjFromRoute(mm, dd, yyyy);
-          return (
-            <>
-              <Helmet>
-                <title>
-                  {generateDateTitleNotToday(dateObj)} - Daily Challenge - {siteTitle}
-                </title>
-              </Helmet>
-              <DailyChallengeGame
-                reloadUser={props.reloadUser}
-                user={props.user}
-                loggedIn={props.loggedIn}
-                setAuthModal={props.setAuthModal}
-                setProfileModal={props.setProfileModal}
-                date={`${mm}-${dd}-${yyyy}`}
-                dateObj={dateObj}
-              />
-            </>
-          );
-        }}
-      />
+      <Route exact path='/daily/:mm-:dd-:yyyy' component={GameRoute} />
       <Route exact path='/daily'>
         <div className='dailychallenge-page page panel'>
           <div className='details'>

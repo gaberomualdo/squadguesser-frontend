@@ -106,8 +106,8 @@
   background-color: var(--primary);
 }
 .play-modal-component .play-button .icon {
-  border-radius: 50%;
-  font-size: 1.5rem;
+  border-radius: 8px;
+  font-size: 1.7rem;
   line-height: var(--height);
   height: var(--height);
   width: var(--height);
@@ -118,20 +118,11 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   z-index: 2;
 }
-.play-modal-component .play-button .icon i {
-  transition: transform 0.2s;
-}
-.play-modal-component .play-button:hover > .icon i {
-  transform: scale(1.25);
-}
-.play-modal-component .play-button:active > .icon i {
-  transform: scale(1.1);
-}
 .play-modal-component .play-button .text {
   z-index: 1;
-  min-height: 3.75rem;
+  min-height: 4rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  border-radius: 100rem;
+  border-radius: 4px;
   width: 100%;
   padding: 0.5rem 2rem;
   padding-left: calc(var(--height) + 1rem);

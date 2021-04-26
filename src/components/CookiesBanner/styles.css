@@ -1,0 +1,56 @@
+.cookies-banner-component {
+  padding: 0.65rem 0;
+  background-color: var(--darkdark);
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  z-index: 99999999999;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  transition: opacity 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+.cookies-banner-component.hidden {
+  opacity: 0;
+  transform: translateY(100%);
+  box-shadow: none;
+}
+.cookies-banner-component .primarybutton:first-child:before {
+  opacity: 0.7;
+}
+.cookies-banner-component > div > div {
+  display: flex;
+}
+
+.cookies-banner-component .left {
+  flex: 1 1 100%;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  opacity: 0.8;
+}
+.cookies-banner-component .left p {
+  max-width: 600px;
+}
+.cookies-banner-component .right {
+  flex: 0 0 auto;
+}
+@media only screen and (max-width: 800px) {
+  .cookies-banner-component > div > div {
+    flex-direction: column;
+    align-items: center;
+  }
+  .cookies-banner-component .left {
+    font-size: 0.65rem;
+  }
+  .cookies-banner-component .right {
+    display: flex;
+    width: 100%;
+    margin-top: 0.5rem;
+    zoom: 90%;
+  }
+  .cookies-banner-component .right > *:first-child {
+    margin-right: -0.5rem;
+  }
+  .cookies-banner-component .right > * {
+    flex: 1 1 auto;
+  }
+}

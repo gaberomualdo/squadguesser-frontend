@@ -1,8 +1,8 @@
 /* eslint-disable no-restricted-globals */
 import './lib/main.css';
 import './lib/layout.css';
-import { NavBar, ResponsiveContainer, ProfileModal, Footer, AuthModal, ScrollToTop } from './components/';
-import { Home, Play, DailyChallenge, SquadsDatabase, Leaderboard } from './pages/';
+import { NavBar, ResponsiveContainer, ProfileModal, Footer, AuthModal, ScrollToTop, CookiesBanner } from './components/';
+import { Home, Play, DailyChallenge, SquadsDatabase, Leaderboard, About, FAQ, Instructions } from './pages/';
 import { Component } from 'react';
 import { APIBaseURL, siteTitle, siteDescription } from './lib/config';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -123,6 +123,7 @@ class App extends Component {
       <Router>
         <ScrollToTop />
         <div className='App'>
+          <CookiesBanner />
           <NavBar setAuthModal={setAuthModal} setProfileModal={setProfileModal} pages={pages} user={this.state.user} />
           <Switch>
             <Route exact path='/'>
@@ -134,6 +135,30 @@ class App extends Component {
                 </Helmet>
                 <Home user={this.state.user} pages={pages} setAuthModal={setAuthModal} />
               </>
+            </Route>
+            <Route exact path='/about'>
+              <ResponsiveContainer>
+                <Helmet>
+                  <title>About - {siteTitle}</title>
+                </Helmet>
+                <About />
+              </ResponsiveContainer>
+            </Route>
+            <Route exact path='/faq'>
+              <ResponsiveContainer>
+                <Helmet>
+                  <title>FAQ - {siteTitle}</title>
+                </Helmet>
+                <FAQ />
+              </ResponsiveContainer>
+            </Route>
+            <Route exact path='/instructions'>
+              <ResponsiveContainer>
+                <Helmet>
+                  <title>Game Instructions - {siteTitle}</title>
+                </Helmet>
+                <Instructions />
+              </ResponsiveContainer>
             </Route>
             <Route path='/play'>
               <>

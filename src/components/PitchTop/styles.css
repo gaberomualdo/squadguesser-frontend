@@ -1,9 +1,10 @@
 .pitch-top-component {
-  flex: 1 1 auto;
+  flex: 0 0 auto;
   z-index: 9999;
-  padding: 1rem;
-  zoom: 90%;
+  padding: 0.5rem;
   overflow: hidden;
+  margin-bottom: 0.75rem;
+  zoom: 90%;
 }
 
 .pitch-top-component.show-answer > .header,
@@ -14,20 +15,6 @@
 .pitch-top-component > * {
   display: block;
   float: left;
-}
-.pitch-top-component > .header {
-  width: 100%;
-  font-size: 100%;
-}
-.pitch-top-component > .header,
-.pitch-top-component > .header .box {
-  text-align: center;
-}
-.pitch-top-component > .header .box {
-  display: inline-block;
-}
-.pitch-top-component > .header h1 {
-  margin-bottom: 0.5rem;
 }
 .pitch-top-component > .right {
   float: right;
@@ -42,7 +29,7 @@
 .pitch-top-component .box {
   padding: 0.5rem;
   background-color: var(--darkerprimary);
-  border-radius: 4px;
+  border-radius: 4px !important;
 }
 .pitch-top-component .box > h1 {
   font-size: 1.75rem;
@@ -51,6 +38,20 @@
 }
 .pitch-top-component .box > p {
   font-size: 90%;
+}
+.pitch-top-component > .header {
+  width: 100%;
+  font-size: 100%;
+}
+.pitch-top-component > .header,
+.pitch-top-component > .header .box {
+  text-align: center;
+  display: block;
+  width: 100%;
+}
+.pitch-top-component > .header .box {
+  display: inline-block;
+  padding-top: 0.35rem;
 }
 .pitch-top-component .logo-container {
   text-align: center;

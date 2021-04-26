@@ -9,7 +9,7 @@ function SmallShareButton(props) {
     <a target='_blank' rel='noopener noreferrer' href={getShareURL(props.name, props.shareURLOptions)} style={{ '--bg': props.bg }}>
       <i className={`${props.notBrandIcon ? 'fas' : 'fab'} fa-${props.iconName}`}></i>
       <p>
-        <span>{props.name}</span>
+        <span>{props.title || props.name}</span>
         <i className='fas fa-share'></i>
       </p>
     </a>
@@ -77,7 +77,7 @@ export default function ShareBox(props) {
           <SmallShareButton name='twitter' bg='#00aced' iconName='twitter' shareURLOptions={shareURLOptions} />
           <SmallShareButton name='email' bg='var(--lighterdark-1)' iconName='envelope' notBrandIcon shareURLOptions={shareURLOptions} />
           <SmallShareButton name='facebook' bg='#3b5998' iconName='facebook-f' shareURLOptions={shareURLOptions} />
-          <SmallShareButton name='whatsapp' bg='#25D366' iconName='whatsapp' shareURLOptions={shareURLOptions} />
+          <SmallShareButton title='WhatsApp' name='whatsapp' bg='#25D366' iconName='whatsapp' shareURLOptions={shareURLOptions} />
           <SmallShareButton name='reddit' bg='#FF4500' iconName='reddit-alien' shareURLOptions={shareURLOptions} />
           <SmallShareButton name='telegram' bg='#49a9e9' iconName='telegram-plane' shareURLOptions={shareURLOptions} />
         </div>

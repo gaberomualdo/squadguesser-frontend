@@ -82,6 +82,7 @@ export default class Home extends Component {
                 alt='Football icon'
                 key={i}
                 style={{
+                  display: 'none',
                   width: `${width}rem`,
                   top: `${100 - y}%`,
                   left: `${x}%`,

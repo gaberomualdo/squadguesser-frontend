@@ -89,6 +89,7 @@
   overflow: hidden;
   transition: filter 0.2s;
   display: inline-block;
+  text-transform: capitalize;
 }
 .share-box-component > .section .grid > a:not(:nth-child(3n)) {
   margin-right: var(--margin);

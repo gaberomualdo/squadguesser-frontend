@@ -2,7 +2,11 @@ body {
   color: var(--light);
   --nav-height: 3.5rem;
   position: relative;
-  background-color: var(--dark);
+  /* background-color: var(--dark); */
+  background-image: linear-gradient(rgba(44, 62, 80, 0.94), rgba(44, 62, 80, 0.94)), url(http://localhost:3000/bg1.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   width: 100%;
   overflow-x: hidden;
 }
@@ -191,4 +195,21 @@ table.styled-table tr th {
 }
 .list-detail-bar .right .view > button:not(:last-child) {
   margin-right: 0.25rem;
+}
+
+/* text page */
+.page.text-page {
+  margin-bottom: 1.75rem;
+}
+.page.text-page .content {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  margin-top: 2.5rem;
+  font-size: 1.05rem;
+  opacity: 0.8;
+  line-height: 1.65;
+}
+.page.text-page .content > *:not(:last-child) {
+  margin-bottom: 2rem;
 }

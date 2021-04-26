@@ -60,7 +60,7 @@ const pages = [
     useExactURLMatching: true,
   },
   {
-    icon: <i class='fas fa-database'></i>,
+    icon: <i className='fas fa-database'></i>,
     code: 'database',
     name: 'Database',
     type: 'other',

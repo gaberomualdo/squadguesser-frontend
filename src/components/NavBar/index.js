@@ -4,18 +4,58 @@ import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-do
 import { Loading, ResponsiveContainer, PrimaryButton, SecondaryButton } from '../';
 import { siteTitle } from '../../lib/config';
 
+const remToPx = (rem) => rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
+const navWidthRem = 17.5;
+const navWidthPx = remToPx(navWidthRem);
+const outsideSidebar = (e) => {
+  return e.clientX < window.innerWidth - navWidthPx;
+};
+
 class NavBar extends Component {
   constructor(props) {
     super(props);
-    this.state = { scrolling: false, mobile: false, menuOpen: false, menuBtnBeenClicked: false };
+    this.state = {
+      scrolling: false,
+      mobile: false,
+      menuOpen: false,
+      menuBtnBeenClicked: false,
+      menuDragging: false,
+      menuDragStart: -1,
+      menuStartPosition: 0,
+      menuPosition: 0,
+    };
 
     this.updateScrolling = this.updateScrolling.bind(this);
-    this.mouseDown = this.mouseDown.bind(this);
+    this.mouseClick = this.mouseClick.bind(this);
     this.checkMobile = this.checkMobile.bind(this);
+
+    this.mouseDown = this.mouseDown.bind(this);
+    this.mouseMove = this.mouseMove.bind(this);
+    this.mouseUp = this.mouseUp.bind(this);
   }
   mouseDown(e) {
-    const navWidth = 17.5 * parseFloat(getComputedStyle(document.documentElement).fontSize);
-    if (e.clientX < window.innerWidth - navWidth) {
+    if (e.changedTouches) e = e.changedTouches[0];
+    if (outsideSidebar(e)) {
+      this.setState({ menuDragging: true, menuDragStart: e.clientX, menuStartPosition: this.state.menuPosition });
+    }
+  }
+  mouseMove(e) {
+    if (e.changedTouches) e = e.changedTouches[0];
+    if (this.state.menuDragging) {
+      this.setState({ menuPosition: this.state.menuStartPosition + e.clientX - this.state.menuDragStart });
+    }
+  }
+  mouseUp(e) {
+    this.setState({ menuDragging: false });
+    if (this.state.menuPosition > navWidthPx * 0.25) {
+      this.setState({ menuPosition: 0, menuOpen: false });
+    } else {
+      this.setState({ menuPosition: 0 });
+    }
+    // write code to snap menu position here
+  }
+  mouseClick(e) {
+    if (outsideSidebar(e)) {
       this.setState({ menuOpen: false });
     }
   }
@@ -26,7 +66,7 @@ class NavBar extends Component {
     }
   }
   checkMobile() {
-    const newState = window.innerWidth < 1050;
+    const newState = window.innerWidth < 1150;
     if (this.state.mobile !== newState) {
       this.setState({ mobile: newState });
     }
@@ -37,12 +77,21 @@ class NavBar extends Component {
 
     window.addEventListener('scroll', this.updateScrolling);
     window.addEventListener('resize', this.checkMobile);
+    document.addEventListener('click', this.mouseClick);
+
     document.addEventListener('mousedown', this.mouseDown);
+    document.addEventListener('mousemove', this.mouseMove);
+    document.addEventListener('mouseup', this.mouseUp);
+
+    document.addEventListener('touchstart', this.mouseDown);
+    document.addEventListener('touchmove', this.mouseMove);
+    document.addEventListener('touchend', this.mouseUp);
   }
   componentWillUnmount() {
     window.removeEventListener('scroll', this.updateScrolling);
     window.removeEventListener('resize', this.checkMobile);
-    document.removeEventListener('mousedown', this.mouseDown);
+    document.removeEventListener('click', this.mouseClick);
+    document.removeEventListener('click', this.mouseClick);
   }
   render() {
     const { pages, user } = this.props;
@@ -146,7 +195,18 @@ class NavBar extends Component {
                   </button>
                 </div>
                 {this.state.menuOpen ? <style>{`body{overflow:hidden;}`}</style> : null}
-                <div className={`navbar-sidebar ${this.state.menuOpen ? 'open' : 'closed'}`}>
+                <div
+                  style={
+                    this.state.menuOpen
+                      ? {
+                          transform: `translateX(${Math.max(0, this.state.menuPosition)}px)`,
+                        }
+                      : {}
+                  }
+                  className={`navbar-sidebar ${this.state.menuOpen && this.state.menuDragging ? 'dragging' : ''} ${
+                    this.state.menuOpen ? 'open' : 'closed'
+                  }`}
+                >
                   {infoButtons}
                   <div className='spacer'></div>
                   {mainButtons}

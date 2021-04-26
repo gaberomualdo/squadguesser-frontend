@@ -141,11 +141,11 @@
   right: 0;
   top: 0;
   background-color: var(--darker);
-  transition: transform cubic-bezier(0.7, 0, 0.3, 1) 0.4s, box-shadow cubic-bezier(0.7, 0, 0.3, 1) 0.4s, padding cubic-bezier(0.7, 0, 0.3, 1) 0.4s;
+  transition: transform cubic-bezier(0.7, 0, 0.3, 1) 0.4s;
   will-change: transform;
   overflow-y: auto;
   overflow-x: hidden;
-  transform: 17.5rem;
+  transform: translateX(0);
   height: 100vh;
   width: 17.5rem;
   padding: 0.5rem 0.75rem 0;
@@ -154,11 +154,11 @@
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.15);
   white-space: nowrap;
 }
+.navbar-sidebar.dragging {
+  transition: none;
+}
 .navbar-sidebar.closed {
-  padding-right: 0;
-  padding-left: 0;
   transform: translateX(17.5rem);
-  box-shadow: none;
 }
 .navbar-sidebar > *:not(.spacer):not(.auth-area) > *,
 .navbar-sidebar > .auth-area {
@@ -170,12 +170,22 @@
   margin-bottom: 0rem;
   text-align: left;
 }
+.navbar-sidebar > *:not(.spacer):not(.auth-area) > .secondarybutton {
+  margin-top: 0.35rem;
+}
 .navbar-sidebar > *:not(.spacer).infobutton {
   margin-top: 0.3rem;
 }
 .navbar-sidebar .spacer {
   display: block;
   height: 0.75rem;
+}
+.navbar-sidebar .primarybutton {
+  transform: none !important;
+}
+.navbar-sidebar .primarybutton > * {
+  transform: scale(0.9);
+  transform-origin: center left;
 }
 
 .navbar-overlay {

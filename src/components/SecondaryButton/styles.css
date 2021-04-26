@@ -1,13 +1,9 @@
-a + a > .secondarybutton {
-  margin-left: 0.5rem;
-}
 .secondarybutton {
-  height: 1.9rem;
+  height: 1.7rem;
   cursor: pointer;
   padding: 0;
   position: relative;
   z-index: 1;
-  transform: scale(0.9);
   vertical-align: top;
   opacity: 0.8;
   transition: opacity 0.2s, border-color 0.2s, color 0.2s;
@@ -31,13 +27,13 @@ a.active > .secondarybutton {
 a.active > .secondarybutton span {
   font-weight: 600;
 }
-.secondarybutton.with-margin:not(:first-child) {
-  margin-left: 1rem;
+.secondarybutton.with-margin {
+  margin-left: 0.75rem;
 }
 .secondarybutton span {
-  line-height: 1.9rem;
+  line-height: 1.7rem;
   display: inline-block;
   vertical-align: top;
-  font-size: 1.05rem;
+  font-size: 0.945rem;
   font-weight: 500;
 }

@@ -2,7 +2,7 @@
 import './lib/main.css';
 import './lib/layout.css';
 import { NavBar, ResponsiveContainer, ProfileModal, Footer, AuthModal, ScrollToTop, CookiesBanner } from './components/';
-import { Home, Play, DailyChallenge, SquadsDatabase, Leaderboard, About, FAQ, Instructions } from './pages/';
+import { Home, Play, DailyChallenge, SquadsDatabase, Leaderboard, About, Team, Terms, Instructions } from './pages/';
 import { Component } from 'react';
 import { APIBaseURL, siteTitle, siteDescription } from './lib/config';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -29,7 +29,7 @@ const pages = [
   {
     code: 'team',
     name: 'Our Team',
-    description: 'See and read about the team that created and maintain this site.',
+    description: 'See and read about the team that created and maintains this site.',
     icon: <i className='fas fa-user'></i>,
     type: 'info',
     useExactURLMatching: true,
@@ -163,7 +163,7 @@ class App extends Component {
                 <Helmet>
                   <title>Team - {siteTitle}</title>
                 </Helmet>
-                <About />
+                <Team />
               </>
             </Route>
             <Route exact path='/instructions'>
@@ -171,7 +171,7 @@ class App extends Component {
                 <Helmet>
                   <title>Instructions - {siteTitle}</title>
                 </Helmet>
-                <About />
+                <Instructions />
               </>
             </Route>
             <Route exact path='/terms'>
@@ -179,7 +179,7 @@ class App extends Component {
                 <Helmet>
                   <title>Terms & Cookie Policy - {siteTitle}</title>
                 </Helmet>
-                <About />
+                <Terms />
               </>
             </Route>
             <Route path='/play'>

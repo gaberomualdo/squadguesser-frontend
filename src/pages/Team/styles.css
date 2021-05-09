@@ -1,0 +1,69 @@
+.team-page-profile {
+  display: flex;
+}
+.team-page-profile .image {
+  --size: 8.5rem;
+  flex: 0 0 var(--size);
+  height: var(--size);
+  margin-right: 1rem;
+}
+@media only screen and (max-width: 800px) {
+  .team-page-profile {
+    flex-direction: column;
+    align-items: center;
+  }
+  .team-page-profile .image {
+    width: var(--size);
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+}
+.team-page-profile .image img {
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+  height: 100%;
+}
+.team-page-profile .content {
+  flex: 1 1 100%;
+}
+.team-page-profile .content h1 {
+  font-size: 1.65rem;
+  line-height: 1.1;
+}
+.team-page-profile .content h1 + p {
+  opacity: 0.75;
+}
+.team-page-profile .content p:last-child {
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.team-page-profile .content ul {
+  list-style: none;
+  margin-top: 0.35rem;
+  margin-bottom: 0.45rem;
+}
+.team-page-profile .content ul a {
+  padding: 0.25rem 0.5rem;
+  padding-right: 0.65rem;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 1000px;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+.team-page-profile .content ul a:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.team-page-profile .content ul a > * {
+  line-height: 1.3rem;
+}
+.team-page-profile .content ul i {
+  font-size: 0.85rem;
+  margin-right: 0.35rem;
+  opacity: 0.8;
+}
+.team-page-profile .content ul a:not(:last-child) {
+  margin-right: 0.35rem;
+}

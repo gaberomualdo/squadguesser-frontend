@@ -56,6 +56,8 @@
 .formation-component .player p span {
   padding: 0.25rem;
   display: block;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
 }
 @keyframes bounce-appear {
   0% {

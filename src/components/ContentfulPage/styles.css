@@ -8,7 +8,7 @@
   content: '';
   position: absolute;
   width: 100%;
-  height: calc(100% - 12rem);
+  height: calc(100% - 5rem);
   clip-path: polygon(0 8rem, 100% 0, 100% 100%, 0 100%);
   opacity: 1;
   bottom: 0;
@@ -38,4 +38,39 @@
     box-shadow: none;
     background-color: var(--darker);
   }
+}
+
+.contentful-page-inner > .content {
+  margin-top: 2.5rem;
+}
+.contentful-page-inner > .content > * {
+  line-height: 1.65;
+}
+.contentful-page-inner > .content > *:not(:last-child):not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
+  margin-bottom: 1.65rem;
+}
+.contentful-page-inner > .content > h1:not(:last-child),
+.contentful-page-inner > .content > h2:not(:last-child),
+.contentful-page-inner > .content > h3:not(:last-child),
+.contentful-page-inner > .content > h4:not(:last-child),
+.contentful-page-inner > .content > h5:not(:last-child),
+.contentful-page-inner > .content > h6:not(:last-child) {
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
+.contentful-page-inner > .content > ul {
+  padding-left: 2.5rem;
+}
+
+.contentful-page-inner > .content a:not(.styled-link) {
+  color: var(--primary);
+  border-bottom: 1px solid var(--primarytransparent);
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color 0.2s, filter 0.2s;
+  font-weight: 500;
+}
+.contentful-page-inner > .content a:not(.styled-link):hover {
+  filter: brightness(120%);
+  border-color: var(--primary);
 }

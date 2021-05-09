@@ -5,4 +5,5 @@ export { default as SquadsDatabase } from './SquadsDatabase/';
 export { default as Leaderboard } from './Leaderboard/';
 export { default as About } from './About/';
 export { default as Instructions } from './Instructions/';
-export { default as FAQ } from './FAQ/';
+export { default as Terms } from './Terms/';
+export { default as Team } from './Team/';

@@ -40,12 +40,12 @@ export default function Footer({ pages }) {
           <p>
             {((infoPages) => {
               return infoPages.map((e, i) => (
-                <>
-                  <a key={i} href={`/${e.code}`} className='link'>
+                <span key={i}>
+                  <a href={`/${e.code}`} className='link'>
                     {e.name}
                   </a>
-                  {i < infoPages.length - 1 ? <> &nbsp;&bull;&nbsp; </> : null}
-                </>
+                  {i < infoPages.length - 1 ? <>&nbsp;&bull;&nbsp;</> : null}
+                </span>
               ));
             })(pages.filter((e) => e.type === 'info'))}
           </p>

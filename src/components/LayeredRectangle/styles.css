@@ -1,0 +1,32 @@
+.layered-rectangle-outer {
+  width: 100%;
+  padding: 0;
+  position: relative;
+}
+.layered-rectangle-outer:last-child {
+  margin-bottom: 0.75rem;
+}
+.layered-rectangle-outer:before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: var(--lightdark);
+  border-radius: 0.5rem;
+  transform: rotate(2.5deg);
+  z-index: 0;
+}
+
+.layered-rectangle-inner {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-image: linear-gradient(to bottom right, var(--primary), var(--darkprimary));
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+.layered-rectangle-outer.with-theme > .layered-rectangle-inner {
+  background-image: none;
+  background-color: var(--theme);
+}

@@ -18,16 +18,15 @@ export default function Footer({ pages }) {
             </a>
           </div>
           <div className='right'>
-            {pages.map((e, i) => {
-              if (!e.isHomepage) {
+            {pages
+              .filter((e) => !e.isHomepage && e.type !== 'info')
+              .map((e, i) => {
                 return (
                   <a key={i} href={`/${e.code}`} className='link'>
                     {e.name}
                   </a>
                 );
-              }
-              return null;
-            })}
+              })}
           </div>
         </div>
         <div className='center'>
@@ -37,6 +36,18 @@ export default function Footer({ pages }) {
               Gabriel Romualdo
             </a>
             , an Arsenal fan.
+          </p>
+          <p>
+            {((infoPages) => {
+              return infoPages.map((e, i) => (
+                <>
+                  <a key={i} href={`/${e.code}`} className='link'>
+                    {e.name}
+                  </a>
+                  {i < infoPages.length - 1 ? <> &nbsp;&bull;&nbsp; </> : null}
+                </>
+              ));
+            })(pages.filter((e) => e.type === 'info'))}
           </p>
           <p>
             &copy; 2020{currentYear > 2020 ? `-${currentYear}` : ''} &nbsp;&bull;&nbsp; Some images and data used from EA Sports and FIFAIndex.com

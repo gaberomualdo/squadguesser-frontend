@@ -1,0 +1,79 @@
+@keyframes floating-menu-open {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-0.5rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+@keyframes floating-menu-close {
+  0% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  99% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-0.5rem);
+  }
+  100% {
+    transform: translateX(-50%) translateY(-0.5rem) scale(0);
+  }
+}
+.floating-menu-component {
+  position: fixed;
+  width: 20rem;
+  padding: 0.75rem;
+  background-color: var(--dark);
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 99999999999;
+  transform: translateX(-50%);
+
+  animation-duration: 0.15s;
+  animation-fill-mode: both;
+  animation-timing-function: ease-in-out;
+}
+.floating-menu-component.no-animation {
+  animation-duration: 0s;
+}
+.floating-menu-component.closed {
+  animation-name: floating-menu-close;
+}
+.floating-menu-component.open {
+  animation-name: floating-menu-open;
+}
+.floating-menu-component a {
+  width: 100%;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  cursor: pointer;
+  display: flex;
+  padding: 0.75rem;
+}
+.floating-menu-component a .icon {
+  flex: 0 0 1.5rem;
+  margin-right: 1rem;
+  text-align: center;
+}
+.floating-menu-component a .icon i {
+  font-size: 1.5rem;
+  color: var(--primary);
+}
+.floating-menu-component a .content {
+  flex: 1 1 100%;
+}
+.floating-menu-component a .content h1 {
+  font-size: 1rem !important;
+  line-height: 1.3;
+  margin-bottom: 0.25rem;
+}
+.floating-menu-component a .content p {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  line-height: 1.5;
+}
+.floating-menu-component a:hover {
+  background-color: var(--darkdark);
+}

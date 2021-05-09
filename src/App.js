@@ -21,18 +21,32 @@ const pages = [
   {
     code: 'about',
     name: 'About',
+    description: 'Read about this site, how it was built, and how it works.',
+    icon: <i className='fas fa-info-circle'></i>,
     type: 'info',
     useExactURLMatching: true,
   },
   {
-    code: 'faq',
-    name: 'FAQ',
+    code: 'team',
+    name: 'Our Team',
+    description: 'See and read about the team that created and maintain this site.',
+    icon: <i className='fas fa-user'></i>,
     type: 'info',
     useExactURLMatching: true,
   },
   {
     code: 'instructions',
     name: 'Instructions',
+    icon: <i className='fas fa-question-circle'></i>,
+    type: 'info',
+    description: `Learn how to play ${siteTitle} for the first time.`,
+    useExactURLMatching: true,
+  },
+  {
+    code: 'terms',
+    name: 'Terms & Cookie Policy',
+    icon: <i className='fas fa-shield-alt'></i>,
+    description: `Read more about how this site works and our terms.`,
     type: 'info',
     useExactURLMatching: true,
   },
@@ -137,28 +151,36 @@ class App extends Component {
               </>
             </Route>
             <Route exact path='/about'>
-              <ResponsiveContainer>
+              <>
                 <Helmet>
                   <title>About - {siteTitle}</title>
                 </Helmet>
                 <About />
-              </ResponsiveContainer>
+              </>
             </Route>
-            <Route exact path='/faq'>
-              <ResponsiveContainer>
+            <Route exact path='/team'>
+              <>
                 <Helmet>
-                  <title>FAQ - {siteTitle}</title>
+                  <title>Team - {siteTitle}</title>
                 </Helmet>
-                <FAQ />
-              </ResponsiveContainer>
+                <About />
+              </>
             </Route>
             <Route exact path='/instructions'>
-              <ResponsiveContainer>
+              <>
                 <Helmet>
-                  <title>Game Instructions - {siteTitle}</title>
+                  <title>Instructions - {siteTitle}</title>
                 </Helmet>
-                <Instructions />
-              </ResponsiveContainer>
+                <About />
+              </>
+            </Route>
+            <Route exact path='/terms'>
+              <>
+                <Helmet>
+                  <title>Terms & Cookie Policy - {siteTitle}</title>
+                </Helmet>
+                <About />
+              </>
             </Route>
             <Route path='/play'>
               <>

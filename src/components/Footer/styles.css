@@ -43,12 +43,16 @@
 }
 .footer .top .right {
   float: right;
+  font-size: 0;
 }
 .footer .top .right > * {
   font-size: 1rem;
   line-height: 1.5rem;
   margin-top: 0.25rem;
-  margin-left: 0.75rem;
+  display: inline-block;
+}
+.footer .top .right > *:not(:last-child) {
+  margin-right: 0.75rem;
 }
 
 .footer .center {
@@ -71,6 +75,19 @@
 }
 
 @media only screen and (max-width: 800px) {
+  .footer .top .right {
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+  }
+  .footer .top .right > * {
+    width: calc((100% - 0.75rem) / 2);
+    font-size: 0.9rem;
+    text-align: left;
+  }
+  .footer .top .right > *:nth-child(even) {
+    margin-right: 0;
+  }
   .footer .top {
     margin-bottom: 1.75rem;
   }

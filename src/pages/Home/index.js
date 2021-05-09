@@ -379,8 +379,8 @@ export default class Home extends Component {
           <div className='box-section column bottom'>
             <h1 className='main-header'>Ready to Play {siteTitle}?</h1>
             <div className='row'>
-              {[0, 1].map((i) => (
-                <Link to={`/${pages[i].code}`}>
+              {[0, 1].map((i, idx) => (
+                <Link to={`/${pages[i].code}`} key={idx}>
                   <PlayButton
                     icon={pages[i].icon}
                     name={pages[i].code === 'play' ? 'Play Now' : pages[i].name}

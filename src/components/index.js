@@ -26,3 +26,5 @@ export { default as LinedHeader } from './LinedHeader';
 export { default as ShareButton } from './ShareButton';
 export { default as CookiesBanner } from './CookiesBanner';
 export { default as ContinueToGame } from './ContinueToGame';
+export { default as FloatingMenu } from './FloatingMenu';
+export { default as ContentfulPage } from './ContentfulPage';

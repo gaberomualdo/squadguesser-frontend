@@ -1,8 +1,8 @@
-import './styles.css';
-import { Component } from 'react';
-import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
-import { Loading, ResponsiveContainer, PrimaryButton, SecondaryButton } from '../';
+import { Component, createRef } from 'react';
+import { NavLink } from 'react-router-dom';
+import { Loading, PrimaryButton, ResponsiveContainer, SecondaryButton, FloatingMenu } from '../';
 import { siteTitle } from '../../lib/config';
+import './styles.css';
 
 const remToPx = (rem) => rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
 const navWidthRem = 17.5;
@@ -10,6 +10,7 @@ const navWidthPx = remToPx(navWidthRem);
 const outsideSidebar = (e) => {
   return e.clientX < window.innerWidth - navWidthPx;
 };
+const infoButtonsBeforeDropdownCount = 0;
 
 class NavBar extends Component {
   constructor(props) {
@@ -23,6 +24,8 @@ class NavBar extends Component {
       menuDragStart: -1,
       menuStartPosition: 0,
       menuPosition: 0,
+      moreDropdownOpen: false,
+      moreDropdownReady: false,
     };
 
     this.updateScrolling = this.updateScrolling.bind(this);
@@ -32,6 +35,8 @@ class NavBar extends Component {
     this.mouseDown = this.mouseDown.bind(this);
     this.mouseMove = this.mouseMove.bind(this);
     this.mouseUp = this.mouseUp.bind(this);
+
+    this.moreButtonRef = createRef();
   }
   mouseDown(e) {
     if (e.changedTouches) e = e.changedTouches[0];
@@ -45,14 +50,13 @@ class NavBar extends Component {
       this.setState({ menuPosition: this.state.menuStartPosition + e.clientX - this.state.menuDragStart });
     }
   }
-  mouseUp(e) {
+  mouseUp() {
     this.setState({ menuDragging: false });
     if (this.state.menuPosition > navWidthPx * 0.25) {
       this.setState({ menuPosition: 0, menuOpen: false });
     } else {
       this.setState({ menuPosition: 0 });
     }
-    // write code to snap menu position here
   }
   mouseClick(e) {
     if (outsideSidebar(e)) {
@@ -86,6 +90,13 @@ class NavBar extends Component {
     document.addEventListener('touchstart', this.mouseDown);
     document.addEventListener('touchmove', this.mouseMove);
     document.addEventListener('touchend', this.mouseUp);
+
+    setTimeout(() => {
+      // on page load the dropdown will be 'closed' and show the closing animation,
+      // which is a problem. This hides it until the initial closing animation
+      // completes
+      this.setState({ moreDropdownReady: true });
+    }, 600);
   }
   componentWillUnmount() {
     window.removeEventListener('scroll', this.updateScrolling);
@@ -97,21 +108,79 @@ class NavBar extends Component {
     const { pages, user } = this.props;
     const homePage = pages.filter((e) => e.isHomepage)[0];
     const mainButtonColor = 'var(--primary)';
-
     const closeMenu = () => this.setState({ menuOpen: false });
 
+    const userIcon = (
+      <i
+        className='fas fa-user-circle'
+        style={{
+          display: 'inline-block',
+          transform: 'scale(1.15)',
+          marginRight: '.25rem',
+        }}
+      ></i>
+    );
+    const userLoadingSpinner = (
+      <Loading
+        style={{
+          '--border-color': 'var(--primary)',
+          height: '1.15rem',
+          width: '1.15rem',
+          borderWidth: '.15rem',
+          display: 'block',
+          float: 'left',
+        }}
+      />
+    );
     const logoButton = (
       <NavLink onClick={() => closeMenu()} to='/' exact={homePage.useExactURLMatching} activeClassName='active'>
         <PrimaryButton isNotButton icon={homePage.icon} text={siteTitle} color={mainButtonColor} className='logo'></PrimaryButton>
       </NavLink>
     );
-    const infoButtons = pages
-      .filter((e) => e.type && e.type === 'info')
-      .map((e, i) => (
-        <NavLink onClick={() => closeMenu()} key={e.name} exact={e.useExactURLMatching} to={`/${e.code}`} activeClassName='active'>
-          <SecondaryButton isNotButton icon={e.icon} text={e.name} className='light with-margin infobutton' color={mainButtonColor}></SecondaryButton>
-        </NavLink>
-      ));
+    const infoPages = pages.filter((e) => e.type && e.type === 'info');
+    const getInfoButton = (e) => (
+      <NavLink onClick={() => closeMenu()} key={e.name} exact={e.useExactURLMatching} to={`/${e.code}`} activeClassName='active'>
+        <SecondaryButton isNotButton text={e.name} className='light with-margin infobutton' color={mainButtonColor}></SecondaryButton>
+      </NavLink>
+    );
+    const infoButtonsMobile = infoPages.map((e) => getInfoButton(e));
+    // all secondary buttons for mobile; add the 'More' dropdown on non-mobile
+    const infoButtons = (
+      <>
+        {infoPages.slice(0, infoButtonsBeforeDropdownCount).map((e) => getInfoButton(e))}
+        <div ref={this.moreButtonRef}>
+          <SecondaryButton
+            isNotButton
+            text={
+              <>
+                More{' '}
+                <i
+                  style={{
+                    transition: 'transform .2s',
+                    transform: `scale(.8) ${this.state.moreDropdownOpen ? 'rotate(180deg)' : ''}`,
+                    display: 'inline-block',
+                  }}
+                  className='fas fa-chevron-down'
+                ></i>
+              </>
+            }
+            className='light with-margin infobutton'
+            color={mainButtonColor}
+            onClick={() => this.setState({ moreDropdownOpen: !this.state.moreDropdownOpen })}
+          ></SecondaryButton>
+        </div>
+        <FloatingMenu
+          open={this.state.moreDropdownOpen}
+          noAnimation={!this.state.moreDropdownReady}
+          setOpen={(open) => this.setState({ moreDropdownOpen: open })}
+          openButtonRef={this.moreButtonRef}
+          links={infoPages.slice(infoButtonsBeforeDropdownCount).map((e) => {
+            return { ...e, href: `/${e.code}` };
+          })}
+        ></FloatingMenu>
+      </>
+    );
+
     const mainButtons = pages
       .filter((e) => !e.isHomepage && !(e.type && e.type === 'info'))
       .map((e, i) => (
@@ -143,29 +212,10 @@ class NavBar extends Component {
             <>
               <button className='user-info' style={user.currentlyLoading ? { opacity: 1 } : {}} onClick={() => this.props.setProfileModal(true)}>
                 {user.currentlyLoading ? (
-                  <Loading
-                    style={{
-                      '--border-color': 'var(--primary)',
-                      height: '1.15rem',
-                      width: '1.15rem',
-                      borderWidth: '.15rem',
-                      display: 'block',
-                      float: 'left',
-                    }}
-                  />
+                  <>{userLoadingSpinner}</>
                 ) : (
                   <>
-                    <span className='username'>
-                      <i
-                        className='fas fa-user-circle'
-                        style={{
-                          display: 'inline-block',
-                          transform: 'scale(1.15)',
-                          marginRight: '.25rem',
-                        }}
-                      ></i>{' '}
-                      ({user.rating ? user.rating : '0'})
-                    </span>
+                    {userIcon} <span className='username'>({user.rating ? user.rating : '0'})</span>
                   </>
                 )}
               </button>
@@ -218,11 +268,11 @@ class NavBar extends Component {
                     this.state.menuOpen ? 'open' : 'closed'
                   }`}
                 >
-                  {infoButtons}
+                  {authArea}
                   <div className='spacer'></div>
                   {mainButtons}
                   <div className='spacer'></div>
-                  {authArea}
+                  {infoButtonsMobile}
                 </div>
               </>
             ) : (

@@ -8,13 +8,15 @@
 }
 .footer .link {
   color: var(--primary);
-  border-bottom: 1px dotted var(--primary);
+  border-bottom: 1px solid var(--primarytransparent);
   text-decoration: none;
   cursor: pointer;
+  transition: border-color 0.2s, filter 0.2s;
+  font-weight: 500;
 }
 .footer .link:hover {
-  border-bottom-style: solid;
-  filter: brightness(110%);
+  filter: brightness(120%);
+  border-color: var(--primary);
 }
 .footer .top {
   margin-bottom: 1rem;

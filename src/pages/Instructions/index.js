@@ -67,7 +67,7 @@ export default function Instructions() {
               "Once you've guessed correctly, scroll down to view details about the team you just guessed. Feel free to share this particular game with you're friends if you enjoyed it! Each game has a unique link that you can easily copy and paste.",
           },
           {
-            title: 'Sign Up Get Your Stats and Be On The Leaderboard!',
+            title: 'Sign Up To Get Game Stats and Be On The Leaderboard!',
             description:
               "If you're enjoying the game and want to see your game stats, maintain your own rating for the game, and appear on the game leaderboard, consider signing up!",
           },

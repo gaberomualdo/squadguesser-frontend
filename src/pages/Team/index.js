@@ -1,6 +1,7 @@
 import './styles.css';
 import React from 'react';
 import { ContentfulPage, LayeredRectangle } from '../../components';
+import { siteTitle } from '../../lib/config';
 
 export default function Team() {
   return (
@@ -12,7 +13,7 @@ export default function Team() {
       <LayeredRectangle>
         <div className='team-page-profile'>
           <div className='image'>
-            <img src='/picture-placeholder.jpg' alt='' />
+            <img src='/gabriel-romualdo.jpg' alt='' />
           </div>
           <div className='content'>
             <h1>Gabriel Romualdo</h1>
@@ -32,7 +33,7 @@ export default function Team() {
                 {
                   icon: <i className='fab fa-linkedin-in'></i>,
                   title: 'LinkedIn',
-                  url: '#',
+                  url: 'https://www.linkedin.com/in/gabriel-romualdo-483b7b20a/',
                 },
               ].map((e, i) => (
                 <a className='styled-link' key={i} href={e.url} rel='noopener noreferrer'>
@@ -42,8 +43,9 @@ export default function Team() {
               ))}
             </ul>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate nam assumenda voluptatem, quidem commodi est culpa? Dignissimos
-              similique adipisci debitis maxime recusandae.
+              Founder of {siteTitle}. He is a full-stack developer currently working at GeeksforGeeks, a project at Boston University, and the
+              Spirited Network. He works on various side projects, open source work, and publishes technical articles as well. He's also a high school
+              student.
             </p>
           </div>
         </div>

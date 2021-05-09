@@ -25,3 +25,4 @@ export { default as PageHeader } from './PageHeader';
 export { default as LinedHeader } from './LinedHeader';
 export { default as ShareButton } from './ShareButton';
 export { default as CookiesBanner } from './CookiesBanner';
+export { default as ContinueToGame } from './ContinueToGame';

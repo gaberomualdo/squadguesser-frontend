@@ -117,6 +117,7 @@ class NavBar extends Component {
       .map((e, i) => (
         <NavLink onClick={() => closeMenu()} key={e.name} exact={e.useExactURLMatching} to={`/${e.code}`} activeClassName='active'>
           <PrimaryButton
+            lightIcon
             isNotButton
             icon={e.icon}
             text={e.name}
@@ -154,7 +155,17 @@ class NavBar extends Component {
                   />
                 ) : (
                   <>
-                    <span className='username'>You ({user.rating ? user.rating : '0'})</span>
+                    <span className='username'>
+                      <i
+                        className='fas fa-user-circle'
+                        style={{
+                          display: 'inline-block',
+                          transform: 'scale(1.15)',
+                          marginRight: '.25rem',
+                        }}
+                      ></i>{' '}
+                      ({user.rating ? user.rating : '0'})
+                    </span>
                   </>
                 )}
               </button>

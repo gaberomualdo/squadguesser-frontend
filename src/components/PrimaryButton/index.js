@@ -2,12 +2,14 @@ import './styles.css';
 import React from 'react';
 
 export default function PrimaryButton(props) {
-  const { icon, text, isNotButton, className, color, style, ...otherProps } = props;
+  const { icon, text, isNotButton, className, color, style, lightIcon, ...otherProps } = props;
   const inner = (
     <>
       {icon ? (
         <>
-          <span className='icon'>{icon}</span>
+          <span className='icon' style={lightIcon ? { opacity: '.8' } : {}}>
+            {icon}
+          </span>
         </>
       ) : null}
       <span className='text'>{text}</span>

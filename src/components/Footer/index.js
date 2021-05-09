@@ -12,18 +12,18 @@ export default function Footer({ pages }) {
       <ResponsiveContainer>
         <div className='top'>
           <div className='left'>
-            <Link to='/' className='logo'>
+            <a href='/' className='logo'>
               <div className='icon'>{homePage.icon}</div>
               <p>{siteTitle}</p>
-            </Link>
+            </a>
           </div>
           <div className='right'>
             {pages.map((e, i) => {
               if (!e.isHomepage) {
                 return (
-                  <Link key={i} to={`/${e.code}`} className='link'>
+                  <a key={i} href={`/${e.code}`} className='link'>
                     {e.name}
-                  </Link>
+                  </a>
                 );
               }
               return null;

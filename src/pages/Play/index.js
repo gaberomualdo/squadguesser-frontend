@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { matchPath } from 'react-router';
 import { BrowserRouter as Switch, Route, useHistory } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { FullHeightLoading, LeagueButton, ResponsiveContainer, PageHeader, PlayButton } from '../../components/';
+import { FullHeightLoading, LeagueButton, ResponsiveContainer, ContinueToGame } from '../../components/';
 import { APIBaseURL, siteTitle } from '../../lib/config';
 import { decodeGameCode } from '../../lib/gameCode';
 import gameTypes from '../../lib/gameTypes';
@@ -39,11 +39,12 @@ function PlayPage(props) {
   const allowHorizontalList = window.innerWidth > 775; // 775px width is minimum for horizontal list
 
   const history = useHistory();
-  const openNewGame = (passedGameMode = gameMode, passedLeague = league, hardRefresh = false) => {
-    history.push(getNewGamePath(leagues, leagueTeams, passedGameMode, passedLeague));
+  const openNewGame = (passedGameMode = gameMode, passedLeague = league, hardRefresh = true) => {
+    const newPath = getNewGamePath(leagues, leagueTeams, passedGameMode, passedLeague);
     if (hardRefresh) {
-      window.location.reload();
+      window.location.assign(newPath);
     } else {
+      history.push(newPath);
       refreshGameWithCode();
     }
   };
@@ -171,21 +172,7 @@ function PlayPage(props) {
         typically when you are on a game, click back to go to play, reload, then click forward to go back.
         This basically just prompts the user to reload the page in that case. I tried making it auto-reload
         but that created an infinite loop and this is just a simpler solution. */}
-        {!currentGameCode ? (
-          <ResponsiveContainer>
-            <div className='page panel' style={{ marginBottom: '2rem' }}>
-              <PageHeader title='Continue To Game' description={`Click the button below to continue to the game.`} />
-              <PlayButton
-                icon={<i class='fas fa-play-circle'></i>}
-                name='Continue To Game'
-                description='Click here to go to the game.'
-                className='secondary'
-                style={{ width: '100%', maxWidth: '500px', margin: '0 auto', marginTop: '1.5rem' }}
-                onClick={() => window.location.reload()}
-              />
-            </div>
-          </ResponsiveContainer>
-        ) : null}
+        {!currentGameCode ? <ContinueToGame /> : null}
       </Route>
     </Switch>
   ) : (

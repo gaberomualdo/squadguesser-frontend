@@ -1,14 +1,17 @@
 /* eslint-disable no-restricted-globals */
 import './lib/main.css';
 import './lib/layout.css';
-import { NavBar, ResponsiveContainer, ProfileModal, Footer, AuthModal, ScrollToTop, CookiesBanner } from './components/';
+import { NavBar, ResponsiveContainer, ProfileModal, Footer, AuthModal, ScrollToTop, CookiesBanner, GoogleAnalytics } from './components/';
 import { Home, Play, DailyChallenge, SquadsDatabase, Leaderboard, About, Team, Terms, Instructions } from './pages/';
 import { Component } from 'react';
 import { APIBaseURL, siteTitle, siteDescription } from './lib/config';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import ReactGA from 'react-ga';
+import { GA_TRACKING_ID } from './lib/config';
+import axios from 'axios';
 
-const axios = require('axios');
+ReactGA.initialize(GA_TRACKING_ID);
 
 const pages = [
   {
@@ -135,6 +138,7 @@ class App extends Component {
 
     return (
       <Router>
+        <GoogleAnalytics />
         <ScrollToTop />
         <div className='App'>
           <CookiesBanner />

@@ -35,8 +35,8 @@
   animation-fill-mode: both;
   animation-timing-function: ease-in-out;
 }
-.floating-menu-component.no-animation {
-  animation-duration: 0s;
+.floating-menu-component:not(.open):not(.closed) {
+  display: none;
 }
 .floating-menu-component.closed {
   animation-name: floating-menu-close;

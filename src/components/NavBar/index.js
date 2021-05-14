@@ -24,8 +24,7 @@ class NavBar extends Component {
       menuDragStart: -1,
       menuStartPosition: 0,
       menuPosition: 0,
-      moreDropdownOpen: false,
-      moreDropdownReady: false,
+      moreDropdownOpen: undefined,
     };
 
     this.updateScrolling = this.updateScrolling.bind(this);
@@ -90,13 +89,6 @@ class NavBar extends Component {
     document.addEventListener('touchstart', this.mouseDown);
     document.addEventListener('touchmove', this.mouseMove);
     document.addEventListener('touchend', this.mouseUp);
-
-    setTimeout(() => {
-      // on page load the dropdown will be 'closed' and show the closing animation,
-      // which is a problem. This hides it until the initial closing animation
-      // completes
-      this.setState({ moreDropdownReady: true });
-    }, 600);
   }
   componentWillUnmount() {
     window.removeEventListener('scroll', this.updateScrolling);
@@ -171,7 +163,6 @@ class NavBar extends Component {
         </div>
         <FloatingMenu
           open={this.state.moreDropdownOpen}
-          noAnimation={!this.state.moreDropdownReady}
           setOpen={(open) => this.setState({ moreDropdownOpen: open })}
           openButtonRef={this.moreButtonRef}
           links={infoPages.slice(infoButtonsBeforeDropdownCount).map((e) => {

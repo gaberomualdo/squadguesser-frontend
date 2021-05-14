@@ -1,5 +1,4 @@
 .footer {
-  /* background-image: linear-gradient(rgba(35, 49, 64, 0.97), rgba(35, 49, 64, 0.97)), url(http://localhost:3000/club-logos.png); */
   background-color: var(--darker);
   width: 100%;
   position: relative;

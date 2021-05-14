@@ -2,13 +2,13 @@
 import assert from 'assert';
 import isLeapYear from 'leap-year';
 import React, { useState } from 'react';
-import { Redirect } from 'react-router';
-import { BrowserRouter as Switch, Link, Route } from 'react-router-dom';
-import { LargeCalendar, LinedHeader, PageHeader, PlayButton } from '../../components/';
+import { Helmet } from 'react-helmet';
+import { matchPath } from 'react-router';
+import { BrowserRouter as Switch, Route } from 'react-router-dom';
+import { ContinueToGame, LargeCalendar, LinedHeader, PageHeader, PlayButton } from '../../components/';
 import { siteTitle } from '../../lib/config';
 import getNumberEnding from '../../lib/getNumberEnding';
 import DailyChallengeGame from './DailyChallengeGame';
-import { Helmet } from 'react-helmet';
 import './styles.css';
 
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -70,7 +70,7 @@ function ChallengeButton(props) {
     next: 'hand-point-right',
   };
   return (
-    <Link to={`/daily/${getDateStr(props.dateObj)}`}>
+    <a href={`/daily/${getDateStr(props.dateObj)}`}>
       <PlayButton
         isNotButton
         icon={<i className={`fas fa-${icons[props.icon]}`}></i>}
@@ -78,13 +78,14 @@ function ChallengeButton(props) {
         description={getRandomDescription(props.title)}
         className={props.isPrimary ? 'primary' : 'secondary'}
       />
-    </Link>
+    </a>
   );
 }
 
 export default function DailyChallenge(props) {
   const todayObj = getObjFromDate(new Date());
   const [selectedDay, setSelectedDay] = useState(todayObj);
+  const [currentChallengeDateObj, setCurrentChallengeDateObj] = useState(null);
 
   const isToday = JSON.stringify(selectedDay) === JSON.stringify(todayObj);
   const buttonDates = isToday
@@ -122,76 +123,93 @@ export default function DailyChallenge(props) {
   const lowerBound = 'January 1 2020';
   const boundsError = getBoundsError(getDateFromObj(selectedDay), new Date(lowerBound), new Date());
 
-  function GameRoute(routeProps) {
-    const { mm, dd, yyyy } = routeProps.match.params;
-    const getDateObjFromRoute = (mm, dd, yyyy) => {
-      return { day: parseInt(dd), month: parseInt(mm), year: parseInt(yyyy) };
-    };
-    try {
-      const dateObj = getDateObjFromRoute(mm, dd, yyyy);
-      assert(`${mm}-${dd}-${yyyy}` === getDateStr(dateObj));
-      assert(getBoundsError(getDateFromObj(dateObj), new Date(lowerBound), new Date()) === '');
-    } catch (err) {
-      return <Redirect to='/daily' />;
+  const refreshChallengeWithDate = () => {
+    const match = matchPath(window.location.pathname, {
+      path: '/daily/:mm-:dd-:yyyy',
+      exact: true,
+    });
+    if (match) {
+      try {
+        const { mm, dd, yyyy } = match.params;
+        const getDateObjFromRoute = (mm, dd, yyyy) => {
+          return { day: parseInt(dd), month: parseInt(mm), year: parseInt(yyyy) };
+        };
+        const dateObj = getDateObjFromRoute(mm, dd, yyyy);
+        assert(`${mm}-${dd}-${yyyy}` === getDateStr(dateObj));
+        assert(getBoundsError(getDateFromObj(dateObj), new Date(lowerBound), new Date()) === '');
+        setCurrentChallengeDateObj(dateObj);
+      } catch (err) {
+        window.location.assign('/daily');
+      }
     }
-    const dateObj = getDateObjFromRoute(mm, dd, yyyy);
-    return (
-      <>
-        <Helmet>
-          <title>
-            {generateDateTitleNotToday(dateObj)} - Daily Challenge - {siteTitle}
-          </title>
-        </Helmet>
-        <DailyChallengeGame
-          reloadUser={props.reloadUser}
-          user={props.user}
-          loggedIn={props.loggedIn}
-          setAuthModal={props.setAuthModal}
-          setProfileModal={props.setProfileModal}
-          date={`${mm}-${dd}-${yyyy}`}
-          dateObj={dateObj}
-        />
-      </>
-    );
+  };
+  if (!currentChallengeDateObj) {
+    refreshChallengeWithDate();
   }
 
   return (
     <Switch>
-      <Route exact path='/daily/:mm-:dd-:yyyy' component={GameRoute} />
       <Route exact path='/daily'>
-        <div className='dailychallenge-page page panel'>
-          <div className='details'>
-            <PageHeader title='Daily Challenge' description='Play a unique game every day and build up your daily challenge streak.' />
-            <div className='buttons'>
-              {boundsError ? (
-                <div className='out-of-bounds'>
-                  <div className='icon'>
-                    <i className='fas fa-calendar-times'></i>
+        <>
+          {/* this is a similar situation to that of the Play/ page; see the comment there for info */}
+          <style>{`.game-outer-container { display: none; }`}</style>
+
+          <div className='dailychallenge-page page panel'>
+            <div className='details'>
+              <PageHeader title='Daily Challenge' description='Play a unique game every day and build up your daily challenge streak.' />
+              <div className='buttons'>
+                {boundsError ? (
+                  <div className='out-of-bounds'>
+                    <div className='icon'>
+                      <i className='fas fa-calendar-times'></i>
+                    </div>
+                    <div className='content'>
+                      <h1>{boundsError[0]}</h1>
+                      <p>{boundsError[1]}</p>
+                    </div>
                   </div>
-                  <div className='content'>
-                    <h1>{boundsError[0]}</h1>
-                    <p>{boundsError[1]}</p>
-                  </div>
-                </div>
-              ) : (
-                <>
-                  <ChallengeButton title={dateTitles.current} icon='current' dateObj={buttonDates.current} isPrimary />
-                  <LinedHeader
-                    text='Or'
-                    backgroundColor='var(--darker)'
-                    style={{ fontSize: '1.1rem', marginBottom: '1.5rem', marginTop: '1.65rem' }}
-                  />
-                  <ChallengeButton title={dateTitles.previous} icon='previous' dateObj={buttonDates.previous} />
-                  {dateTitles.next ? <ChallengeButton title={dateTitles.next} icon='next' dateObj={buttonDates.next} /> : null}
-                  {dateTitles.lastyear ? <ChallengeButton title={dateTitles.lastyear} icon='lastyear' dateObj={buttonDates.lastyear} /> : null}
-                </>
-              )}
+                ) : (
+                  <>
+                    <ChallengeButton title={dateTitles.current} icon='current' dateObj={buttonDates.current} isPrimary />
+                    <LinedHeader
+                      text='Or'
+                      backgroundColor='var(--darker)'
+                      style={{ fontSize: '1.1rem', marginBottom: '1.5rem', marginTop: '1.65rem' }}
+                    />
+                    <ChallengeButton title={dateTitles.previous} icon='previous' dateObj={buttonDates.previous} />
+                    {dateTitles.next ? <ChallengeButton title={dateTitles.next} icon='next' dateObj={buttonDates.next} /> : null}
+                    {dateTitles.lastyear ? <ChallengeButton title={dateTitles.lastyear} icon='lastyear' dateObj={buttonDates.lastyear} /> : null}
+                  </>
+                )}
+              </div>
+            </div>
+            <div className='calendar'>
+              <LargeCalendar selectedDay={selectedDay} setSelectedDay={setSelectedDay} />
             </div>
           </div>
-          <div className='calendar'>
-            <LargeCalendar selectedDay={selectedDay} setSelectedDay={setSelectedDay} />
-          </div>
-        </div>
+        </>
+      </Route>
+      {currentChallengeDateObj ? (
+        <>
+          <Helmet>
+            <title>
+              {generateDateTitleNotToday(currentChallengeDateObj)} - Daily Challenge - {siteTitle}
+            </title>
+          </Helmet>
+          <DailyChallengeGame
+            reloadUser={props.reloadUser}
+            user={props.user}
+            loggedIn={props.loggedIn}
+            setAuthModal={props.setAuthModal}
+            setProfileModal={props.setProfileModal}
+            date={`${currentChallengeDateObj.month}-${currentChallengeDateObj.day}-${currentChallengeDateObj.year}`}
+            dateObj={currentChallengeDateObj}
+          />
+        </>
+      ) : null}
+      <Route exact path='/play/:mm-:dd-:yyyy'>
+        {/* this is a similar situation to that of the Play/ page; see the comment there for info */}
+        {!currentChallengeDateObj ? <ContinueToGame /> : null}
       </Route>
     </Switch>
   );

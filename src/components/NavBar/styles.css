@@ -74,7 +74,6 @@
   font-size: 0.85rem;
   font-weight: 600;
   opacity: 0.75;
-  transition: opacity 0.15s;
 }
 .navbar-container .auth-area .auth-buttons button.disabled {
   opacity: 0.5;

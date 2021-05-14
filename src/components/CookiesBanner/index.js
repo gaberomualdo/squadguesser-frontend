@@ -16,25 +16,28 @@ export default function CookiesBanner() {
           </p>
         </div>
         <div className='right'>
-          <PrimaryButton
+          <button
             onClick={() => {
               localStorage.setItem('acceptedcookies', true);
               setShown(false);
             }}
-            icon={<i className='fas fa-check'></i>}
-            text='Accept Cookies'
-          />
-          <PrimaryButton
+            className='accept'
+          >
+            <i className='fas fa-check'></i>
+            <span>Accept Cookies</span>
+          </button>
+          <button
+            className='leave'
             onClick={() => {
               // eslint-disable-next-line no-restricted-globals
               if (confirm('Are you sure you want to leave this page?')) {
                 window.location.assign('https://google.com/');
               }
             }}
-            color='var(--danger)'
-            icon={<i className='fas fa-times'></i>}
-            text='Leave Site'
-          />
+          >
+            <i className='fas fa-times'></i>
+            <span>Leave Site</span>
+          </button>
         </div>
       </ResponsiveContainer>
     </div>

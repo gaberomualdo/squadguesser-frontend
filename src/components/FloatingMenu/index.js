@@ -21,7 +21,7 @@ export default class FloatingMenu extends Component {
       if (elm === this.menuRef.current || elm === this.props.openButtonRef.current) clickedOutsideMenu = false;
       elm = elm.parentElement;
     }
-    if (clickedOutsideMenu) {
+    if (clickedOutsideMenu && this.props.open === true) {
       this.props.setOpen(false);
     }
   }
@@ -33,7 +33,7 @@ export default class FloatingMenu extends Component {
     return (
       <div
         ref={this.menuRef}
-        className={`floating-menu-component ${this.props.open ? 'open' : 'closed'} ${this.props.noAnimation ? 'no-animation' : ''}`}
+        className={`floating-menu-component ${this.props.open !== undefined ? (this.props.open ? 'open' : 'closed') : ''}`}
         style={{
           top: `${openButtonPosition.bottom + 10}px`,
           left: `${(openButtonPosition.left + openButtonPosition.right) / 2}px`,

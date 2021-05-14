@@ -6,6 +6,7 @@ import leagueInfo from '../../lib/leagueInfo';
 import getNewGamePath from '../../lib/getNewGamePath';
 import AnimatedNumber from './animatedNumber';
 import './styles.css';
+import demoVideoSource from '../../assets/demovideo.mp4';
 
 const topTeamsLeagueName = 'Top 25 Teams';
 
@@ -50,47 +51,6 @@ export default class Home extends Component {
     return (
       <div className='homepage'>
         <div className='topsection'>
-          <div className='background'>
-            {[
-              {
-                x: 10,
-                y: 20,
-                width: 20,
-                rotate: -10,
-              },
-              {
-                x: 20,
-                y: 70,
-                width: 30,
-                rotate: 10,
-              },
-              {
-                x: 80,
-                y: 70,
-                width: 30,
-                rotate: -10,
-              },
-              {
-                x: 90,
-                y: 20,
-                width: 25,
-                rotate: 10,
-              },
-            ].map(({ x, y, width, rotate }, i) => (
-              <img
-                src={`/homepage-icon-${(i % 2) + 1}.svg`}
-                alt='Football icon'
-                key={i}
-                style={{
-                  display: 'none',
-                  width: `${width}rem`,
-                  top: `${100 - y}%`,
-                  left: `${x}%`,
-                  transform: `translate(-50%, -50%) rotate(${rotate}deg) ${i % 3 === 0 ? 'scale(-1, 1)' : ''}`,
-                }}
-              />
-            ))}
-          </div>
           <ResponsiveContainer>
             <div className='topsection-inner'>
               <div className='left textsection'>
@@ -145,7 +105,7 @@ export default class Home extends Component {
                     style={this.state.videoLoaded ? {} : { display: 'none' }}
                     muted
                   >
-                    <source src='/demovideo.mp4' type='video/mp4' />
+                    <source src={demoVideoSource} type='video/mp4' />
                     Your browser does not support the video tag.
                   </video>
                   <button

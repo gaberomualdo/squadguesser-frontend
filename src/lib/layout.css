@@ -2,8 +2,7 @@ body {
   color: var(--light);
   --nav-height: 3.5rem;
   position: relative;
-  /* background-color: var(--dark); */
-  background-image: linear-gradient(rgba(44, 62, 80, 0.94), rgba(44, 62, 80, 0.94)), url(http://localhost:3000/bg1.jpg);
+  background-image: linear-gradient(rgba(44, 62, 80, 0.94), rgba(44, 62, 80, 0.94)), url(../assets/bg1.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;

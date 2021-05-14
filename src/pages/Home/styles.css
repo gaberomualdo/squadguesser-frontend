@@ -13,21 +13,6 @@
   display: flex;
   flex-direction: row;
 }
-.homepage .topsection > .background {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-}
-.homepage .topsection > .background img {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  opacity: 0.1;
-}
-.homepage .topsection > .background img:nth-child(2n) {
-  transform: translate(-50%, -50%) scale(-1, 1);
-}
 .homepage * {
   position: relative;
 }
@@ -45,7 +30,6 @@
 }
 .homepage h1.main-header span {
   color: var(--primary);
-  /* text-shadow: 0 0 5px var(--primarytransparent); */
 }
 .homepage p.main-description {
   margin-top: 0.5rem;
@@ -285,7 +269,7 @@
 .homepage .box-section.grid-list,
 .homepage .box-section.leagues-list {
   background-position: center center;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('http://localhost:3000/bg4.jpg');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('../../assets/bg4.jpg');
   background-size: cover;
   border-radius: 0 !important;
 }
@@ -324,7 +308,7 @@
   margin-top: 0.5rem;
 }
 .homepage .box-section.guess-by {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('http://localhost:3000/bg3.jpg');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../../assets/bg3.jpg');
 }
 .homepage .box-section.guess-by .inner > h1 {
   font-size: 1.75rem;
@@ -382,7 +366,7 @@
 .homepage .box-section.leagues-list {
   text-align: center;
   margin-bottom: 2.75rem;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('http://localhost:3000/bg1.jpg');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../../assets/bg1.jpg');
   position: relative;
 }
 .homepage .box-section.leagues-list .inner > h1 {

@@ -2,6 +2,7 @@ import './styles.css';
 import React from 'react';
 import { ContentfulPage, LayeredRectangle } from '../../components';
 import { siteTitle } from '../../lib/config';
+import gabrielRomualdoImage from '../../assets/gabriel-romualdo.jpg';
 
 export default function Team() {
   return (
@@ -13,7 +14,7 @@ export default function Team() {
       <LayeredRectangle>
         <div className='team-page-profile'>
           <div className='image'>
-            <img src='/gabriel-romualdo.jpg' alt='' />
+            <img src={gabrielRomualdoImage} alt='' />
           </div>
           <div className='content'>
             <h1>Gabriel Romualdo</h1>

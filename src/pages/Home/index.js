@@ -46,7 +46,6 @@ export default class Home extends Component {
     }
   }
   render() {
-    const englishSpelling = true;
     const pages = this.props.pages.filter((e) => !e.isHomepage && !(e.type && e.type === 'info'));
     return (
       <div className='homepage'>
@@ -56,7 +55,7 @@ export default class Home extends Component {
               <div className='left textsection'>
                 <div className='inner'>
                   <div className='top'>
-                    <h1 className='main-header'>Test Your {englishSpelling ? 'Football' : 'Soccer'} Knowledge!</h1>
+                    <h1 className='main-header'>Test Your Knowledge Of The Beautiful Game</h1>
                     <p className='main-description'>
                       Play hundreds of challenges to guess famous teams based on their formation, player nationalities, and more.
                     </p>
@@ -265,7 +264,7 @@ export default class Home extends Component {
         <div className='box-section leagues-list column less-padding'>
           <ResponsiveContainer>
             <div className='inner'>
-              <h1>Play Now</h1>
+              <h1>Choose A League To Start Playing</h1>
               <div className='leagues-container'>
                 <div className='leagues' ref={this.leaguesSlideshow}>
                   {Object.keys(this.state.leagues)

@@ -1,9 +1,8 @@
-import './styles.css';
 import React, { useEffect, useState } from 'react';
-import { APIBaseURL, siteTitle } from '../../lib/config';
+import { Loading, ProfileModal } from '../../components/';
+import { APIBaseURL } from '../../lib/config';
 import { processDate, processRankNumber } from '../../lib/utils';
-import { ProfileModal, Loading } from '../../components/';
-import { Helmet } from 'react-helmet';
+import './styles.css';
 
 export default function Leaderboard(props) {
   const [data, setData] = useState([]);

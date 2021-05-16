@@ -30,3 +30,5 @@ export { default as FloatingMenu } from './FloatingMenu';
 export { default as ContentfulPage } from './ContentfulPage';
 export { default as LayeredRectangle } from './LayeredRectangle';
 export { default as GoogleAnalytics } from './GoogleAnalytics';
+export { default as FixedAlert } from './FixedAlert';
+export { default as EmailBox } from './EmailBox';

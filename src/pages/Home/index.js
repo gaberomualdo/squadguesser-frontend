@@ -1,12 +1,11 @@
 import React, { Component, createRef } from 'react';
 import { Link } from 'react-router-dom';
-import { LeagueButton, PlayButton, ResponsiveContainer } from '../../components';
+import { LeagueButton, PlayButton, ResponsiveContainer, EmailBox } from '../../components';
 import { APIBaseURL, siteTitle, topTeamsLeagueName } from '../../lib/config';
 import leagueInfo from '../../lib/leagueInfo';
 import getNewGamePath from '../../lib/getNewGamePath';
 import AnimatedNumber from './AnimatedNumber';
 import ExampleGames from './ExampleGames';
-import EmailBox from './EmailBox';
 import './styles.css';
 import demoVideoSource from '../../assets/demovideo.mp4';
 import topLeftBoxes from '../../assets/boxes-top-left.png';
@@ -216,10 +215,7 @@ export default class Home extends Component {
             </div>
           </ResponsiveContainer>
         </div>
-        <div style={{ backgroundColor: 'var(--darker)', padding: '3.5rem 0' }}>
-          <ResponsiveContainer>{this.state.top25Teams ? <ExampleGames games={this.state.top25Teams} /> : null}</ResponsiveContainer>
-        </div>
-
+        {this.state.top25Teams ? <ExampleGames games={this.state.top25Teams} /> : null}
         <div className='homepage-box-section grid-list column guess-by less-padding no-margin'>
           <ResponsiveContainer>
             <div className='inner'>

@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-globals */
 import './lib/main.css';
 import './lib/layout.css';
-import { NavBar, ResponsiveContainer, ProfileModal, Footer, AuthModal, ScrollToTop, CookiesBanner, GoogleAnalytics } from './components/';
+import { NavBar, ResponsiveContainer, ProfileModal, Footer, AuthModal, ScrollToTop, CookiesBanner, GoogleAnalytics, EmailBox } from './components/';
 import { Home, Play, DailyChallenge, SquadsDatabase, Leaderboard, About, Team, Terms, Instructions, Error404 } from './pages/';
 import { Component } from 'react';
 import { APIBaseURL, siteTitle, siteDescription } from './lib/config';
@@ -10,7 +10,6 @@ import { Helmet } from 'react-helmet';
 import ReactGA from 'react-ga';
 import { GA_TRACKING_ID } from './lib/config';
 import axios from 'axios';
-import EmailBox from './pages/Home/EmailBox';
 
 ReactGA.initialize(GA_TRACKING_ID);
 

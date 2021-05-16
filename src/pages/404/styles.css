@@ -1,0 +1,8 @@
+.error-404-page .buttons > * {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.error-404-page .buttons > *:not(:last-child) {
+  margin-bottom: 1rem;
+}

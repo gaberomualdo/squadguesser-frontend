@@ -99,7 +99,7 @@ function PlayPage(props) {
                 <div className='list-detail-bar'>
                   <div className='left'>
                     <h1>
-                      <i className='fas fa-futbol mr'></i>Leagues
+                      <i className='far fa-futbol mr'></i>Leagues
                     </h1>
                   </div>
                   <div className='right'>

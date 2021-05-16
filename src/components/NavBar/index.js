@@ -126,7 +126,7 @@ class NavBar extends Component {
     );
     const logoButton = (
       <NavLink onClick={() => closeMenu()} to='/' exact={homePage.useExactURLMatching} activeClassName='active'>
-        <PrimaryButton isNotButton icon={homePage.icon} text={siteTitle} color={mainButtonColor} className='logo'></PrimaryButton>
+        <PrimaryButton isNotButton icon={homePage.icon} text={siteTitle} color='transparent' className='logo'></PrimaryButton>
       </NavLink>
     );
     const infoPages = pages.filter((e) => e.type && e.type === 'info');

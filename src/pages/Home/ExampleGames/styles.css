@@ -1,0 +1,99 @@
+.homepage-example-games {
+  position: relative;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+}
+@media only screen and (max-width: 750px) {
+  .homepage-example-games {
+    display: none;
+  }
+}
+.homepage-example-games:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  height: 80%;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-52%) rotate(-1.5deg);
+  opacity: 0.5;
+  background-color: var(--dark);
+  border-radius: 1rem;
+}
+.homepage-example-games > * {
+  flex: 1 1 100%;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.homepage-example-games > .left {
+  background-color: var(--lightdark);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  margin-right: 2rem;
+}
+.homepage-example-games > .left .inner {
+  padding: 1.5rem;
+}
+.homepage-example-games > .left .inner .buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  grid-gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.homepage-example-games > .left .inner .buttons button {
+  display: flex;
+  height: 2.5rem;
+  padding: 0.5rem;
+  align-items: center;
+  text-align: left;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+}
+.homepage-example-games > .left .inner .buttons button:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  transition: opacity 0.2s;
+  opacity: 0.075;
+}
+.homepage-example-games > .left .inner .buttons button:hover:before {
+  opacity: 0.125;
+}
+.homepage-example-games > .left .inner .buttons button.active:before {
+  opacity: 0.25;
+}
+
+.homepage-example-games > .left .inner .buttons button > * {
+  position: relative;
+}
+.homepage-example-games > .left .inner .buttons button img {
+  width: 1.5rem;
+  height: auto;
+  flex: 0 0 auto;
+  margin-right: 0.5rem;
+}
+.homepage-example-games > .left .inner .buttons button span {
+  flex: 1 1 100%;
+}
+.homepage-example-games > .left .meta {
+  background-color: var(--dark);
+  padding: 1.25rem 1.5rem;
+}
+
+.homepage-example-games .squad-formation-container {
+  height: 40rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  overflow: hidden;
+}

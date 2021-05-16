@@ -2,7 +2,7 @@
 import './lib/main.css';
 import './lib/layout.css';
 import { NavBar, ResponsiveContainer, ProfileModal, Footer, AuthModal, ScrollToTop, CookiesBanner, GoogleAnalytics } from './components/';
-import { Home, Play, DailyChallenge, SquadsDatabase, Leaderboard, About, Team, Terms, Instructions } from './pages/';
+import { Home, Play, DailyChallenge, SquadsDatabase, Leaderboard, About, Team, Terms, Instructions, Error404 } from './pages/';
 import { Component } from 'react';
 import { APIBaseURL, siteTitle, siteDescription } from './lib/config';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -10,12 +10,13 @@ import { Helmet } from 'react-helmet';
 import ReactGA from 'react-ga';
 import { GA_TRACKING_ID } from './lib/config';
 import axios from 'axios';
+import EmailBox from './pages/Home/EmailBox';
 
 ReactGA.initialize(GA_TRACKING_ID);
 
 const pages = [
   {
-    icon: <i className='fas fa-futbol'></i>,
+    icon: <i className='far fa-futbol'></i>,
     code: 'home',
     name: 'Home',
     isHomepage: true,
@@ -54,7 +55,7 @@ const pages = [
     useExactURLMatching: true,
   },
   {
-    icon: <i className='fas fa-futbol'></i>,
+    icon: <i className='far fa-futbol'></i>,
     code: 'play',
     name: 'Play',
     description: <>Guess teams from the Premier League, La Liga, Serie A, and more.</>,
@@ -136,6 +137,8 @@ class App extends Component {
 
     this.reloadUser();
 
+    const EmailBoxOuter = (props) => <div style={{ backgroundColor: 'var(--darker)', overflow: 'hidden' }}>{props.children}</div>;
+
     return (
       <Router>
         <GoogleAnalytics />
@@ -160,6 +163,9 @@ class App extends Component {
                   <title>About - {siteTitle}</title>
                 </Helmet>
                 <About />
+                <EmailBoxOuter>
+                  <EmailBox withContainer={true} />
+                </EmailBoxOuter>
               </>
             </Route>
             <Route exact path='/team'>
@@ -168,6 +174,9 @@ class App extends Component {
                   <title>Team - {siteTitle}</title>
                 </Helmet>
                 <Team />
+                <EmailBoxOuter>
+                  <EmailBox withContainer={true} />
+                </EmailBoxOuter>
               </>
             </Route>
             <Route exact path='/instructions'>
@@ -176,6 +185,9 @@ class App extends Component {
                   <title>Instructions - {siteTitle}</title>
                 </Helmet>
                 <Instructions />
+                <EmailBoxOuter>
+                  <EmailBox withContainer={true} />
+                </EmailBoxOuter>
               </>
             </Route>
             <Route exact path='/terms'>
@@ -184,6 +196,9 @@ class App extends Component {
                   <title>Terms & Cookie Policy - {siteTitle}</title>
                 </Helmet>
                 <Terms />
+                <EmailBoxOuter>
+                  <EmailBox withContainer={true} />
+                </EmailBoxOuter>
               </>
             </Route>
             <Route path='/play'>
@@ -198,43 +213,48 @@ class App extends Component {
                   setAuthModal={setAuthModal}
                   setProfileModal={setProfileModal}
                 />
+                <EmailBox withContainer={true} />
               </>
             </Route>
-            <ResponsiveContainer>
-              <Route path='/daily'>
-                <>
-                  <Helmet>
-                    <title>Daily Challenge - {siteTitle}</title>
-                  </Helmet>
-                  <DailyChallenge
-                    reloadUser={this.reloadUser}
-                    user={this.state.user}
-                    loggedIn={loggedIn}
-                    setAuthModal={setAuthModal}
-                    setProfileModal={setProfileModal}
-                  />
-                </>
-              </Route>
-              <Route exact path='/database'>
-                <>
-                  <Helmet>
-                    <title>Squads Database - {siteTitle}</title>
-                  </Helmet>
-                  <SquadsDatabase />
-                </>
-              </Route>
-              <Route exact path='/leaderboard'>
-                <>
-                  <Helmet>
-                    <title>Leaderboard - {siteTitle}</title>
-                  </Helmet>
-                  <Leaderboard user={this.state.user} loggedIn={loggedIn} />
-                </>
-              </Route>
-              {/* <Route path='*'>
-                <Redirect to='/' />
-              </Route> */}
-            </ResponsiveContainer>
+            <Route path='/daily'>
+              <ResponsiveContainer>
+                <Helmet>
+                  <title>Daily Challenge - {siteTitle}</title>
+                </Helmet>
+                <DailyChallenge
+                  reloadUser={this.reloadUser}
+                  user={this.state.user}
+                  loggedIn={loggedIn}
+                  setAuthModal={setAuthModal}
+                  setProfileModal={setProfileModal}
+                />
+                <EmailBox />
+              </ResponsiveContainer>
+            </Route>
+            <Route exact path='/database'>
+              <ResponsiveContainer>
+                <Helmet>
+                  <title>Squads Database - {siteTitle}</title>
+                </Helmet>
+                <SquadsDatabase />
+                <EmailBox />
+              </ResponsiveContainer>
+            </Route>
+            <Route exact path='/leaderboard'>
+              <ResponsiveContainer>
+                <Helmet>
+                  <title>Leaderboard - {siteTitle}</title>
+                </Helmet>
+                <Leaderboard user={this.state.user} loggedIn={loggedIn} />
+                <EmailBox />
+              </ResponsiveContainer>
+            </Route>
+            <Route>
+              <ResponsiveContainer>
+                <Error404 />
+                <EmailBox />
+              </ResponsiveContainer>
+            </Route>
           </Switch>
           <Footer pages={pages} />
           {this.state.showAuthModal ? <AuthModal setAuthModal={setAuthModal} signIn={this.state.authModalSignIn} /> : null}

@@ -32,3 +32,4 @@ export { default as LayeredRectangle } from './LayeredRectangle';
 export { default as GoogleAnalytics } from './GoogleAnalytics';
 export { default as FixedAlert } from './FixedAlert';
 export { default as EmailBox } from './EmailBox';
+export { default as SiteLinkButtons } from './SiteLinkButtons';

@@ -2,7 +2,7 @@
 import './lib/main.css';
 import './lib/layout.css';
 import { NavBar, ResponsiveContainer, ProfileModal, Footer, AuthModal, ScrollToTop, CookiesBanner, GoogleAnalytics, EmailBox } from './components/';
-import { Home, Play, DailyChallenge, SquadsDatabase, Leaderboard, About, Team, Terms, Instructions, Error404 } from './pages/';
+import { Home, Play, DailyChallenge, SquadsDatabase, Leaderboard, About, Team, Terms, Instructions, Error404, EmailUnsubscribe } from './pages/';
 import { Component } from 'react';
 import { APIBaseURL, siteTitle, siteDescription } from './lib/config';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -245,6 +245,15 @@ class App extends Component {
                   <title>Leaderboard - {siteTitle}</title>
                 </Helmet>
                 <Leaderboard user={this.state.user} loggedIn={loggedIn} />
+                <EmailBox />
+              </ResponsiveContainer>
+            </Route>
+            <Route exact path='/email-unsubscribe'>
+              <ResponsiveContainer>
+                <Helmet>
+                  <title>Unsubscribe From Emails - {siteTitle}</title>
+                </Helmet>
+                <EmailUnsubscribe />
                 <EmailBox />
               </ResponsiveContainer>
             </Route>

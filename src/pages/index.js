@@ -8,3 +8,4 @@ export { default as Instructions } from './Instructions/';
 export { default as Terms } from './Terms/';
 export { default as Team } from './Team/';
 export { default as Error404 } from './404/';
+export { default as EmailUnsubscribe } from './EmailUnsubscribe/';

@@ -5,8 +5,11 @@ export default function FixedAlert(props) {
   const [displayed, setDisplayed] = useState(true);
   useEffect(() => {
     setTimeout(() => {
+      if (props.disappearCallback) {
+        props.disappearCallback();
+      }
       setDisplayed(false);
-    }, props.disappearsMS || 1750);
+    }, props.disappearsMS || 2500);
   }, [props.disappearsMS]);
   return (
     <div

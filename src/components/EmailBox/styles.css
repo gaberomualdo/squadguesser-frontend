@@ -4,6 +4,9 @@
   margin-top: 0.5rem;
   padding: 1.25rem;
 }
+.email-box:not(.homepage .email-box) {
+  overflow: hidden;
+}
 .email-box .box .input-container {
   display: flex;
   border-radius: 6px;
